@@ -6,7 +6,8 @@
     "loading": "Đang tải…",
     "language": "Ngôn ngữ",
     "backHome": "Về trang chủ",
-    "cancel": "Hủy"
+    "cancel": "Hủy",
+    "confirm": "Xác nhận"
   },
   "nav": {
     "openStudio": "Mở Studio",

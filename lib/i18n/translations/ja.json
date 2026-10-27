@@ -6,7 +6,8 @@
     "loading": "読み込み中…",
     "language": "言語",
     "backHome": "ホームに戻る",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "confirm": "確認"
   },
   "nav": {
     "openStudio": "Studio を開く",

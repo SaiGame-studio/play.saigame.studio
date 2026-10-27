@@ -6,7 +6,8 @@
     "loading": "Loading…",
     "language": "Language",
     "backHome": "Back to home",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "nav": {
     "openStudio": "Open Studio",
