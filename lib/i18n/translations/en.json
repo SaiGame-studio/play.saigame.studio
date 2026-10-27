@@ -6,7 +6,8 @@
     "loading": "Loading…",
     "language": "Language",
     "backHome": "Back to home",
-    "cancel": "Cancel"
+    "cancel": "Cancel",
+    "confirm": "Confirm"
   },
   "nav": {
     "openStudio": "Open Studio",
@@ -15,7 +16,10 @@
     "account": "Account",
     "myAccount": "My account",
     "signOutConfirmTitle": "Sign out?",
-    "signOutConfirmBody": "You will be signed out on this device for both Sai Play and Sai Server."
+    "signOutConfirmBody": "You will be signed out on this device for both Sai Play and Sai Server.",
+    "myGames": "My Game",
+    "home": "Home",
+    "main": "Main menu"
   },
   "login": {
     "title": "Welcome back, player",

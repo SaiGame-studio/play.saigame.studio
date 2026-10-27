@@ -6,7 +6,8 @@
     "loading": "読み込み中…",
     "language": "言語",
     "backHome": "ホームに戻る",
-    "cancel": "キャンセル"
+    "cancel": "キャンセル",
+    "confirm": "確認"
   },
   "nav": {
     "openStudio": "Studio を開く",
@@ -15,7 +16,10 @@
     "account": "アカウント",
     "myAccount": "マイアカウント",
     "signOutConfirmTitle": "ログアウトしますか？",
-    "signOutConfirmBody": "この端末の Sai Play と Sai Server の両方からログアウトします。"
+    "signOutConfirmBody": "この端末の Sai Play と Sai Server の両方からログアウトします。",
+    "myGames": "マイゲーム",
+    "home": "ホーム",
+    "main": "メインメニュー"
   },
   "login": {
     "title": "おかえりなさい",

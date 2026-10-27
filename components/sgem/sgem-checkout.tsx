@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { AlertTriangle, ArrowLeft, ArrowRight, Check, Clock, Copy, Loader2 } from "lucide-react";
 import { CheckoutResult } from "@/components/sgem/checkout-result";
+import { SgemIcon } from "@/components/sgem/sgem-icon";
 import { useCheckoutTransaction } from "@/components/sgem/use-checkout-transaction";
 import { buttonVariants } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
@@ -173,7 +174,7 @@ export function SgemCheckout() {
         <p id="sgem-checkout-receive" className="text-center text-sm text-muted-foreground">
           {t("checkout.youWillReceive")}{" "}
           <span id="sgem-checkout-receive-amount" className="font-semibold text-primary">
-            {(transaction.currency_amount ?? 0).toLocaleString(locale)} sGem
+            {(transaction.currency_amount ?? 0).toLocaleString(locale)} <SgemIcon id="sgem-checkout-receive-icon" /> sGem
           </span>
         </p>
       )}
