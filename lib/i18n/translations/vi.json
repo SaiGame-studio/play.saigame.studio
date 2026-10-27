@@ -1,0 +1,70 @@
+{
+  "common": {
+    "brand": "Sai Game",
+    "tagline": "Tài khoản người chơi cho mọi thế giới của Sai Game",
+    "or": "hoặc",
+    "loading": "Đang tải…",
+    "language": "Ngôn ngữ",
+    "backHome": "Về trang chủ"
+  },
+  "nav": {
+    "openStudio": "Mở Studio",
+    "signOut": "Đăng xuất",
+    "signIn": "Đăng nhập"
+  },
+  "login": {
+    "title": "Chào mừng trở lại",
+    "subtitle": "Đăng nhập bằng cùng tài khoản bạn dùng trên Sai Server.",
+    "identifier": "Tên đăng nhập hoặc email",
+    "password": "Mật khẩu",
+    "submit": "Đăng nhập",
+    "submitting": "Đang đăng nhập…",
+    "forgot": "Quên mật khẩu?",
+    "noAccount": "Chưa có tài khoản?",
+    "createAccount": "Tạo tài khoản",
+    "failed": "Đăng nhập thất bại. Vui lòng kiểm tra lại thông tin.",
+    "googleFailed": "Đăng nhập Google thất bại. Vui lòng thử lại.",
+    "ssoHint": "Đã đăng nhập trên Sai Server? Bạn sẽ được tự động đăng nhập ở đây."
+  },
+  "register": {
+    "title": "Tạo tài khoản người chơi",
+    "subtitle": "Một tài khoản cho cả Sai Game và Sai Server.",
+    "email": "Email",
+    "username": "Tên đăng nhập",
+    "password": "Mật khẩu",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "submit": "Tạo tài khoản",
+    "submitting": "Đang tạo…",
+    "haveAccount": "Đã có tài khoản?",
+    "signIn": "Đăng nhập",
+    "mismatch": "Mật khẩu không khớp.",
+    "success": "Đã tạo tài khoản. Vui lòng đăng nhập để tiếp tục.",
+    "failed": "Đăng ký thất bại. Vui lòng thử lại."
+  },
+  "forgot": {
+    "title": "Đặt lại mật khẩu",
+    "subtitle": "Nhập email, chúng tôi sẽ gửi cho bạn liên kết đặt lại.",
+    "email": "Email",
+    "submit": "Gửi liên kết",
+    "submitting": "Đang gửi…",
+    "sent": "Nếu email này có tài khoản, liên kết đặt lại đang được gửi đến.",
+    "back": "Quay lại đăng nhập",
+    "failed": "Không gửi được liên kết. Vui lòng thử lại."
+  },
+  "home": {
+    "greeting": "Xin chào, {name}",
+    "subtitle": "Bạn đã đăng nhập vào Sai Game.",
+    "account": "Tài khoản",
+    "username": "Tên đăng nhập",
+    "email": "Email",
+    "memberSince": "Thành viên từ",
+    "status": "Trạng thái email",
+    "verified": "Đã xác thực",
+    "notVerified": "Chưa xác thực",
+    "resend": "Gửi lại email xác thực",
+    "resendSent": "Đã gửi email xác thực.",
+    "resendFailed": "Không gửi được email xác thực.",
+    "ssoTitle": "Đăng nhập một lần, dùng cả hai trang",
+    "ssoBody": "Phiên đăng nhập được dùng chung với Sai Server. Đăng xuất ở đây cũng sẽ đăng xuất ở bên đó."
+  }
+}

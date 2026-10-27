@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 240 24% 6%;
+    --foreground: 210 40% 96%;
+    --card: 240 22% 10%;
+    --muted: 240 18% 16%;
+    --muted-foreground: 230 14% 64%;
+    --primary: 158 92% 52%;
+    --primary-foreground: 240 30% 8%;
+    --accent: 286 90% 64%;
+    --destructive: 352 90% 62%;
+    --border: 240 18% 20%;
+    --input: 240 18% 22%;
+    --ring: 158 92% 52%;
+    --radius: 0.75rem;
+    color-scheme: dark;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100dvh;
+    background-image:
+      radial-gradient(60rem 40rem at 85% -10%, hsl(var(--accent) / 0.16), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 110%, hsl(var(--primary) / 0.12), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .play-grid-overlay {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.35) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.35) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+}

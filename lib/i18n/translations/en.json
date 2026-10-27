@@ -1,0 +1,70 @@
+{
+  "common": {
+    "brand": "Sai Game",
+    "tagline": "Your player account for every Sai Game world",
+    "or": "or",
+    "loading": "Loading…",
+    "language": "Language",
+    "backHome": "Back to home"
+  },
+  "nav": {
+    "openStudio": "Open Studio",
+    "signOut": "Sign out",
+    "signIn": "Sign in"
+  },
+  "login": {
+    "title": "Welcome back, player",
+    "subtitle": "Sign in with the same account you use on Sai Server.",
+    "identifier": "Username or email",
+    "password": "Password",
+    "submit": "Sign in",
+    "submitting": "Signing in…",
+    "forgot": "Forgot password?",
+    "noAccount": "New here?",
+    "createAccount": "Create an account",
+    "failed": "Sign in failed. Check your credentials and try again.",
+    "googleFailed": "Google sign-in failed. Please try again.",
+    "ssoHint": "Already signed in on Sai Server? You'll be signed in here automatically."
+  },
+  "register": {
+    "title": "Create your player account",
+    "subtitle": "One account for Sai Game and Sai Server.",
+    "email": "Email",
+    "username": "Username",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Create account",
+    "submitting": "Creating…",
+    "haveAccount": "Already have an account?",
+    "signIn": "Sign in",
+    "mismatch": "Passwords do not match.",
+    "success": "Account created. Please sign in to continue.",
+    "failed": "Registration failed. Please try again."
+  },
+  "forgot": {
+    "title": "Reset your password",
+    "subtitle": "Enter your email and we'll send you a reset link.",
+    "email": "Email",
+    "submit": "Send reset link",
+    "submitting": "Sending…",
+    "sent": "If an account exists for that email, a reset link is on its way.",
+    "back": "Back to sign in",
+    "failed": "Could not send the reset link. Please try again."
+  },
+  "home": {
+    "greeting": "Hi, {name}",
+    "subtitle": "You're signed in to Sai Game.",
+    "account": "Account",
+    "username": "Username",
+    "email": "Email",
+    "memberSince": "Member since",
+    "status": "Email status",
+    "verified": "Verified",
+    "notVerified": "Not verified",
+    "resend": "Resend verification email",
+    "resendSent": "Verification email sent.",
+    "resendFailed": "Could not send the verification email.",
+    "ssoTitle": "One sign-in, both sites",
+    "ssoBody": "Your session is shared with Sai Server. Signing out here signs you out there too."
+  }
+}

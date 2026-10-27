@@ -1,0 +1,70 @@
+{
+  "common": {
+    "brand": "Sai Game",
+    "tagline": "すべての Sai Game の世界で使えるプレイヤーアカウント",
+    "or": "または",
+    "loading": "読み込み中…",
+    "language": "言語",
+    "backHome": "ホームに戻る"
+  },
+  "nav": {
+    "openStudio": "Studio を開く",
+    "signOut": "ログアウト",
+    "signIn": "ログイン"
+  },
+  "login": {
+    "title": "おかえりなさい",
+    "subtitle": "Sai Server と同じアカウントでログインしてください。",
+    "identifier": "ユーザー名またはメール",
+    "password": "パスワード",
+    "submit": "ログイン",
+    "submitting": "ログイン中…",
+    "forgot": "パスワードをお忘れですか？",
+    "noAccount": "初めてですか？",
+    "createAccount": "アカウントを作成",
+    "failed": "ログインに失敗しました。入力内容を確認してください。",
+    "googleFailed": "Google ログインに失敗しました。もう一度お試しください。",
+    "ssoHint": "Sai Server にログイン済みなら、ここでも自動的にログインされます。"
+  },
+  "register": {
+    "title": "プレイヤーアカウントを作成",
+    "subtitle": "Sai Game と Sai Server で共通のアカウントです。",
+    "email": "メール",
+    "username": "ユーザー名",
+    "password": "パスワード",
+    "confirmPassword": "パスワード（確認）",
+    "submit": "アカウント作成",
+    "submitting": "作成中…",
+    "haveAccount": "アカウントをお持ちですか？",
+    "signIn": "ログイン",
+    "mismatch": "パスワードが一致しません。",
+    "success": "アカウントを作成しました。ログインしてください。",
+    "failed": "登録に失敗しました。もう一度お試しください。"
+  },
+  "forgot": {
+    "title": "パスワードをリセット",
+    "subtitle": "メールアドレスを入力すると、リセット用リンクを送信します。",
+    "email": "メール",
+    "submit": "リンクを送信",
+    "submitting": "送信中…",
+    "sent": "そのメールのアカウントが存在する場合、リセット用リンクを送信しました。",
+    "back": "ログインに戻る",
+    "failed": "リンクを送信できませんでした。もう一度お試しください。"
+  },
+  "home": {
+    "greeting": "こんにちは、{name} さん",
+    "subtitle": "Sai Game にログインしています。",
+    "account": "アカウント",
+    "username": "ユーザー名",
+    "email": "メール",
+    "memberSince": "登録日",
+    "status": "メールの状態",
+    "verified": "確認済み",
+    "notVerified": "未確認",
+    "resend": "確認メールを再送",
+    "resendSent": "確認メールを送信しました。",
+    "resendFailed": "確認メールを送信できませんでした。",
+    "ssoTitle": "一度のログインで両方のサイトへ",
+    "ssoBody": "セッションは Sai Server と共有されています。ここでログアウトすると、あちらでもログアウトされます。"
+  }
+}
