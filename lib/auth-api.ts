@@ -8,6 +8,7 @@ export interface PlayUser {
   display_name: string;
   is_active: boolean;
   is_verified: boolean;
+  /** Unix seconds. */
   created_at: number;
 }
 

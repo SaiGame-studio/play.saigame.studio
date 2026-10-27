@@ -1,11 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { BadgeCheck, MailWarning, Link2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { BadgeCheck, ExternalLink, MailWarning } from "lucide-react";
+import { LanguageSelector } from "@/components/language-selector";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
 import { useAuth } from "@/contexts/auth-context";
 import { authApi } from "@/lib/auth-api";
+import { STUDIO_URL } from "@/lib/config";
+import { STUDIO_SITE_NAME } from "@/lib/site-config";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export function AccountOverview() {
@@ -18,7 +21,7 @@ export function AccountOverview() {
   }
 
   const name = user.display_name || user.username;
-  const memberSince = new Date(user.created_at).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
+  const memberSince = new Date(user.created_at * 1000).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" });
 
   const resend = async () => {
     setResendState("sending");
@@ -38,6 +41,9 @@ export function AccountOverview() {
 
   return (
     <section id="account-overview" className="mx-auto w-full max-w-6xl px-4 py-10 sm:py-14">
+      <div id="account-overview-language" className="mb-6 sm:hidden">
+        <LanguageSelector align="left" />
+      </div>
       <header id="account-overview-header" className="mb-8 flex items-center gap-4">
         <div
           id="account-overview-avatar"
@@ -102,15 +108,16 @@ export function AccountOverview() {
           )}
         </article>
 
-        <aside id="account-overview-sso" className="rounded-2xl border border-primary/30 bg-primary/5 p-6">
-          <Link2 id="account-overview-sso-icon" className="mb-3 size-6 text-primary" aria-hidden />
-          <h2 id="account-overview-sso-title" className="mb-2 font-display text-lg font-semibold">
-            {t("home.ssoTitle")}
+        <aside id="account-overview-studio" className="flex flex-col items-start gap-4 rounded-2xl border border-primary/30 bg-primary/5 p-6">
+          <h2 id="account-overview-studio-title" className="font-display text-lg font-semibold">
+            {STUDIO_SITE_NAME}
           </h2>
-          <p id="account-overview-sso-body" className="text-sm text-muted-foreground">
-            {t("home.ssoBody")}
-          </p>
+          <a id="account-overview-studio-link" href={STUDIO_URL} className={buttonVariants({ variant: "outline" })}>
+            <ExternalLink id="account-overview-studio-link-icon" aria-hidden />
+            {t("nav.openStudio")}
+          </a>
         </aside>
+
       </div>
     </section>
   );

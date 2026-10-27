@@ -19,7 +19,7 @@ const body = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: { default: `${SITE_NAME} Play`, template: `%s | ${SITE_NAME} Play` },
+  title: { default: SITE_NAME, template: `%s | ${SITE_NAME}` },
   icons: { icon: "/logo.png", apple: "/logo.png" },
 };
 

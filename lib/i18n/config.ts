@@ -6,10 +6,11 @@ export const defaultLocale = "en";
 export const locales = ["en", "vi", "ja"] as const;
 export type ValidLocale = (typeof locales)[number];
 
-export const localeLabels: Record<ValidLocale, string> = {
-  en: "English",
-  vi: "Tiếng Việt",
-  ja: "日本語",
+/** Display data for each locale; flags use the same country codes as the Studio site. */
+export const localeInfo: Record<ValidLocale, { name: string; nativeName: string; countryCode: string }> = {
+  en: { name: "English", nativeName: "English", countryCode: "US" },
+  vi: { name: "Vietnamese", nativeName: "Tiếng Việt", countryCode: "VN" },
+  ja: { name: "Japanese", nativeName: "日本語", countryCode: "JP" },
 };
 
 export const translations = { en, vi, ja } as const;
