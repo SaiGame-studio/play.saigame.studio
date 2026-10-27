@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { ExternalLink, LogOut, UserRound } from "lucide-react";
+import { ExternalLink, Gamepad2, LogOut, UserRound } from "lucide-react";
 import { useAuth } from "@/contexts/auth-context";
 import { useConfirm } from "@/contexts/confirm-context";
 import { STUDIO_URL } from "@/lib/config";
@@ -14,7 +14,7 @@ const CLOSE_DELAY_MS = 150;
 
 const itemClass = "user-menu-item flex w-full items-center gap-2.5 rounded px-3 py-2 text-left text-sm hover:bg-muted focus-visible:bg-muted focus-visible:outline-none";
 
-/** User icon that opens (hover, click or keyboard) a menu: My account, Open Studio, Sign out. */
+/** User icon that opens (hover, click or keyboard) a menu: My games, My account, Open Studio, Sign out. */
 export function UserMenu() {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
@@ -99,6 +99,10 @@ export function UserMenu() {
               </p>
             </div>
             <div id="user-menu-items" className="user-menu-items pt-1">
+              <Link id="user-menu-item-games" role="menuitem" href="/" className={itemClass} onClick={() => setIsOpen(false)}>
+                <Gamepad2 id="user-menu-item-games-icon" className="user-menu-item-icon size-4 text-muted-foreground" aria-hidden />
+                {t("nav.myGames")}
+              </Link>
               <Link id="user-menu-item-account" role="menuitem" href="/account" className={itemClass} onClick={() => setIsOpen(false)}>
                 <UserRound id="user-menu-item-account-icon" className="user-menu-item-icon size-4 text-muted-foreground" aria-hidden />
                 {t("nav.myAccount")}

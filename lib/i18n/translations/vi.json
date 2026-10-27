@@ -16,7 +16,10 @@
     "account": "Tài khoản",
     "myAccount": "Tài khoản của tôi",
     "signOutConfirmTitle": "Đăng xuất?",
-    "signOutConfirmBody": "Bạn sẽ bị đăng xuất khỏi cả Sai Play và Sai Server trên thiết bị này."
+    "signOutConfirmBody": "Bạn sẽ bị đăng xuất khỏi cả Sai Play và Sai Server trên thiết bị này.",
+    "myGames": "Game của tôi",
+    "home": "Trang chủ",
+    "main": "Menu chính"
   },
   "login": {
     "title": "Chào mừng trở lại",

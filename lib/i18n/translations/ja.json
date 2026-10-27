@@ -16,7 +16,10 @@
     "account": "アカウント",
     "myAccount": "マイアカウント",
     "signOutConfirmTitle": "ログアウトしますか？",
-    "signOutConfirmBody": "この端末の Sai Play と Sai Server の両方からログアウトします。"
+    "signOutConfirmBody": "この端末の Sai Play と Sai Server の両方からログアウトします。",
+    "myGames": "マイゲーム",
+    "home": "ホーム",
+    "main": "メインメニュー"
   },
   "login": {
     "title": "おかえりなさい",

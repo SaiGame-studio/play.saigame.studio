@@ -1,6 +1,7 @@
 "use client";
 
-import { BadgeCheck, Gem, ReceiptText } from "lucide-react";
+import { BadgeCheck, ReceiptText } from "lucide-react";
+import { SgemIcon } from "@/components/sgem/sgem-icon";
 import type { ReactNode } from "react";
 import { SgemMethodList } from "@/components/sgem/sgem-method-list";
 import { SgemOrderSummary } from "@/components/sgem/sgem-order-summary";
@@ -34,7 +35,7 @@ export function BuySgem() {
       </header>
 
       <div id="buy-sgem-packages">
-        <SectionTitle id="buy-sgem-packages-title" icon={<Gem id="buy-sgem-packages-icon" className="size-5 text-primary" aria-hidden />}>
+        <SectionTitle id="buy-sgem-packages-title" icon={<SgemIcon id="buy-sgem-packages-icon" className="text-lg leading-none" />}>
           {t("sgem.packages")}
         </SectionTitle>
         <LoadState
