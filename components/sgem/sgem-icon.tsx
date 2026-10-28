@@ -1,10 +1,18 @@
 import { cn } from "@/lib/utils";
 
-/** sGem symbol, matching the Studio site (💎, blue-400). */
+const SGEM_ICON_SRC = "/icons/sgem.svg";
+
+/** sGem symbol, matching the Studio site (public/icons/sgem.svg). Sized by font-size (1em). */
 export function SgemIcon({ id, className }: { id: string; className?: string }) {
   return (
-    <span id={id} aria-hidden className={cn("sgem-icon", "text-blue-400", className)}>
-      💎
-    </span>
+    // eslint-disable-next-line @next/next/no-img-element -- static SVG icon; next/image adds no value here
+    <img
+      id={id}
+      src={SGEM_ICON_SRC}
+      alt=""
+      aria-hidden
+      draggable={false}
+      className={cn("sgem-icon", "inline-block h-[1em] w-[1em] shrink-0 align-[-0.125em]", className)}
+    />
   );
 }
