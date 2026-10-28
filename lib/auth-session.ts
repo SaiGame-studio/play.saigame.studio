@@ -1,4 +1,4 @@
-import { requireApiUrl } from "@/lib/config";
+import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
 
 /**
  * Access token lives in memory only. The refresh token is an HttpOnly cookie on the
@@ -96,7 +96,7 @@ export function refreshSession(): Promise<string | null> {
       const response = await fetch(`${requireApiUrl()}/api/v1/auth/refresh`, {
         method: "POST",
         credentials: "include",
-        headers: { Accept: "application/json" },
+        headers: { Accept: "application/json", [CLIENT_ID_HEADER]: CLIENT_ID },
       });
       if (!response.ok) {
         clearSession();
