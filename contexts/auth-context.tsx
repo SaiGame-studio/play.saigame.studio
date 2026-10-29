@@ -31,7 +31,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  // Pick up an existing SSO session (e.g. signed in on the Studio site) on first load.
+  // Restore the session on first load (no API call when no refresh token is stored).
   useEffect(() => {
     let cancelled = false;
     (async () => {
@@ -59,8 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  // Re-check the shared session when the tab regains focus, so signing in or out on
-  // the Studio site is reflected here without a reload.
+  // Re-check the session when the tab regains focus.
   useEffect(() => {
     const onVisible = async () => {
       if (document.visibilityState !== "visible") {

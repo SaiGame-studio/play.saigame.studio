@@ -1,9 +1,10 @@
 import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
+import { readStorage, writeStorage } from "@/lib/safe-storage";
 
 /**
- * Access token lives in memory only. The refresh token is an HttpOnly cookie on the
- * parent domain (.saigame.studio) issued by the API, shared with the Studio frontend,
- * so signing in on either site signs in both (SSO).
+ * Access token lives in memory only. The refresh token from the login response is kept
+ * in localStorage and sent in the body of POST /auth/refresh. Without a stored refresh
+ * token the API is never called, because the request could only fail.
  */
 
 export interface AuthTokens {
@@ -13,6 +14,8 @@ export interface AuthTokens {
 }
 
 type Listener = (token: string | null) => void;
+
+const REFRESH_TOKEN_KEY = "refreshToken";
 
 // Refresh slightly before expiry to absorb latency and clock skew.
 const REFRESH_SKEW_MS = 30_000;
@@ -52,6 +55,9 @@ function scheduleRefresh() {
 
 export function setSession(tokens: AuthTokens) {
   accessToken = tokens.access_token;
+  if (tokens.refresh_token) {
+    writeStorage(REFRESH_TOKEN_KEY, tokens.refresh_token);
+  }
   expiresAt =
     decodeExpiry(tokens.access_token) ??
     Date.now() + (tokens.expires_in ?? 900) * 1000;
@@ -61,6 +67,7 @@ export function setSession(tokens: AuthTokens) {
 
 export function clearSession() {
   accessToken = null;
+  writeStorage(REFRESH_TOKEN_KEY, null);
   expiresAt = 0;
   if (refreshTimer) {
     clearTimeout(refreshTimer);
@@ -84,19 +91,32 @@ export function subscribeSession(listener: Listener): () => void {
 }
 
 /**
- * Exchanges the shared SSO cookie for a fresh access token.
- * Returns null when there is no valid session; network errors keep the current state.
+ * Exchanges the stored refresh token for a fresh access token.
+ * Returns null without calling the API when no refresh token is stored, and null when
+ * the session is no longer valid; network errors keep the current state.
  */
 export function refreshSession(): Promise<string | null> {
   if (inflightRefresh) {
     return inflightRefresh;
+  }
+  const refreshToken = readStorage(REFRESH_TOKEN_KEY);
+  if (!refreshToken) {
+    if (accessToken) {
+      clearSession();
+    }
+    return Promise.resolve(null);
   }
   inflightRefresh = (async () => {
     try {
       const response = await fetch(`${requireApiUrl()}/api/v1/auth/refresh`, {
         method: "POST",
         credentials: "include",
-        headers: { Accept: "application/json", [CLIENT_ID_HEADER]: CLIENT_ID },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          [CLIENT_ID_HEADER]: CLIENT_ID,
+        },
+        body: JSON.stringify({ refresh_token: refreshToken }),
       });
       if (!response.ok) {
         clearSession();
