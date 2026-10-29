@@ -1,4 +1,4 @@
-import { requireApiUrl } from "@/lib/config";
+import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
 import { clearSession, getAccessToken, refreshSession } from "@/lib/auth-session";
 
 export class ApiError extends Error {
@@ -38,7 +38,7 @@ async function parseBody(response: Response): Promise<unknown> {
  */
 export async function apiRequest<T = unknown>(endpoint: string, options: RequestOptions = {}, retried = false): Promise<T> {
   const { method = "GET", body, requireAuth = true } = options;
-  const headers: Record<string, string> = { Accept: "application/json" };
+  const headers: Record<string, string> = { Accept: "application/json", [CLIENT_ID_HEADER]: CLIENT_ID };
   if (body !== undefined) {
     headers["Content-Type"] = "application/json";
   }
