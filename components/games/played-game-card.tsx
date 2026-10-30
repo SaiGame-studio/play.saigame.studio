@@ -1,57 +1,68 @@
 "use client";
 
-import { Ban, Clock, Sparkles } from "lucide-react";
+import { Ban } from "lucide-react";
+import { GameCoverArt } from "@/components/games/game-cover-art";
 import type { PlayedGame } from "@/lib/player-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { cn } from "@/lib/utils";
 
 function formatDate(unixSeconds: number, locale: string) {
   return new Date(unixSeconds * 1000).toLocaleDateString(locale, { year: "numeric", month: "short", day: "numeric" });
 }
 
+/** Poster card for one played game: key art, title, level, XP and last played date. */
 export function PlayedGameCard({ game }: { game: PlayedGame }) {
   const { t, locale } = useTranslation();
   const id = `played-game-${game.game_id}`;
 
   return (
-    <li
-      id={id}
-      className="group relative overflow-hidden rounded-2xl border border-border bg-card/70 p-5 transition-colors hover:border-primary/50"
-    >
-      <div id={`${id}-glow`} aria-hidden className="pointer-events-none absolute -right-10 -top-10 size-32 rounded-full bg-primary/10 blur-2xl transition-opacity group-hover:opacity-100" />
-      <div id={`${id}-header`} className="relative mb-4 flex items-start justify-between gap-3">
-        <h3 id={`${id}-name`} className="font-display text-lg font-semibold leading-tight">
-          {game.game_name}
-        </h3>
+    <li id={id} className="played-game">
+      <article
+        id={`${id}-poster`}
+        className="played-game-poster relative flex aspect-[3/4] flex-col justify-end overflow-hidden rounded-md border border-border bg-card"
+      >
+        <div id={`${id}-art`} className={cn("played-game-art absolute inset-0", game.is_banned && "opacity-50 grayscale")}>
+          <GameCoverArt id={`${id}-art-image`} seedKey={game.game_id} cols={15} rows={20} />
+        </div>
+        <div id={`${id}-shade`} aria-hidden className="played-game-shade key-art-shade absolute inset-0" />
+
         {game.is_banned && (
-          <span id={`${id}-banned`} className="inline-flex shrink-0 items-center gap-1 rounded-full border border-destructive/40 bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
-            <Ban id={`${id}-banned-icon`} className="size-3" aria-hidden />
+          <span
+            id={`${id}-banned`}
+            className="played-game-banned absolute left-3 top-3 inline-flex items-center gap-1 rounded-sm bg-destructive px-1.5 py-0.5 font-display text-xs font-semibold uppercase tracking-wide text-background"
+          >
+            <Ban id={`${id}-banned-icon`} className="played-game-banned-icon size-3" aria-hidden />
             {t("games.banned")}
           </span>
         )}
-      </div>
-      <dl id={`${id}-stats`} className="relative grid grid-cols-2 gap-3">
-        <div id={`${id}-level`} className="rounded-lg bg-muted/60 px-3 py-2">
-          <dt id={`${id}-level-label`} className="text-xs uppercase tracking-wider text-muted-foreground">
-            {t("games.level")}
-          </dt>
-          <dd id={`${id}-level-value`} className="font-display text-2xl font-bold text-primary">
-            {game.level}
-          </dd>
+
+        <div id={`${id}-body`} className="played-game-body relative p-4">
+          <h3 id={`${id}-name`} className="played-game-name line-clamp-2 text-balance font-display text-2xl font-bold uppercase leading-[0.95]">
+            {game.game_name}
+          </h3>
+          <dl id={`${id}-stats`} className="played-game-stats mt-3 flex items-end gap-4">
+            <div id={`${id}-level`} className="played-game-level flex flex-col-reverse">
+              <dt id={`${id}-level-label`} className="played-game-level-label text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                {t("games.level")}
+              </dt>
+              <dd id={`${id}-level-value`} className="played-game-level-value tabular font-display text-2xl font-bold leading-none text-accent">
+                {game.level.toLocaleString(locale)}
+              </dd>
+            </div>
+            <div id={`${id}-experience`} className="played-game-experience flex min-w-0 flex-col-reverse">
+              <dt id={`${id}-experience-label`} className="played-game-experience-label text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                {t("games.experience")}
+              </dt>
+              <dd id={`${id}-experience-value`} className="played-game-experience-value tabular truncate font-display text-2xl font-bold leading-none">
+                {game.experience.toLocaleString(locale)}
+              </dd>
+            </div>
+          </dl>
+          <p id={`${id}-last-played`} className="played-game-last-played mt-3 border-t border-foreground/15 pt-2.5 text-xs text-muted-foreground">
+            {t("games.lastPlayed", { date: formatDate(game.last_played_at, locale) })}
+          </p>
         </div>
-        <div id={`${id}-experience`} className="rounded-lg bg-muted/60 px-3 py-2">
-          <dt id={`${id}-experience-label`} className="flex items-center gap-1 text-xs uppercase tracking-wider text-muted-foreground">
-            <Sparkles id={`${id}-experience-icon`} className="size-3" aria-hidden />
-            {t("games.experience")}
-          </dt>
-          <dd id={`${id}-experience-value`} className="font-display text-2xl font-bold">
-            {game.experience.toLocaleString(locale)}
-          </dd>
-        </div>
-      </dl>
-      <p id={`${id}-last-played`} className="relative mt-4 flex items-center gap-1.5 text-xs text-muted-foreground">
-        <Clock id={`${id}-last-played-icon`} className="size-3.5" aria-hidden />
-        {t("games.lastPlayed", { date: formatDate(game.last_played_at, locale) })}
-      </p>
+      </article>
     </li>
   );
 }

@@ -75,7 +75,7 @@ export function ConfirmDialog({
         aria-modal="true"
         aria-labelledby={`${id}-title`}
         aria-describedby={description ? `${id}-description` : undefined}
-        className={cn("confirm-dialog-panel", "relative w-full max-w-sm rounded-2xl border border-border bg-card p-6 shadow-2xl shadow-black/60")}
+        className={cn("confirm-dialog-panel", "relative w-full max-w-sm rounded-md border border-border bg-card p-6 shadow-2xl shadow-black/60")}
       >
         <h2 id={`${id}-title`} className={cn("confirm-dialog-title", "font-display text-lg font-semibold")}>
           {title}

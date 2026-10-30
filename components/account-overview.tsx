@@ -48,12 +48,12 @@ export function AccountOverview() {
         <div
           id="account-overview-avatar"
           aria-hidden
-          className="flex size-14 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-accent font-display text-2xl font-bold text-primary-foreground"
+          className="flex size-14 items-center justify-center rounded-md bg-indigo font-display text-3xl font-extrabold uppercase text-foreground"
         >
           {name.charAt(0).toUpperCase()}
         </div>
         <div id="account-overview-heading">
-          <h1 id="account-overview-title" className="font-display text-3xl font-bold tracking-tight">
+          <h1 id="account-overview-title" className="font-display text-4xl font-extrabold uppercase leading-none">
             {t("home.greeting", { name })}
           </h1>
           <p id="account-overview-subtitle" className="text-muted-foreground">
@@ -63,7 +63,7 @@ export function AccountOverview() {
       </header>
 
       <div id="account-overview-grid" className="grid gap-4 md:grid-cols-[2fr_1fr]">
-        <article id="account-overview-details" className="rounded-2xl border border-border bg-card/70 p-6">
+        <article id="account-overview-details" className="rounded-md border border-border bg-card/70 p-6">
           <h2 id="account-overview-details-title" className="mb-4 font-display text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">
             {t("home.account")}
           </h2>
@@ -108,7 +108,7 @@ export function AccountOverview() {
           )}
         </article>
 
-        <aside id="account-overview-studio" className="flex flex-col items-start gap-4 rounded-2xl border border-primary/30 bg-primary/5 p-6">
+        <aside id="account-overview-studio" className="flex flex-col items-start gap-4 rounded-md border border-primary/30 bg-primary/5 p-6">
           <h2 id="account-overview-studio-title" className="font-display text-lg font-semibold">
             {STUDIO_SITE_NAME}
           </h2>

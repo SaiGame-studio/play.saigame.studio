@@ -26,7 +26,7 @@ export function BuySgem() {
   return (
     <section id="buy-sgem" className="mx-auto w-full max-w-6xl space-y-10 px-4 py-10 sm:py-14">
       <header id="buy-sgem-header">
-        <h1 id="buy-sgem-title" className="font-display text-3xl font-bold tracking-tight sm:text-4xl">
+        <h1 id="buy-sgem-title" className="font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
           {t("sgem.buy")}
         </h1>
         <p id="buy-sgem-subtitle" className="mt-1 text-muted-foreground">

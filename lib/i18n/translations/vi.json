@@ -84,7 +84,10 @@
     "emptyBody": "Các game bạn chơi bằng tài khoản này sẽ hiện ở đây.",
     "loadMore": "Tải thêm",
     "loadFailed": "Không tải được danh sách game.",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "playingSince": "Chơi từ {date}",
+    "heroLabel": "Game chơi gần đây",
+    "heroSelect": "Xem {name}"
   },
   "sgem": {
     "balance": "Số dư sGem",
@@ -148,5 +151,8 @@
     "submitSuccessDesc": "Bạn sẽ nhận được thông báo sau khi giao dịch được xác minh.",
     "submitFailed": "Gửi thất bại.",
     "qrHint": "Quét mã QR bằng MoMo hoặc ứng dụng ngân hàng hỗ trợ VietQR."
+  },
+  "footer": {
+    "copyright": "© {year} Sai Game"
   }
 }

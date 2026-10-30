@@ -24,7 +24,7 @@ export function LoadState({ id, state, isEmpty, errorText, emptyText, retryText,
   }
   if (state === "error") {
     return (
-      <div id={`${id}-error`} className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card/60 py-8 text-center">
+      <div id={`${id}-error`} className="flex flex-col items-center gap-3 rounded-md border border-border bg-card/60 py-8 text-center">
         <p id={`${id}-error-text`} className="text-sm text-destructive">
           {errorText}
         </p>
@@ -36,7 +36,7 @@ export function LoadState({ id, state, isEmpty, errorText, emptyText, retryText,
   }
   if (isEmpty) {
     return (
-      <p id={`${id}-empty`} className="rounded-2xl border border-dashed border-border py-8 text-center text-sm text-muted-foreground">
+      <p id={`${id}-empty`} className="rounded-md border border-dashed border-border py-8 text-center text-sm text-muted-foreground">
         {emptyText}
       </p>
     );

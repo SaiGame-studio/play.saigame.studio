@@ -1,0 +1,228 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-30T07:37:28.192475Z",
+  "title": "Design System: Sai Play",
+  "extensions": {
+    "colorMeta": {
+      "night-navy": {
+        "role": "neutral",
+        "displayName": "Night Navy",
+        "canonical": "hsl(233 42% 7%)",
+        "tonalRamp": [
+          "hsl(233 42% 4%)",
+          "hsl(233 42% 7%)",
+          "hsl(233 36% 11%)",
+          "hsl(232 30% 16%)",
+          "hsl(232 28% 20%)",
+          "hsl(232 24% 30%)",
+          "hsl(230 20% 45%)",
+          "hsl(224 22% 70%)"
+        ]
+      },
+      "crystal-azure": {
+        "role": "primary",
+        "displayName": "Crystal Azure",
+        "canonical": "hsl(205 78% 62%)",
+        "tonalRamp": [
+          "hsl(205 70% 15%)",
+          "hsl(205 72% 25%)",
+          "hsl(205 74% 35%)",
+          "hsl(205 76% 45%)",
+          "hsl(205 78% 55%)",
+          "hsl(205 78% 62%)",
+          "hsl(205 80% 75%)",
+          "hsl(205 85% 90%)"
+        ]
+      },
+      "logo-indigo": {
+        "role": "secondary",
+        "displayName": "Logo Indigo",
+        "canonical": "hsl(234 52% 48%)",
+        "tonalRamp": [
+          "hsl(234 50% 15%)",
+          "hsl(234 50% 25%)",
+          "hsl(234 52% 35%)",
+          "hsl(234 52% 48%)",
+          "hsl(234 55% 58%)",
+          "hsl(234 60% 68%)",
+          "hsl(234 65% 80%)",
+          "hsl(234 70% 92%)"
+        ]
+      },
+      "mint-glint": {
+        "role": "tertiary",
+        "displayName": "Mint Glint",
+        "canonical": "hsl(158 100% 86%)",
+        "tonalRamp": [
+          "hsl(158 60% 15%)",
+          "hsl(158 65% 25%)",
+          "hsl(158 70% 35%)",
+          "hsl(158 75% 50%)",
+          "hsl(158 85% 65%)",
+          "hsl(158 95% 78%)",
+          "hsl(158 100% 86%)",
+          "hsl(158 100% 94%)"
+        ]
+      },
+      "alarm-red": {
+        "role": "error",
+        "displayName": "Alarm Red",
+        "canonical": "hsl(352 88% 64%)"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Game title in the home banner."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Poster titles, buttons, navigation."
+      },
+      "stat": {
+        "displayName": "Stat",
+        "purpose": "Level and XP values."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Stat labels under their value."
+      }
+    },
+    "shadows": [
+      {
+        "name": "button-primary",
+        "value": "0 6px 18px -8px hsl(205 78% 62% / 0.6)",
+        "purpose": "Lift under the primary button."
+      },
+      {
+        "name": "panel",
+        "value": "0 24px 60px -20px rgb(0 0 0 / 0.7)",
+        "purpose": "Sign-in card and floating panels."
+      }
+    ],
+    "motion": [
+      {
+        "name": "hero-in",
+        "value": "600ms cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Banner title and stats entering on slide change."
+      },
+      {
+        "name": "hero-crossfade",
+        "value": "700ms ease-out",
+        "purpose": "Key-art cross-fade between banner slides."
+      },
+      {
+        "name": "hero-interval",
+        "value": "8000ms linear",
+        "purpose": "Auto-advance and the active thumbnail's progress bar."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Main action, e.g. Buy sGem.",
+      "html": "<button class=\"ds-btn-primary\">Buy sGem</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 20px;border:0;border-radius:4px;background:hsl(205 78% 62%);color:hsl(233 48% 9%);font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;box-shadow:0 6px 18px -8px hsl(205 78% 62% / .6);transition:filter .15s,transform .15s;cursor:pointer}.ds-btn-primary:hover{filter:brightness(1.1)}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid hsl(205 78% 62%);outline-offset:2px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary action, e.g. Load more.",
+      "html": "<button class=\"ds-btn-outline\">Load more</button>",
+      "css": ".ds-btn-outline{height:44px;padding:0 20px;border-radius:4px;border:1px solid hsl(214 45% 95% / .2);background:hsl(233 36% 11% / .6);color:hsl(214 45% 95%);font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;font-size:16px;letter-spacing:.06em;text-transform:uppercase;transition:border-color .15s,color .15s;cursor:pointer}.ds-btn-outline:hover{border-color:hsl(205 78% 62%);color:hsl(205 78% 62%)}.ds-btn-outline:focus-visible{outline:2px solid hsl(205 78% 62%);outline-offset:2px}"
+    },
+    {
+      "name": "Navigation Item",
+      "kind": "nav",
+      "description": "Header item with the azure active bar.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-nav-item is-active\" href=\"#\">Home</a><a class=\"ds-nav-item\" href=\"#\">Buy sGem</a></nav>",
+      "css": ".ds-nav{display:flex;gap:8px;height:64px;background:hsl(233 42% 7%);border-bottom:1px solid hsl(232 28% 20%);padding:0 16px}.ds-nav-item{position:relative;display:flex;align-items:center;padding:0 12px;font-family:'Barlow Condensed',system-ui,sans-serif;font-weight:600;font-size:16px;letter-spacing:.08em;text-transform:uppercase;color:hsl(224 22% 70%);text-decoration:none}.ds-nav-item::after{content:'';position:absolute;left:8px;right:8px;bottom:0;height:3px;background:hsl(205 78% 62%);transform:scaleX(0);transition:transform .2s}.ds-nav-item:hover{color:hsl(214 45% 95%)}.ds-nav-item.is-active{color:hsl(214 45% 95%)}.ds-nav-item.is-active::after{transform:scaleX(1)}"
+    },
+    {
+      "name": "Game Poster",
+      "kind": "card",
+      "refersTo": "game-poster",
+      "description": "Library card: key art, title, level and XP.",
+      "html": "<article class=\"ds-poster\"><div class=\"ds-poster-body\"><h3>Crystal Raiders</h3><dl><div><dd class=\"lv\">42</dd><dt>Level</dt></div><div><dd>186,420</dd><dt>XP</dt></div></dl></div></article>",
+      "css": ".ds-poster{position:relative;width:220px;aspect-ratio:3/4;display:flex;align-items:flex-end;border:1px solid hsl(232 28% 20%);border-radius:4px;overflow:hidden;background:linear-gradient(to top,hsl(233 42% 7%) 25%,transparent),repeating-linear-gradient(45deg,hsl(268 58% 34%) 0 18px,hsl(268 58% 22%) 18px 36px)}.ds-poster-body{padding:16px;color:hsl(214 45% 95%)}.ds-poster h3{margin:0;font:700 24px/0.95 'Barlow Condensed',sans-serif;text-transform:uppercase}.ds-poster dl{display:flex;gap:16px;margin:12px 0 0}.ds-poster div{display:flex;flex-direction:column-reverse}.ds-poster dd{margin:0;font:700 24px/1 'Barlow Condensed',sans-serif;font-variant-numeric:tabular-nums}.ds-poster dd.lv{color:hsl(158 100% 86%)}.ds-poster dt{font:500 11px 'Be Vietnam Pro',sans-serif;letter-spacing:.14em;text-transform:uppercase;color:hsl(224 22% 70%)}"
+    },
+    {
+      "name": "Banned Badge",
+      "kind": "chip",
+      "refersTo": "badge-banned",
+      "description": "Marks a game the player is banned from.",
+      "html": "<span class=\"ds-badge-banned\">Banned</span>",
+      "css": ".ds-badge-banned{display:inline-flex;padding:2px 6px;border-radius:2px;background:hsl(352 88% 64%);color:hsl(233 42% 7%);font:600 12px 'Barlow Condensed',sans-serif;letter-spacing:.04em;text-transform:uppercase}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Crystal Publisher",
+    "overview": "Sai Play is the category-standard game publisher portal, played straight: a full-bleed key-art banner for the player's latest game, a rotator across recent games, and a poster wall for the whole library. Its colour and material come from the pixel-art crystal \"S\" logo: a night-navy ground taken from the logo's outline, crystal azure for action, logo indigo for large brand fields, and mint for the glints on the logo's bevels.\n\nEvery game is shown with key art. Until real art exists, art is a generated pixel-crystal mosaic seeded by the game id (`lib/game-art.ts`, `components/games/game-cover-art.tsx`), so each game keeps one identity across banner, thumbnail and poster. Type is a heavy condensed display set in uppercase for anything a publisher would put on a box or banner, with a humanist sans for reading text. Corners are tight, borders are hairlines, and depth comes from art plus a bottom-up shade, not glow.",
+    "keyCharacteristics": [
+      "Dark night-navy ground, chosen for players at home in the evening, matching the logo's outline.",
+      "Key art first: banner, thumbnails and posters all carry the game's art edge to edge.",
+      "Condensed uppercase display type for titles, buttons and navigation.",
+      "Level numbers in mint; all other numbers in frost white, tabular.",
+      "Tight radii (2-4px), 1px hairlines, a single 3px azure bar for \"active\"."
+    ],
+    "rules": [
+      {
+        "name": "The One Azure Rule",
+        "body": "Crystal azure marks what you can act on or where you are; it is not decoration.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mint Is Progress Rule",
+        "body": "Mint belongs to level values (and the art's glints). Other numbers stay frost white.",
+        "section": "colors"
+      },
+      {
+        "name": "The Box-Art Rule",
+        "body": "Game names, page titles, buttons and navigation are condensed uppercase; reading text never is.",
+        "section": "typography"
+      },
+      {
+        "name": "The Value-First Rule",
+        "body": "A stat shows its value first and its label underneath.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Halo Rule",
+        "body": "No zero-offset coloured glows; light lives in the art.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** give every game key art; use `GameCoverArt` with the game id as seed until real art exists.",
+      "**Do** keep sGem on the shared `SgemIcon`.",
+      "**Do** keep numbers tabular, with level values in mint."
+    ],
+    "donts": [
+      "**Don't** put a kicker or eyebrow label above a heading.",
+      "**Don't** add zero-offset glows, glass blur or gradient text.",
+      "**Don't** show catalog, news or promotional content the API does not provide."
+    ]
+  }
+}

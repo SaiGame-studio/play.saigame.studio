@@ -100,7 +100,7 @@ export function SgemDirectTransfer() {
           </div>
         </header>
 
-        <div id="direct-transfer-package" className="rounded-2xl border border-border bg-card/70 p-5">
+        <div id="direct-transfer-package" className="rounded-md border border-border bg-card/70 p-5">
           <p id="direct-transfer-package-title" className="mb-4 flex items-center gap-2 font-semibold">
             <Building2 id="direct-transfer-package-icon" className="size-4 text-primary" aria-hidden />
             {t("directTransfer.packageInfo")}
@@ -145,7 +145,7 @@ export function SgemDirectTransfer() {
         </div>
 
         {loadState === "ready" && pkg && (
-          <div id="direct-transfer-form" className="space-y-5 rounded-2xl border border-border bg-card/70 p-5">
+          <div id="direct-transfer-form" className="space-y-5 rounded-md border border-border bg-card/70 p-5">
             <div id="direct-transfer-note-field" className="space-y-1.5">
               <label id="direct-transfer-note-label" htmlFor="direct-transfer-note" className="text-sm font-medium">
                 {t("directTransfer.noteLabel")} <span className="text-destructive">*</span>
@@ -192,7 +192,7 @@ export function SgemDirectTransfer() {
 
       <aside id="direct-transfer-qr" className="w-full space-y-3 lg:sticky lg:top-24 lg:w-auto">
         {QR_CODES.map((qr) => (
-          <div id={`direct-transfer-qr-${qr.key}`} key={qr.key} className="rounded-2xl border border-border bg-card/70 p-3">
+          <div id={`direct-transfer-qr-${qr.key}`} key={qr.key} className="rounded-md border border-border bg-card/70 p-3">
             <p id={`direct-transfer-qr-${qr.key}-label`} className="mb-2 text-center text-sm font-semibold">
               {qr.label}
             </p>

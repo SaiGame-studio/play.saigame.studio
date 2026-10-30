@@ -84,7 +84,10 @@
     "emptyBody": "このアカウントで遊んだゲームがここに表示されます。",
     "loadMore": "さらに読み込む",
     "loadFailed": "ゲームを読み込めませんでした。",
-    "retry": "再試行"
+    "retry": "再試行",
+    "playingSince": "{date} からプレイ",
+    "heroLabel": "最近プレイしたゲーム",
+    "heroSelect": "{name} を表示"
   },
   "sgem": {
     "balance": "sGem 残高",
@@ -148,5 +151,8 @@
     "submitSuccessDesc": "振込みが確認され次第、通知をお送りします。",
     "submitFailed": "送信に失敗しました。",
     "qrHint": "MoMo または VietQR 対応の銀行アプリでスキャンしてください。"
+  },
+  "footer": {
+    "copyright": "© {year} Sai Game"
   }
 }

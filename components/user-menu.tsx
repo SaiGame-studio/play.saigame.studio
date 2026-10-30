@@ -78,7 +78,7 @@ export function UserMenu() {
         aria-expanded={isOpen}
         aria-label={t("nav.account")}
         onClick={() => (isOpen ? setIsOpen(false) : open())}
-        className={cn("user-menu-trigger flex size-9 items-center justify-center rounded-md hover:bg-muted", isOpen && "bg-muted")}
+        className={cn("user-menu-trigger flex size-9 items-center justify-center rounded-md border border-transparent hover:border-border hover:bg-muted", isOpen && "bg-muted")}
       >
         <UserRound id="user-menu-trigger-icon" className="user-menu-trigger-icon size-4" aria-hidden />
       </button>

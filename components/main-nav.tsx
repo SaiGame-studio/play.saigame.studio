@@ -33,7 +33,7 @@ export function MainNav() {
   const { t } = useTranslation();
 
   return (
-    <nav id="main-nav" aria-label={t("nav.main")} className="main-nav flex items-center gap-1">
+    <nav id="main-nav" aria-label={t("nav.main")} className="main-nav flex items-stretch gap-1 md:gap-2">
       {NAV_ITEMS.map(({ key, href, labelKey, icon }) => {
         const active = isActive(pathname, href);
         return (
@@ -44,8 +44,9 @@ export function MainNav() {
             title={t(labelKey)}
             aria-current={active ? "page" : undefined}
             className={cn(
-              "main-nav-item flex h-9 items-center gap-2 rounded-md px-2.5 text-sm font-medium transition-colors md:px-3",
-              active ? "bg-muted text-foreground" : "text-muted-foreground hover:bg-muted/60 hover:text-foreground",
+              "main-nav-item relative flex items-center gap-2 px-2.5 font-display text-base font-semibold uppercase tracking-[0.08em] transition-colors md:px-3",
+              "after:absolute after:inset-x-2 after:bottom-0 after:h-[3px] after:bg-primary after:transition-transform after:duration-200",
+              active ? "text-foreground after:scale-x-100" : "text-muted-foreground after:scale-x-0 hover:text-foreground",
             )}
           >
             {icon(`main-nav-item-${key}-icon`)}
