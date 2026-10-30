@@ -13,10 +13,9 @@ Content: only the player's real played games (name, level, XP, last played, bann
 Constraints: AGENTS.md rules (ids/classes, SgemIcon, useConfirm, same-tab links, i18n en/vi/ja).
 
 ## Direction contract
-THESIS: The category-standard publisher portal, played straight: a full-bleed key-art banner for the player's most recently played game, a rotator across recent games, then a poster grid of every game. Refuses an admin-style list of stat cards.
+THESIS: The category-standard publisher portal, played straight: a poster grid of every game the player has played, each poster showing only the game's image and name. Refuses an admin-style list of stat cards. (Owner removed the banner and per-card stats on 2026-10-30.)
 OWN-WORLD: Ground is the logo's navy outline; the logo's crystal azure is the action colour, its indigo owns large fields (sGem band), mint is the highlight for level numbers. Display is a heavy condensed sans, uppercase for titles; body stays Be Vietnam Pro. Key art is generated pixel-crystal mosaics seeded by game id, echoing the pixel-art logo. Small radii, hairline borders, no glow halos.
-STORY: The player sees their latest game huge, understands their level and XP at a glance, browses the rest of their library, and can top up sGem from the band below.
-FIRST VIEWPORT: Header (logo, Home, Buy sGem, wallet, language, user). Below it a 21:9-ish banner, key art full-bleed, game title in condensed display at bottom-left, Level / XP / last played meta row, Buy sGem as primary action, thumbnail selector of up to five recent games at bottom-right.
+STORY: The player sees every game they have played as a poster and can top up sGem from the header.
+FIRST VIEWPORT: Header (logo, Home, Buy sGem, wallet, language, user). Below it the "Your games" heading on a hairline, then the poster grid (image from game public info or generated art, name only).
 FORM: Category canon (standing exit chosen by the owner), position: canon. seed:f6d39a61263aa7e0
-Signature interaction: banner rotator with thumbnail selector, cross-fade of key art and title, auto-advance paused on hover/focus and off under reduced motion.
 FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, DESIGN.md, and every shipping raster carrying its provenance

@@ -73,7 +73,7 @@
     "typographyMeta": {
       "display": {
         "displayName": "Display",
-        "purpose": "Game title in the home banner."
+        "purpose": "Empty-library title."
       },
       "headline": {
         "displayName": "Headline",
@@ -104,23 +104,7 @@
         "purpose": "Sign-in card and floating panels."
       }
     ],
-    "motion": [
-      {
-        "name": "hero-in",
-        "value": "600ms cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Banner title and stats entering on slide change."
-      },
-      {
-        "name": "hero-crossfade",
-        "value": "700ms ease-out",
-        "purpose": "Key-art cross-fade between banner slides."
-      },
-      {
-        "name": "hero-interval",
-        "value": "8000ms linear",
-        "purpose": "Auto-advance and the active thumbnail's progress bar."
-      }
-    ],
+    "motion": [],
     "breakpoints": [
       {
         "name": "sm",
@@ -179,10 +163,10 @@
   ],
   "narrative": {
     "northStar": "The Crystal Publisher",
-    "overview": "Sai Play is the category-standard game publisher portal, played straight: a full-bleed key-art banner for the player's latest game, a rotator across recent games, and a poster wall for the whole library. Its colour and material come from the pixel-art crystal \"S\" logo: a night-navy ground taken from the logo's outline, crystal azure for action, logo indigo for large brand fields, and mint for the glints on the logo's bevels.\n\nEvery game is shown with key art. Until real art exists, art is a generated pixel-crystal mosaic seeded by the game id (`lib/game-art.ts`, `components/games/game-cover-art.tsx`), so each game keeps one identity across banner, thumbnail and poster. Type is a heavy condensed display set in uppercase for anything a publisher would put on a box or banner, with a humanist sans for reading text. Corners are tight, borders are hairlines, and depth comes from art plus a bottom-up shade, not glow.",
+    "overview": "Sai Play is the category-standard game publisher portal, played straight: the home page is a poster wall of the player's game library. Its colour and material come from the pixel-art crystal \"S\" logo: a night-navy ground taken from the logo's outline, crystal azure for action, logo indigo for large brand fields, and mint for the glints on the logo's bevels.\n\nEvery game is shown with key art: the image set in the Studio's Game Public Info, or otherwise a generated pixel-crystal mosaic seeded by the game id (`lib/game-art.ts`, `components/games/game-cover-art.tsx`), so each game keeps one identity wherever it appears. Type is a heavy condensed display set in uppercase for anything a publisher would put on a box or banner, with a humanist sans for reading text. Corners are tight, borders are hairlines, and depth comes from art plus a bottom-up shade, not glow.",
     "keyCharacteristics": [
       "Dark night-navy ground, chosen for players at home in the evening, matching the logo's outline.",
-      "Key art first: banner, thumbnails and posters all carry the game's art edge to edge.",
+      "Key art first: posters carry the game's art edge to edge.",
       "Condensed uppercase display type for titles, buttons and navigation.",
       "Level numbers in mint; all other numbers in frost white, tabular.",
       "Tight radii (2-4px), 1px hairlines, a single 3px azure bar for \"active\"."
@@ -215,7 +199,7 @@
       }
     ],
     "dos": [
-      "**Do** give every game key art; use `GameCoverArt` with the game id as seed until real art exists.",
+      "**Do** give every game key art: its `image_url`, falling back to `GameCoverArt` seeded by the game id.",
       "**Do** keep sGem on the shared `SgemIcon`.",
       "**Do** keep numbers tabular, with level values in mint."
     ],

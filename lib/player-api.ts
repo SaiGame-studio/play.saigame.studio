@@ -5,6 +5,8 @@ import { api } from "@/lib/api-client";
 export interface PlayedGame {
   game_id: string;
   game_name: string;
+  /** Game image from the Studio's game public info; null when none is set. */
+  image_url: string | null;
   level: number;
   experience: number;
   is_banned: boolean;

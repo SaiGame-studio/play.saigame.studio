@@ -84,10 +84,7 @@
     "emptyBody": "Các game bạn chơi bằng tài khoản này sẽ hiện ở đây.",
     "loadMore": "Tải thêm",
     "loadFailed": "Không tải được danh sách game.",
-    "retry": "Thử lại",
-    "playingSince": "Chơi từ {date}",
-    "heroLabel": "Game chơi gần đây",
-    "heroSelect": "Xem {name}"
+    "retry": "Thử lại"
   },
   "sgem": {
     "balance": "Số dư sGem",

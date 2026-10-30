@@ -89,13 +89,13 @@ components:
 
 **Creative North Star: "The Crystal Publisher"**
 
-Sai Play is the category-standard game publisher portal, played straight: a full-bleed key-art banner for the player's latest game, a rotator across recent games, and a poster wall for the whole library. Its colour and material come from the pixel-art crystal "S" logo: a night-navy ground taken from the logo's outline, crystal azure for action, logo indigo for large brand fields, and mint for the glints on the logo's bevels.
+Sai Play is the category-standard game publisher portal, played straight: the home page is a poster wall of the player's game library. Its colour and material come from the pixel-art crystal "S" logo: a night-navy ground taken from the logo's outline, crystal azure for action, logo indigo for large brand fields, and mint for the glints on the logo's bevels.
 
-Every game is shown with key art. Until real art exists, art is a generated pixel-crystal mosaic seeded by the game id (`lib/game-art.ts`, `components/games/game-cover-art.tsx`), so each game keeps one identity across banner, thumbnail and poster. Type is a heavy condensed display set in uppercase for anything a publisher would put on a box or banner, with a humanist sans for reading text. Corners are tight, borders are hairlines, and depth comes from art plus a bottom-up shade, not glow.
+Every game is shown with key art: the image set in the Studio's Game Public Info, or otherwise a generated pixel-crystal mosaic seeded by the game id (`lib/game-art.ts`, `components/games/game-cover-art.tsx`), so each game keeps one identity wherever it appears. Type is a heavy condensed display set in uppercase for anything a publisher would put on a box or banner, with a humanist sans for reading text. Corners are tight, borders are hairlines, and depth comes from art plus a bottom-up shade, not glow.
 
 **Key Characteristics:**
 - Dark night-navy ground, chosen for players at home in the evening, matching the logo's outline.
-- Key art first: banner, thumbnails and posters all carry the game's art edge to edge.
+- Key art first: posters carry the game's art edge to edge.
 - Condensed uppercase display type for titles, buttons and navigation.
 - Level numbers in mint; all other numbers in frost white, tabular.
 - Tight radii (2-4px), 1px hairlines, a single 3px azure bar for "active".
@@ -105,7 +105,7 @@ Every game is shown with key art. Until real art exists, art is a generated pixe
 A cold, logo-derived palette: navy surfaces, one azure action colour, mint and indigo as the logo's secondary voices.
 
 ### Primary
-- **Crystal Azure**: the action colour. Primary buttons, the active navigation bar, the active thumbnail border and its progress bar, focus rings, text selection tint.
+- **Crystal Azure**: the action colour. Primary buttons, the active navigation bar, focus rings, text selection tint.
 
 ### Secondary
 - **Logo Indigo**: large brand fields, such as the account avatar tile. Never used for text.
@@ -132,7 +132,7 @@ A cold, logo-derived palette: navy surfaces, one azure action colour, mint and i
 **Character:** A tall, compressed poster face for the publisher voice over a clear Vietnamese-first humanist sans for reading. Japanese text falls back to the system face.
 
 ### Hierarchy
-- **Display** (800, 3rem mobile to 4.5rem desktop, 0.88): the game title in the home banner, uppercase, balanced.
+- **Display** (800, 3rem mobile to 3.75rem desktop, 0.9): the empty-library title, uppercase.
 - **Headline** (800, 2.25-3rem, 1): page titles ("Your games", "Buy sGem", sign-in titles), uppercase.
 - **Title** (700, 1.5rem, 0.95): poster titles, uppercase, two-line clamp.
 - **Stat** (700, 1.5-2.25rem, 1, tabular): level and XP values.
@@ -145,7 +145,7 @@ A cold, logo-derived palette: navy surfaces, one azure action colour, mint and i
 
 ## Layout
 
-Content sits in a centred 72rem (1152px) container with 16px side gutters. Key art breaks out of the container and runs full-bleed; text on art stays aligned to the container. The home banner is min(74vh, 640px) tall with a 460px floor. The poster grid is 2 columns on phones, 3 from 640px, 4 from 1024px, with 12-16px gaps. Sections open with the heading on a hairline rule, 48-64px below the previous section.
+Content sits in a centred 72rem (1152px) container with 16px side gutters. Key art breaks out of the container and runs full-bleed; text on art stays aligned to the container. The poster grid is 2 columns on phones, 3 from 640px, 4 from 1024px, with 12-16px gaps. Sections open with the heading on a hairline rule, 48-64px below the previous section.
 
 ## Elevation & Depth
 
@@ -156,26 +156,19 @@ Flat, tonal layering. Depth comes from key art under a bottom-up navy shade (and
 
 ## Shapes
 
-Tight, near-square corners: 2px for badges and thumbnails, 4px for buttons, cards, panels and dialogs. 1px hairline borders. The active state is a 3px azure bar (under navigation items, on top of thumbnails). Generated art is pixel-grid, rendered with crisp edges; the logo is rendered pixelated.
+Tight, near-square corners: 2px for badges, 4px for buttons, cards, panels and dialogs. 1px hairline borders. The active state is a 3px azure bar under navigation items. Generated art is pixel-grid, rendered with crisp edges; the logo is rendered pixelated.
 
 ## Components
 
 ### Buttons
 - **Shape:** gently squared (4px).
-- **Primary:** crystal azure fill, navy ink, condensed uppercase label with 0.06em tracking; 44px tall, 48px for the large banner action.
+- **Primary:** crystal azure fill, navy ink, condensed uppercase label with 0.06em tracking; 44px tall (48px large size).
 - **Hover / Focus:** brightness lift on hover, 1px press on active, 2px azure focus ring offset from the navy ground.
 - **Outline:** console-card fill with a faint frost border; border and text turn azure on hover.
 
 ### Game Poster
 - **Shape:** 3:4 portrait, 4px corners, hairline border.
-- **Content:** key art full-bleed, bottom-up shade, title (2-line clamp), level (mint) and XP, then last played under a hairline.
-- **Banned:** art desaturated and dimmed, red Banned badge top-left.
-
-### Home Banner (signature)
-- Full-bleed key art for the most recently played games (up to five), cross-fading between slides with a slow settle-in zoom.
-- Title, level/XP and dates bottom-left; primary action Buy sGem.
-- Thumbnail picker bottom-right on tablet/desktop with a 3px progress bar on the active thumb; segment bars on phones.
-- Auto-advance every 8s, paused on hover or focus, off under reduced motion.
+- **Content:** the game's image from the Studio's Game Public Info (`image_url`), or generated key art when none is set or it fails to load; bottom-up shade; the game name only (2-line clamp).
 
 ### Navigation
 - Solid navy header, 64px, hairline bottom border.
@@ -184,7 +177,7 @@ Tight, near-square corners: 2px for badges and thumbnails, 4px for buttons, card
 ## Do's and Don'ts
 
 ### Do:
-- **Do** give every game key art; use `GameCoverArt` with the game id as seed until real art exists.
+- **Do** give every game key art: its `image_url`, falling back to `GameCoverArt` seeded by the game id.
 - **Do** keep sGem on the shared `SgemIcon`.
 - **Do** keep numbers tabular, with level values in mint.
 

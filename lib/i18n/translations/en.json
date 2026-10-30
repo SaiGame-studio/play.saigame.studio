@@ -84,10 +84,7 @@
     "emptyBody": "Games you play with this account will show up here.",
     "loadMore": "Load more",
     "loadFailed": "Could not load your games.",
-    "retry": "Try again",
-    "playingSince": "Playing since {date}",
-    "heroLabel": "Recently played games",
-    "heroSelect": "Show {name}"
+    "retry": "Try again"
   },
   "sgem": {
     "balance": "sGem balance",

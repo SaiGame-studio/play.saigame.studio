@@ -1,8 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
 import { GameCoverArt } from "@/components/games/game-cover-art";
-import { GamesHero } from "@/components/games/games-hero";
 import { PlayedGameCard } from "@/components/games/played-game-card";
 import { usePlayedGames } from "@/components/games/use-played-games";
 import { Button } from "@/components/ui/button";
@@ -10,24 +8,16 @@ import { FormAlert } from "@/components/ui/form-alert";
 import { useAuth } from "@/contexts/auth-context";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-const HERO_GAME_COUNT = 5;
-
-/** Home: banner of the most recently played games, then the player's full library as posters. */
+/** Home: the player's game library as posters. */
 export function PlayedGames() {
   const { user } = useAuth();
   const { t } = useTranslation();
   const { games, hasMore, isLoading, isLoadingMore, error, loadMore, retry } = usePlayedGames();
   const name = user?.display_name || user?.username || "";
 
-  const recentGames = useMemo(
-    () => [...games].sort((a, b) => b.last_played_at - a.last_played_at).slice(0, HERO_GAME_COUNT),
-    [games],
-  );
-
   if (isLoading) {
     return (
       <div id="played-games-loading" role="status" aria-label={t("common.loading")} className="played-games-loading">
-        <div id="played-games-loading-hero" className="played-games-loading-hero h-[min(74vh,640px)] min-h-[460px] animate-pulse border-b border-border bg-card" />
         <div id="played-games-loading-grid" className="played-games-loading-grid mx-auto grid max-w-6xl grid-cols-2 gap-4 px-4 py-12 sm:grid-cols-3 lg:grid-cols-4">
           {Array.from({ length: 4 }, (_, index) => (
             <div id={`played-games-loading-card-${index}`} key={index} className="played-games-loading-card aspect-[3/4] animate-pulse rounded-md bg-card" />
@@ -71,8 +61,6 @@ export function PlayedGames() {
 
   return (
     <div id="played-games" className="played-games flex flex-1 flex-col">
-      <GamesHero games={recentGames} />
-
       <section id="played-games-library" aria-labelledby="played-games-title" className="played-games-library mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:pt-16">
         <header id="played-games-header" className="played-games-header mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-border pb-4">
           <h1 id="played-games-title" className="played-games-title font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
