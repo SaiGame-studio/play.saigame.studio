@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Be_Vietnam_Pro, Chakra_Petch } from "next/font/google";
+import { Barlow_Condensed, Be_Vietnam_Pro } from "next/font/google";
 import { Providers } from "@/components/providers";
 import { SessionGate } from "@/components/session-gate";
 import { SITE_NAME } from "@/lib/site-config";
 import "./globals.css";
 
-const display = Chakra_Petch({
+const display = Barlow_Condensed({
   subsets: ["latin", "vietnamese"],
-  weight: ["500", "600", "700"],
+  weight: ["500", "600", "700", "800"],
   variable: "--font-display",
 });
 

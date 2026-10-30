@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { Loader2 } from "lucide-react";
+import { AppFooter } from "@/components/app-footer";
 import { AppHeader } from "@/components/app-header";
 import { useAuth } from "@/contexts/auth-context";
 import { GUEST_ONLY_PATHS } from "@/lib/auth-redirect";
@@ -18,7 +19,7 @@ export function SessionGate({ children }: { children: ReactNode }) {
 
   if (isLoading || waitingForRedirect) {
     return (
-      <div id="session-gate-loading" className="flex min-h-dvh items-center justify-center gap-3 text-muted-foreground">
+      <div id="session-gate-loading" className="session-gate-loading flex min-h-dvh items-center justify-center gap-3 text-muted-foreground">
         <Loader2 id="session-gate-loading-icon" className="size-5 animate-spin text-primary" aria-hidden />
         <span id="session-gate-loading-text">{t("common.loading")}</span>
       </div>
@@ -26,11 +27,12 @@ export function SessionGate({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div id="app-shell" className="flex min-h-dvh flex-col">
+    <div id="app-shell" className="app-shell flex min-h-dvh flex-col">
       <AppHeader />
-      <main id="app-main" className="flex flex-1 flex-col">
+      <main id="app-main" className="app-main flex flex-1 flex-col">
         {children}
       </main>
+      <AppFooter />
     </div>
   );
 }

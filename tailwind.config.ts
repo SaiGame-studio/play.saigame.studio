@@ -12,6 +12,7 @@ const config: Config = {
         muted: { DEFAULT: "hsl(var(--muted))", foreground: "hsl(var(--muted-foreground))" },
         primary: { DEFAULT: "hsl(var(--primary))", foreground: "hsl(var(--primary-foreground))" },
         accent: "hsl(var(--accent))",
+        indigo: "hsl(var(--indigo))",
         destructive: "hsl(var(--destructive))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

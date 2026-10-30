@@ -11,15 +11,15 @@ export function AppHeader() {
   const { user } = useAuth();
 
   return (
-    <header id="app-header" className="sticky top-0 z-20 border-b border-border/60 bg-background/70 backdrop-blur">
-      <div id="app-header-inner" className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-3 px-4">
-        <div id="app-header-start" className="app-header-start flex items-center gap-4 md:gap-6">
+    <header id="app-header" className="app-header sticky top-0 z-20 border-b border-border bg-background">
+      <div id="app-header-inner" className="app-header-inner mx-auto flex h-16 max-w-6xl items-stretch justify-between gap-3 px-4">
+        <div id="app-header-start" className="app-header-start flex items-stretch gap-4 md:gap-8">
           <BrandMark id="app-header-brand" />
           {user && <MainNav />}
         </div>
-        <nav id="app-header-nav" className="flex items-center gap-2">
+        <nav id="app-header-nav" className="app-header-nav flex items-center gap-2">
           {user && <SgemBalance />}
-          <div id="app-header-language" className="hidden sm:block">
+          <div id="app-header-language" className="app-header-language hidden sm:block">
             <LanguageSelector />
           </div>
           <UserMenu />

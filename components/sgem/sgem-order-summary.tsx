@@ -23,7 +23,7 @@ export function SgemOrderSummary({ pkg, method, isCheckingOut, error, onCheckout
 
   return (
     <div id="sgem-order" className="space-y-3">
-      <div id="sgem-order-card" className="space-y-4 rounded-2xl border border-border bg-card/70 p-5">
+      <div id="sgem-order-card" className="space-y-4 rounded-md border border-border bg-card/70 p-5">
         <div id="sgem-order-package" className="space-y-1">
           <p id="sgem-order-package-label" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
             {t("sgem.packages")}

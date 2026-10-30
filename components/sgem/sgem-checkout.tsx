@@ -109,7 +109,7 @@ export function SgemCheckout() {
       )}
 
       {intent?.payUrl ? (
-        <div id="sgem-checkout-redirect" className="space-y-4 rounded-2xl border border-border bg-card/70 p-6 text-center">
+        <div id="sgem-checkout-redirect" className="space-y-4 rounded-md border border-border bg-card/70 p-6 text-center">
           <p id="sgem-checkout-redirect-title" className="font-semibold">
             {t("checkout.redirectTitle")}
           </p>
@@ -125,7 +125,7 @@ export function SgemCheckout() {
         intent && (
           <>
             {intent.qrCodeData && (
-              <div id="sgem-checkout-qr" className="rounded-2xl border border-border bg-card/70 p-5 text-center">
+              <div id="sgem-checkout-qr" className="rounded-md border border-border bg-card/70 p-5 text-center">
                 <p id="sgem-checkout-qr-title" className="mb-3 font-semibold">
                   {t("checkout.scanQr")}
                 </p>
@@ -133,7 +133,7 @@ export function SgemCheckout() {
                 <img id="sgem-checkout-qr-image" src={intent.qrCodeData} alt="VietQR" className="mx-auto size-64 rounded-lg bg-white p-2" />
               </div>
             )}
-            <div id="sgem-checkout-details" className="space-y-3 rounded-2xl border border-border bg-card/70 p-4">
+            <div id="sgem-checkout-details" className="space-y-3 rounded-md border border-border bg-card/70 p-4">
               <div id="sgem-checkout-note" className="flex items-center justify-between gap-2">
                 <div id="sgem-checkout-note-info">
                   <p id="sgem-checkout-note-label" className="text-xs text-muted-foreground">

@@ -19,7 +19,8 @@
     "signOutConfirmBody": "この端末の Sai Play と Sai Server の両方からログアウトします。",
     "myGames": "マイゲーム",
     "home": "ホーム",
-    "main": "メインメニュー"
+    "main": "メインメニュー",
+    "games": "マイゲーム"
   },
   "login": {
     "title": "おかえりなさい",
@@ -84,7 +85,39 @@
     "emptyBody": "このアカウントで遊んだゲームがここに表示されます。",
     "loadMore": "さらに読み込む",
     "loadFailed": "ゲームを読み込めませんでした。",
-    "retry": "再試行"
+    "retry": "再試行",
+    "searchPlaceholder": "ゲームを検索…",
+    "noMatch": "一致するゲームがありません。"
+  },
+  "gameDetail": {
+    "tabDetail": "ゲーム詳細",
+    "tabItems": "マイアイテム",
+    "loadFailed": "このゲームを読み込めませんでした。",
+    "noPublicInfo": "このゲームはまだ情報を公開していません。",
+    "releaseStatus": "リリース",
+    "status": {
+      "released": "リリース済み",
+      "coming_soon": "近日公開",
+      "to_be_announced": "後日発表"
+    },
+    "viewItems": "アイテム",
+    "viewContainers": "コンテナ",
+    "itemCount": "{count} 個のアイテム",
+    "searchItems": "アイテム名で検索…",
+    "clearSearch": "検索をクリア",
+    "itemsLoadFailed": "アイテムを読み込めませんでした。",
+    "containersLoadFailed": "コンテナを読み込めませんでした。",
+    "noItems": "このゲームにはまだアイテムがありません。",
+    "noMatchingItems": "一致するアイテムがありません。",
+    "noContainers": "このゲームにはまだコンテナがありません。",
+    "containerEmpty": "このコンテナは空です。",
+    "equipped": "装備中",
+    "colItem": "アイテム",
+    "colCategory": "カテゴリ",
+    "colRarity": "レアリティ",
+    "colQuantity": "数量",
+    "colLevel": "レベル",
+    "colAcquired": "入手日"
   },
   "sgem": {
     "balance": "sGem 残高",
@@ -148,5 +181,8 @@
     "submitSuccessDesc": "振込みが確認され次第、通知をお送りします。",
     "submitFailed": "送信に失敗しました。",
     "qrHint": "MoMo または VietQR 対応の銀行アプリでスキャンしてください。"
+  },
+  "footer": {
+    "copyright": "© {year} Sai Game"
   }
 }

@@ -29,7 +29,7 @@ export function SgemPackageGrid({ packages, selectedId, method, locale, onSelect
             aria-pressed={isSelected}
             onClick={() => onSelect(pkg)}
             className={cn(
-              "relative rounded-2xl border bg-card/70 p-5 text-left transition-all hover:border-primary/60",
+              "relative rounded-md border bg-card/70 p-5 text-left transition-all hover:border-primary/60",
               isSelected ? "border-primary ring-2 ring-primary/30" : "border-border",
             )}
           >

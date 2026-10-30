@@ -25,7 +25,7 @@ export function SgemMethodList({ methods, selectedId, onToggle }: SgemMethodList
             aria-pressed={isSelected}
             onClick={() => onToggle(method)}
             className={cn(
-              "flex items-center gap-3 rounded-xl border bg-card/70 p-3 text-left transition-all hover:border-primary/60 sm:p-4",
+              "flex items-center gap-3 rounded-md border bg-card/70 p-3 text-left transition-all hover:border-primary/60 sm:p-4",
               isSelected ? "border-primary ring-1 ring-primary/50" : "border-border",
             )}
           >
