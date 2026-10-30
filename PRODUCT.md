@@ -17,12 +17,12 @@ One Sai Game account across Sai Game titles: the portal is the player's personal
 
 ## Operating Context
 - Signed-in only: an SSO session shared with Sai Server via the `ss_rt_{APP_ENV}` HttpOnly cookie; guests see login, register and forgot-password.
-- Routes: `/` (Your games), `/account`, `/sgem` (buy sGem: packages, payment methods, order summary), `/sgem/checkout`, `/sgem/direct-transfer`, `/login`, `/register`, `/forgot-password`.
+- Routes: `/` (Your games), `/games/[gameId]` (game page: Game Detail tab with the game's public info, My Items tab with the player's items and containers; `?tab=items`, `?view=containers`), `/account`, `/sgem` (buy sGem: packages, payment methods, order summary), `/sgem/checkout`, `/sgem/direct-transfer`, `/login`, `/register`, `/forgot-password`.
 - Languages: English, Vietnamese, Japanese (`lib/i18n/translations/{en,vi,ja}.json`).
 
 ## Capabilities and Constraints
-- Player API (`GET /api/v1/player/me/games`) returns only: `game_id`, `game_name`, `level`, `experience`, `is_banned`, `first_played_at`, `last_played_at`, cursor-paginated (20 per page).
-- No game catalog, news, featured games, cover images, genres or play links exist in the API. Do not invent these concepts or their data.
+- Player API: `GET /api/v1/player/me/games` (played games: `game_id`, `game_name`, `image_url`, `level`, `experience`, `is_banned`, `first_played_at`, `last_played_at`; cursor-paginated), read-only, the caller's own data. Inventory on the game page reuses the game-client endpoints ss-unity uses: `GET /api/v1/games/{game_id}/inventory` (`after` cursor, `name` search), `GET /api/v1/games/{game_id}/containers` (offset) and `GET /api/v1/containers/{container_id}/items`; they pass the CCU middleware, so viewing counts as an active session. Reuse existing endpoints; only new endpoints go under `/api/v1/player/`. Public game info: `GET /api/v1/public/games/{game_id}/info` (set in the Studio, incl. `image_url`).
+- No game catalog, news, featured games, genres or play links exist in the API. Do not invent these concepts or their data.
 - Next.js 16 app router, React 19, Tailwind 3, lucide-react icons.
 - Repository rules in `AGENTS.md` are binding: feature-scoped kebab-case `id` + matching class on every element, sGem always shown with `<SgemIcon />`, confirmations only via `useConfirm()`, links open in the same tab, `.tsx` files ≤700 lines, UI text in all three translation files.
 

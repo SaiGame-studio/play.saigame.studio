@@ -173,6 +173,15 @@ Tight, near-square corners: 2px for badges, 4px for buttons, cards, panels and d
 ### Navigation
 - Solid navy header, 64px, hairline bottom border.
 - Items are condensed uppercase with an icon; the active item carries a 3px azure bar at the header's bottom edge, which scales in on hover. Phones show icons only.
+- A "My games" switcher sits right of Home: same nav-item styling, opens a searchable listbox (thumbnail + name) under the header; arrow keys, Enter and Escape work; picking a game opens `/games/[gameId]`.
+
+### Tabs
+- Page tabs (game page): condensed uppercase labels on a hairline with the 3px azure bar under the selected tab; selection kept in the URL.
+- Secondary view toggle (Items / Containers): a segmented control on a card ground, selected segment filled crystal azure.
+
+### Item Lists
+- Items table: hairline-divided rows on the night-navy ground, rarity as a small coloured badge, quantities tabular, levels in mint.
+- Container grid: the container's cells as dark squares, items placed at their grid position spanning their size, tinted by rarity with initials and quantity.
 
 ## Do's and Don'ts
 

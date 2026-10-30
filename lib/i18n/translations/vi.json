@@ -19,7 +19,8 @@
     "signOutConfirmBody": "Bạn sẽ bị đăng xuất khỏi cả Sai Play và Sai Server trên thiết bị này.",
     "myGames": "Game của tôi",
     "home": "Trang chủ",
-    "main": "Menu chính"
+    "main": "Menu chính",
+    "games": "Game của tôi"
   },
   "login": {
     "title": "Chào mừng trở lại",
@@ -84,7 +85,39 @@
     "emptyBody": "Các game bạn chơi bằng tài khoản này sẽ hiện ở đây.",
     "loadMore": "Tải thêm",
     "loadFailed": "Không tải được danh sách game.",
-    "retry": "Thử lại"
+    "retry": "Thử lại",
+    "searchPlaceholder": "Tìm game của bạn…",
+    "noMatch": "Không có game nào khớp."
+  },
+  "gameDetail": {
+    "tabDetail": "Thông tin game",
+    "tabItems": "Vật phẩm của tôi",
+    "loadFailed": "Không tải được game này.",
+    "noPublicInfo": "Game này chưa công bố thông tin.",
+    "releaseStatus": "Phát hành",
+    "status": {
+      "released": "Đã phát hành",
+      "coming_soon": "Sắp ra mắt",
+      "to_be_announced": "Sẽ thông báo sau"
+    },
+    "viewItems": "Vật phẩm",
+    "viewContainers": "Túi đồ",
+    "itemCount": "{count} vật phẩm",
+    "searchItems": "Tìm vật phẩm theo tên…",
+    "clearSearch": "Xoá tìm kiếm",
+    "itemsLoadFailed": "Không tải được vật phẩm.",
+    "containersLoadFailed": "Không tải được túi đồ.",
+    "noItems": "Bạn chưa có vật phẩm nào trong game này.",
+    "noMatchingItems": "Không có vật phẩm nào khớp.",
+    "noContainers": "Bạn chưa có túi đồ nào trong game này.",
+    "containerEmpty": "Túi đồ này đang trống.",
+    "equipped": "Đang trang bị",
+    "colItem": "Vật phẩm",
+    "colCategory": "Loại",
+    "colRarity": "Độ hiếm",
+    "colQuantity": "SL",
+    "colLevel": "Cấp",
+    "colAcquired": "Nhận lúc"
   },
   "sgem": {
     "balance": "Số dư sGem",

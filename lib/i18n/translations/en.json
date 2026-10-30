@@ -19,7 +19,8 @@
     "signOutConfirmBody": "You will be signed out on this device for both Sai Play and Sai Server.",
     "myGames": "My Game",
     "home": "Home",
-    "main": "Main menu"
+    "main": "Main menu",
+    "games": "My games"
   },
   "login": {
     "title": "Welcome back, player",
@@ -84,7 +85,39 @@
     "emptyBody": "Games you play with this account will show up here.",
     "loadMore": "Load more",
     "loadFailed": "Could not load your games.",
-    "retry": "Try again"
+    "retry": "Try again",
+    "searchPlaceholder": "Search your games…",
+    "noMatch": "No games match your search."
+  },
+  "gameDetail": {
+    "tabDetail": "Game Detail",
+    "tabItems": "My Items",
+    "loadFailed": "Could not load this game.",
+    "noPublicInfo": "This game has not published any details yet.",
+    "releaseStatus": "Release",
+    "status": {
+      "released": "Released",
+      "coming_soon": "Coming soon",
+      "to_be_announced": "To be announced"
+    },
+    "viewItems": "Items",
+    "viewContainers": "Containers",
+    "itemCount": "{count} items",
+    "searchItems": "Search items by name…",
+    "clearSearch": "Clear search",
+    "itemsLoadFailed": "Could not load your items.",
+    "containersLoadFailed": "Could not load your containers.",
+    "noItems": "You have no items in this game yet.",
+    "noMatchingItems": "No items match your search.",
+    "noContainers": "You have no containers in this game yet.",
+    "containerEmpty": "This container is empty.",
+    "equipped": "Equipped",
+    "colItem": "Item",
+    "colCategory": "Category",
+    "colRarity": "Rarity",
+    "colQuantity": "Qty",
+    "colLevel": "Level",
+    "colAcquired": "Acquired"
   },
   "sgem": {
     "balance": "sGem balance",
