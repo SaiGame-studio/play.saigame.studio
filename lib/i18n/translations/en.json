@@ -93,6 +93,7 @@
     "tabDetail": "Game Detail",
     "tabItems": "My Items",
     "loadFailed": "Could not load this game.",
+    "notPublic": "This game is not available on Sai Play.",
     "noPublicInfo": "This game has not published any details yet.",
     "releaseStatus": "Release",
     "status": {

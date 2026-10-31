@@ -93,6 +93,7 @@
     "tabDetail": "ゲーム詳細",
     "tabItems": "マイアイテム",
     "loadFailed": "このゲームを読み込めませんでした。",
+    "notPublic": "このゲームは現在 Sai Play で利用できません。",
     "noPublicInfo": "このゲームはまだ情報を公開していません。",
     "releaseStatus": "リリース",
     "status": {

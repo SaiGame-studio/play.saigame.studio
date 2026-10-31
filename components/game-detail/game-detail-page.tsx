@@ -11,6 +11,7 @@ import { useGamePublicInfo } from "@/components/game-detail/use-game-public-info
 import { GameThumb } from "@/components/games/game-thumb";
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
+import { useAuth } from "@/contexts/auth-context";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
@@ -38,7 +39,8 @@ export function GameDetailPage() {
   const pathname = usePathname();
   const router = useRouter();
   const { t } = useTranslation();
-  const { info, isLoading: isInfoLoading, hasError, retry } = useGamePublicInfo(gameId);
+  const { isAuthenticated } = useAuth();
+  const { info, isLoading: isInfoLoading, hasError, isNotPublic, retry } = useGamePublicInfo(gameId);
   const { isLoading: isProfileLoading, hasGameAccess } = useGameProfile(gameId);
   const isLoading = isInfoLoading || isProfileLoading;
   const tab = parseTab(searchParams.get("tab"), hasGameAccess);
@@ -60,11 +62,13 @@ export function GameDetailPage() {
   if (hasError || !info) {
     return (
       <section id="game-detail-error" className="game-detail-error mx-auto w-full max-w-6xl space-y-4 px-4 py-16">
-        <FormAlert id="game-detail-error-alert" tone="error" message={t("gameDetail.loadFailed")} />
+        <FormAlert id="game-detail-error-alert" tone="error" message={t(isNotPublic ? "gameDetail.notPublic" : "gameDetail.loadFailed")} />
         <div id="game-detail-error-actions" className="game-detail-error-actions flex gap-3">
-          <Button id="game-detail-retry" variant="outline" size="sm" onClick={() => void retry()}>
-            {t("games.retry")}
-          </Button>
+          {!isNotPublic && (
+            <Button id="game-detail-retry" variant="outline" size="sm" onClick={() => void retry()}>
+              {t("games.retry")}
+            </Button>
+          )}
           <Link id="game-detail-error-home" href="/" className="game-detail-error-home self-center text-sm text-muted-foreground hover:text-foreground hover:underline">
             {t("common.backHome")}
           </Link>
@@ -75,10 +79,12 @@ export function GameDetailPage() {
 
   return (
     <div id="game-detail" className="game-detail mx-auto w-full max-w-6xl px-4 pb-20 pt-8 sm:pt-10">
-      <Link id="game-detail-back" href="/" className="game-detail-back inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
-        <ChevronLeft id="game-detail-back-icon" className="game-detail-back-icon size-4" aria-hidden />
-        {t("games.title")}
-      </Link>
+      {isAuthenticated && (
+        <Link id="game-detail-back" href="/" className="game-detail-back inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground">
+          <ChevronLeft id="game-detail-back-icon" className="game-detail-back-icon size-4" aria-hidden />
+          {t("games.title")}
+        </Link>
+      )}
 
       <header id="game-detail-header" className="game-detail-header mt-5 flex items-end gap-5">
         <GameThumb

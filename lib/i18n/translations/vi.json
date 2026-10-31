@@ -93,6 +93,7 @@
     "tabDetail": "Thông tin game",
     "tabItems": "Vật phẩm của tôi",
     "loadFailed": "Không tải được game này.",
+    "notPublic": "Game này hiện không khả dụng trên Sai Play.",
     "noPublicInfo": "Game này chưa công bố thông tin.",
     "releaseStatus": "Phát hành",
     "status": {
