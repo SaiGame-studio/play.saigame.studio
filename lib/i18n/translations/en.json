@@ -89,6 +89,11 @@
     "searchPlaceholder": "Search your games…",
     "noMatch": "No games match your search."
   },
+  "publicGames": {
+    "title": "Discover games",
+    "empty": "No public games yet.",
+    "loadFailed": "Could not load the games."
+  },
   "gameDetail": {
     "tabDetail": "Game Detail",
     "tabItems": "My Items",

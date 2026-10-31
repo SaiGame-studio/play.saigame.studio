@@ -89,6 +89,11 @@
     "searchPlaceholder": "ゲームを検索…",
     "noMatch": "一致するゲームがありません。"
   },
+  "publicGames": {
+    "title": "ゲームを探す",
+    "empty": "公開中のゲームはまだありません。",
+    "loadFailed": "ゲームを読み込めませんでした。"
+  },
   "gameDetail": {
     "tabDetail": "ゲーム詳細",
     "tabItems": "マイアイテム",

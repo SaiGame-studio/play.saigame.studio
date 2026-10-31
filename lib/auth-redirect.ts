@@ -2,11 +2,12 @@ export const RETURN_TO_PARAM = "returnTo";
 
 export const GUEST_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
 
-/** Pages anyone can open, signed in or not: a game's public info. */
+/** Pages anyone can open, signed in or not: the home page (public games) and a game's public info. */
+const PUBLIC_PATHS = ["/"];
 const PUBLIC_PATH_PREFIXES = ["/games/"];
 
 export function isPublicPath(pathname: string): boolean {
-  return PUBLIC_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
+  return PUBLIC_PATHS.includes(pathname) || PUBLIC_PATH_PREFIXES.some((prefix) => pathname.startsWith(prefix));
 }
 
 /** Only allow same-site relative paths to avoid open redirects. */

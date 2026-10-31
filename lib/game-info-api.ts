@@ -23,7 +23,29 @@ export interface GamePublicInfo {
 
 export const GAME_NOT_PUBLIC = "GAME_NOT_PUBLIC";
 
+/** One game a studio has made public (GET /api/v1/public/games). */
+export interface PublicGame {
+  game_id: string;
+  game_name: string;
+  image_url: string | null;
+  release_status: GameReleaseStatus;
+  release_at: string | null;
+  release_date_text: string | null;
+}
+
+export interface PublicGamesPage {
+  games: PublicGame[];
+  next_cursor: string | null;
+}
+
+export const PUBLIC_GAMES_PAGE_SIZE = 20;
+
 export const gameInfoApi = {
+  listPublicGames: (after?: string | null) => {
+    const params = new URLSearchParams({ limit: String(PUBLIC_GAMES_PAGE_SIZE) });
+    if (after) params.set("after", after);
+    return api.get<PublicGamesPage>(`/api/v1/public/games?${params.toString()}`, { requireAuth: false });
+  },
   getPublicInfo: (gameId: string) =>
     api.get<GamePublicInfo>(`/api/v1/public/games/${encodeURIComponent(gameId)}/info`, { requireAuth: "optional" }),
 };

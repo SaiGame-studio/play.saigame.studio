@@ -89,6 +89,11 @@
     "searchPlaceholder": "Tìm game của bạn…",
     "noMatch": "Không có game nào khớp."
   },
+  "publicGames": {
+    "title": "Khám phá game",
+    "empty": "Chưa có game công khai nào.",
+    "loadFailed": "Không tải được danh sách game."
+  },
   "gameDetail": {
     "tabDetail": "Thông tin game",
     "tabItems": "Vật phẩm của tôi",
