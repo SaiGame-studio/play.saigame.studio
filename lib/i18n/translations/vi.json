@@ -117,7 +117,43 @@
     "colRarity": "Độ hiếm",
     "colQuantity": "SL",
     "colLevel": "Cấp",
-    "colAcquired": "Nhận lúc"
+    "colAcquired": "Nhận lúc",
+    "tabShops": "Cửa hàng"
+  },
+  "shops": {
+    "loadFailed": "Không tải được danh sách cửa hàng.",
+    "noShops": "Game này chưa có cửa hàng nào trên Sai Play.",
+    "itemCount": "{count} vật phẩm",
+    "endsAt": "Kết thúc {date}",
+    "allShops": "Tất cả cửa hàng",
+    "itemsLoadFailed": "Không tải được vật phẩm của cửa hàng.",
+    "noItems": "Cửa hàng hiện chưa bán vật phẩm nào.",
+    "coins": "Xu",
+    "purchasedOf": "Đã mua {count}/{limit}",
+    "restock": {
+      "daily": "làm mới mỗi ngày",
+      "weekly": "làm mới mỗi tuần",
+      "monthly": "làm mới mỗi tháng"
+    },
+    "quantity": "Số lượng",
+    "decrease": "Giảm số lượng",
+    "increase": "Tăng số lượng",
+    "buy": "Mua",
+    "buying": "Đang mua…",
+    "limitReached": "Đã đạt giới hạn",
+    "confirmTitle": "Mua {name}?",
+    "confirmBody": "{quantity} × {name} với giá",
+    "boughtToMailbox": "Đã mua {name}. Vật phẩm đã được gửi vào hộp thư trong game.",
+    "boughtToInventory": "Đã mua {name}. Vật phẩm đã được thêm vào kho đồ.",
+    "errors": {
+      "insufficientSgem": "Bạn không đủ sGem để mua.",
+      "insufficientFunds": "Bạn không đủ tiền tệ để mua.",
+      "shopUnavailable": "Cửa hàng này đã đóng.",
+      "itemUnavailable": "Vật phẩm này không còn được bán.",
+      "outOfStock": "Vật phẩm này đã bán hết.",
+      "limitReached": "Bạn đã đạt giới hạn mua cho vật phẩm này.",
+      "purchaseFailed": "Không thể hoàn tất giao dịch. Vui lòng thử lại."
+    }
   },
   "sgem": {
     "balance": "Số dư sGem",

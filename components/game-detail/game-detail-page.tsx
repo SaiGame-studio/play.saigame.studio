@@ -5,6 +5,7 @@ import { useParams, usePathname, useRouter, useSearchParams } from "next/navigat
 import { ChevronLeft, Loader2 } from "lucide-react";
 import { GameInfoTab } from "@/components/game-detail/game-info-tab";
 import { MyItemsTab } from "@/components/game-detail/my-items-tab";
+import { ShopsTab } from "@/components/game-detail/shops-tab";
 import { useGamePublicInfo } from "@/components/game-detail/use-game-public-info";
 import { GameThumb } from "@/components/games/game-thumb";
 import { Button } from "@/components/ui/button";
@@ -15,15 +16,16 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { key: "detail", labelKey: "gameDetail.tabDetail" },
   { key: "items", labelKey: "gameDetail.tabItems" },
+  { key: "shops", labelKey: "gameDetail.tabShops" },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
 
 function parseTab(value: string | null): TabKey {
-  return value === "items" ? "items" : "detail";
+  return TABS.find((entry) => entry.key === value)?.key ?? "detail";
 }
 
-/** /games/[gameId]: the game's header and two tabs, Game Detail and My Items (tab kept in ?tab=). */
+/** /games/[gameId]: the game's header and three tabs, Game Detail, My Items and Shops (tab kept in ?tab=). */
 export function GameDetailPage() {
   const { gameId } = useParams<{ gameId: string }>();
   const searchParams = useSearchParams();
@@ -106,7 +108,7 @@ export function GameDetailPage() {
       </div>
 
       <div id={`game-detail-panel-${tab}`} role="tabpanel" aria-labelledby={`game-detail-tab-${tab}`} className="game-detail-panel pt-8">
-        {tab === "detail" ? <GameInfoTab info={info} /> : <MyItemsTab gameId={gameId} />}
+        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : <ShopsTab gameId={gameId} />}
       </div>
     </div>
   );

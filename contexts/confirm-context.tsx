@@ -8,7 +8,7 @@ export interface ConfirmOptions {
   /** Feature-scoped kebab-case id for the dialog elements, e.g. "sign-out-confirm". */
   id: string;
   title: string;
-  description?: string;
+  description?: ReactNode;
   confirmText?: string;
   cancelText?: string;
   tone?: ConfirmTone;
