@@ -18,7 +18,8 @@ export class ApiError extends Error {
 interface RequestOptions {
   method?: string;
   body?: unknown;
-  requireAuth?: boolean;
+  /** true (default): a session is required. false: never send a token. "optional": send it when signed in. */
+  requireAuth?: boolean | "optional";
 }
 
 interface ErrorBody {
@@ -43,12 +44,17 @@ export async function apiRequest<T = unknown>(endpoint: string, options: Request
     headers["Content-Type"] = "application/json";
   }
 
-  if (requireAuth) {
+  if (requireAuth === true) {
     const token = getAccessToken() ?? (await refreshSession());
     if (!token) {
       throw new ApiError("Authentication required", 401);
     }
     headers.Authorization = `Bearer ${token}`;
+  } else if (requireAuth === "optional") {
+    const token = getAccessToken();
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
   }
 
   let response: Response;
@@ -63,7 +69,7 @@ export async function apiRequest<T = unknown>(endpoint: string, options: Request
     throw new ApiError(error instanceof Error ? error.message : "Network error", 0, error);
   }
 
-  if (response.status === 401 && requireAuth && !retried) {
+  if (response.status === 401 && requireAuth === true && !retried) {
     if (await refreshSession()) {
       return apiRequest<T>(endpoint, options, true);
     }

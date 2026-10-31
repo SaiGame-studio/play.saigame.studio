@@ -4,7 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useState, type React
 import { usePathname, useRouter } from "next/navigation";
 import { authApi, type AuthResponse, type PlayUser } from "@/lib/auth-api";
 import { clearSession, refreshSession, setSession, subscribeSession } from "@/lib/auth-session";
-import { GUEST_ONLY_PATHS, getLoginUrl, getReturnToFromLocation } from "@/lib/auth-redirect";
+import { GUEST_ONLY_PATHS, getLoginUrl, getReturnToFromLocation, isPublicPath } from "@/lib/auth-redirect";
 
 interface AuthContextValue {
   user: PlayUser | null;
@@ -81,7 +81,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     const isGuestOnly = GUEST_ONLY_PATHS.includes(pathname);
-    if (!isAuthenticated && !isGuestOnly) {
+    if (!isAuthenticated && !isGuestOnly && !isPublicPath(pathname)) {
       router.replace(getLoginUrl(`${pathname}${window.location.search}`));
     } else if (isAuthenticated && isGuestOnly) {
       router.replace(getReturnToFromLocation());

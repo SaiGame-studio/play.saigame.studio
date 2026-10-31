@@ -89,10 +89,16 @@
     "searchPlaceholder": "ゲームを検索…",
     "noMatch": "一致するゲームがありません。"
   },
+  "publicGames": {
+    "title": "ゲームを探す",
+    "empty": "公開中のゲームはまだありません。",
+    "loadFailed": "ゲームを読み込めませんでした。"
+  },
   "gameDetail": {
     "tabDetail": "ゲーム詳細",
     "tabItems": "マイアイテム",
     "loadFailed": "このゲームを読み込めませんでした。",
+    "notPublic": "このゲームは現在 Sai Play で利用できません。",
     "noPublicInfo": "このゲームはまだ情報を公開していません。",
     "releaseStatus": "リリース",
     "status": {
@@ -117,7 +123,44 @@
     "colRarity": "レアリティ",
     "colQuantity": "数量",
     "colLevel": "レベル",
-    "colAcquired": "入手日"
+    "colAcquired": "入手日",
+    "tabShops": "ショップ"
+  },
+  "shops": {
+    "loadFailed": "ショップを読み込めませんでした。",
+    "noShops": "このゲームには Sai Play のショップがまだありません。",
+    "mainCurrency": "メイン通貨：",
+    "itemCount": "{count} 件のアイテム",
+    "endsAt": "{date} 終了",
+    "allShops": "すべてのショップ",
+    "itemsLoadFailed": "ショップのアイテムを読み込めませんでした。",
+    "noItems": "このショップでは現在販売中のアイテムがありません。",
+    "coins": "コイン",
+    "purchasedOf": "購入済み {count}/{limit}",
+    "restock": {
+      "daily": "毎日リセット",
+      "weekly": "毎週リセット",
+      "monthly": "毎月リセット"
+    },
+    "quantity": "数量",
+    "decrease": "数量を減らす",
+    "increase": "数量を増やす",
+    "buy": "購入",
+    "buying": "購入中…",
+    "limitReached": "上限に達しました",
+    "confirmTitle": "{name} を購入しますか？",
+    "confirmBody": "{name} × {quantity}、価格",
+    "boughtToMailbox": "{name} を購入しました。ゲーム内のメールボックスに送られました。",
+    "boughtToInventory": "{name} を購入しました。インベントリに追加されました。",
+    "errors": {
+      "insufficientSgem": "sGem が不足しています。",
+      "insufficientFunds": "通貨が不足しています。",
+      "shopUnavailable": "このショップは終了しました。",
+      "itemUnavailable": "このアイテムは販売終了しました。",
+      "outOfStock": "このアイテムは売り切れです。",
+      "limitReached": "このアイテムの購入上限に達しました。",
+      "purchaseFailed": "購入を完了できませんでした。もう一度お試しください。"
+    }
   },
   "sgem": {
     "balance": "sGem 残高",

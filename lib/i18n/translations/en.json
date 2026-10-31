@@ -89,10 +89,16 @@
     "searchPlaceholder": "Search your games…",
     "noMatch": "No games match your search."
   },
+  "publicGames": {
+    "title": "Discover games",
+    "empty": "No public games yet.",
+    "loadFailed": "Could not load the games."
+  },
   "gameDetail": {
     "tabDetail": "Game Detail",
     "tabItems": "My Items",
     "loadFailed": "Could not load this game.",
+    "notPublic": "This game is not available on Sai Play.",
     "noPublicInfo": "This game has not published any details yet.",
     "releaseStatus": "Release",
     "status": {
@@ -117,7 +123,44 @@
     "colRarity": "Rarity",
     "colQuantity": "Qty",
     "colLevel": "Level",
-    "colAcquired": "Acquired"
+    "colAcquired": "Acquired",
+    "tabShops": "Shops"
+  },
+  "shops": {
+    "loadFailed": "Could not load the shops.",
+    "noShops": "This game has no shops on Sai Play yet.",
+    "mainCurrency": "Main currency:",
+    "itemCount": "{count} items",
+    "endsAt": "Ends {date}",
+    "allShops": "All shops",
+    "itemsLoadFailed": "Could not load this shop's items.",
+    "noItems": "This shop has nothing on sale right now.",
+    "coins": "Coins",
+    "purchasedOf": "Bought {count}/{limit}",
+    "restock": {
+      "daily": "resets daily",
+      "weekly": "resets weekly",
+      "monthly": "resets monthly"
+    },
+    "quantity": "Quantity",
+    "decrease": "Decrease quantity",
+    "increase": "Increase quantity",
+    "buy": "Buy",
+    "buying": "Buying…",
+    "limitReached": "Limit reached",
+    "confirmTitle": "Buy {name}?",
+    "confirmBody": "{quantity} × {name} for",
+    "boughtToMailbox": "Purchased {name}. It has been sent to your in-game mailbox.",
+    "boughtToInventory": "Purchased {name}. It has been added to your inventory.",
+    "errors": {
+      "insufficientSgem": "You do not have enough sGem for this purchase.",
+      "insufficientFunds": "You do not have enough currency for this purchase.",
+      "shopUnavailable": "This shop is no longer open.",
+      "itemUnavailable": "This item is no longer on sale.",
+      "outOfStock": "This item is sold out.",
+      "limitReached": "You have reached the purchase limit for this item.",
+      "purchaseFailed": "The purchase could not be completed. Please try again."
+    }
   },
   "sgem": {
     "balance": "sGem balance",

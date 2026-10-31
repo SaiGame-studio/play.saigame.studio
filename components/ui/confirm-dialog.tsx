@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -12,7 +12,8 @@ export interface ConfirmDialogProps {
   id: string;
   open: boolean;
   title: string;
-  description?: string;
+  /** Plain text or inline content (e.g. an amount with the sGem icon). */
+  description?: ReactNode;
   confirmText: string;
   cancelText: string;
   tone?: ConfirmTone;
