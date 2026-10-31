@@ -17,16 +17,15 @@ type TabKey = (typeof TABS)[number]["key"];
 
 /** Home: two link tabs, My games (signed in only) and Discover games; the tab is kept in ?tab=. Guests only see Discover. */
 export function HomePage() {
-  const { user, isAuthenticated } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { t } = useTranslation();
   const searchParams = useSearchParams();
   const tab: TabKey = !isAuthenticated || searchParams.get("tab") === "discover" ? "discover" : "my-games";
-  const name = user?.display_name || user?.username || "";
 
   return (
     <div id="home" className="home flex flex-1 flex-col">
       <div id="home-header" className="home-header mx-auto w-full max-w-6xl px-4 pt-10 sm:pt-12">
-        <div id="home-tabs-row" className="home-tabs-row flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-border">
+        <div id="home-tabs-row" className="home-tabs-row border-b border-border">
           <nav id="home-tabs" aria-label={t("nav.main")} className="home-tabs flex gap-6">
             {TABS.filter(({ key }) => isAuthenticated || key === "discover").map(({ key, href, labelKey }) => {
               const active = tab === key;
@@ -48,11 +47,6 @@ export function HomePage() {
               );
             })}
           </nav>
-          {isAuthenticated && (
-            <p id="home-greeting" className="home-greeting pb-3 text-sm text-muted-foreground">
-              {t("home.greeting", { name })}
-            </p>
-          )}
         </div>
       </div>
       {tab === "my-games" ? <PlayedGames /> : <PublicGames />}
