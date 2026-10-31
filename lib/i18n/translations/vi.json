@@ -63,6 +63,7 @@
   },
   "home": {
     "greeting": "Xin chào, {name}",
+    "tabMyGames": "Game của tôi",
     "subtitle": "Bạn đã đăng nhập vào Sai Game.",
     "account": "Tài khoản",
     "username": "Tên đăng nhập",

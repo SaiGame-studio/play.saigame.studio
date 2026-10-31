@@ -63,6 +63,7 @@
   },
   "home": {
     "greeting": "こんにちは、{name} さん",
+    "tabMyGames": "マイゲーム",
     "subtitle": "Sai Game にログインしています。",
     "account": "アカウント",
     "username": "ユーザー名",

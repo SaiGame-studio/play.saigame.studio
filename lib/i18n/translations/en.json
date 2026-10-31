@@ -63,6 +63,7 @@
   },
   "home": {
     "greeting": "Hi, {name}",
+    "tabMyGames": "My games",
     "subtitle": "You're signed in to Sai Game.",
     "account": "Account",
     "username": "Username",
