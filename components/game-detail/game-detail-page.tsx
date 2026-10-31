@@ -123,7 +123,7 @@ export function GameDetailPage() {
       </div>
 
       <div id={`game-detail-panel-${tab}`} role="tabpanel" aria-labelledby={`game-detail-tab-${tab}`} className="game-detail-panel pt-8">
-        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : <ShopsTab gameId={gameId} />}
+        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : <ShopsTab gameId={gameId} mainCurrency={info.main_currency} />}
       </div>
     </div>
   );

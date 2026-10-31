@@ -129,6 +129,7 @@
   "shops": {
     "loadFailed": "ショップを読み込めませんでした。",
     "noShops": "このゲームには Sai Play のショップがまだありません。",
+    "mainCurrency": "メイン通貨：",
     "itemCount": "{count} 件のアイテム",
     "endsAt": "{date} 終了",
     "allShops": "すべてのショップ",

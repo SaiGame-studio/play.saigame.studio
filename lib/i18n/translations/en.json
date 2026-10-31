@@ -129,6 +129,7 @@
   "shops": {
     "loadFailed": "Could not load the shops.",
     "noShops": "This game has no shops on Sai Play yet.",
+    "mainCurrency": "Main currency:",
     "itemCount": "{count} items",
     "endsAt": "Ends {date}",
     "allShops": "All shops",

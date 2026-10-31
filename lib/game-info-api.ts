@@ -19,6 +19,16 @@ export interface GamePublicInfo {
   content: string | null;
   image_url: string | null;
   is_public: boolean;
+  /** The game's main currency, chosen in the Studio's Game Public Info; null when not set. */
+  main_currency: GameCurrency | null;
+}
+
+/** sGem (the platform wallet) or a currency item of the game. */
+export interface GameCurrency {
+  type: "sgem" | "item";
+  item_def_id: string | null;
+  item_code: string | null;
+  name: string;
 }
 
 export const GAME_NOT_PUBLIC = "GAME_NOT_PUBLIC";

@@ -2,14 +2,41 @@
 
 import Link from "next/link";
 import { usePathname, useSearchParams } from "next/navigation";
-import { ChevronRight, Store } from "lucide-react";
+import { ChevronRight, Coins, Store } from "lucide-react";
 import { ShopView } from "@/components/game-detail/shop-view";
+import { SgemIcon } from "@/components/sgem/sgem-icon";
 import { useGameShops } from "@/components/game-detail/use-game-shops";
 import { LoadState } from "@/components/ui/load-state";
+import type { GameCurrency } from "@/lib/game-info-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Shops tab: the game's shops shown in Sai Play; the selected shop is kept in ?shop=. */
-export function ShopsTab({ gameId }: { gameId: string }) {
+/** Shops tab: the game's main currency and its shops shown in Sai Play; the selected shop is kept in ?shop=. */
+export function ShopsTab({ gameId, mainCurrency }: { gameId: string; mainCurrency: GameCurrency | null }) {
+  return (
+    <div id="shops-tab" className="shops-tab space-y-6">
+      {mainCurrency && <MainCurrency currency={mainCurrency} />}
+      <ShopsContent gameId={gameId} />
+    </div>
+  );
+}
+
+/** Tells players which currency the game mainly uses. */
+function MainCurrency({ currency }: { currency: GameCurrency }) {
+  const { t } = useTranslation();
+  return (
+    <p id="shops-main-currency" className="shops-main-currency inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-2 text-sm">
+      {currency.type === "sgem" ? (
+        <SgemIcon id="shops-main-currency-icon" className="shops-main-currency-icon" />
+      ) : (
+        <Coins id="shops-main-currency-icon" className="shops-main-currency-icon size-4 text-primary" aria-hidden />
+      )}
+      <span id="shops-main-currency-label" className="shops-main-currency-label text-muted-foreground">{t("shops.mainCurrency")}</span>
+      <span id="shops-main-currency-name" className="shops-main-currency-name font-semibold">{currency.name}</span>
+    </p>
+  );
+}
+
+function ShopsContent({ gameId }: { gameId: string }) {
   const { t, locale } = useTranslation();
   const pathname = usePathname();
   const searchParams = useSearchParams();

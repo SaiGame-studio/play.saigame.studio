@@ -129,6 +129,7 @@
   "shops": {
     "loadFailed": "Không tải được danh sách cửa hàng.",
     "noShops": "Game này chưa có cửa hàng nào trên Sai Play.",
+    "mainCurrency": "Tiền tệ chính:",
     "itemCount": "{count} vật phẩm",
     "endsAt": "Kết thúc {date}",
     "allShops": "Tất cả cửa hàng",
