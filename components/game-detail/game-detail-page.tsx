@@ -6,6 +6,7 @@ import { ChevronLeft, Loader2 } from "lucide-react";
 import { GameInfoTab } from "@/components/game-detail/game-info-tab";
 import { MyItemsTab } from "@/components/game-detail/my-items-tab";
 import { ShopsTab } from "@/components/game-detail/shops-tab";
+import { useGameProfile } from "@/components/game-detail/use-game-profile";
 import { useGamePublicInfo } from "@/components/game-detail/use-game-public-info";
 import { GameThumb } from "@/components/games/game-thumb";
 import { Button } from "@/components/ui/button";
@@ -13,27 +14,35 @@ import { FormAlert } from "@/components/ui/form-alert";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { cn } from "@/lib/utils";
 
+/** `profileOnly` tabs call game APIs, which need the player's gamer profile in the game. */
 const TABS = [
-  { key: "detail", labelKey: "gameDetail.tabDetail" },
-  { key: "items", labelKey: "gameDetail.tabItems" },
-  { key: "shops", labelKey: "gameDetail.tabShops" },
+  { key: "detail", labelKey: "gameDetail.tabDetail", profileOnly: false },
+  { key: "items", labelKey: "gameDetail.tabItems", profileOnly: true },
+  { key: "shops", labelKey: "gameDetail.tabShops", profileOnly: true },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
 
-function parseTab(value: string | null): TabKey {
-  return TABS.find((entry) => entry.key === value)?.key ?? "detail";
+function parseTab(value: string | null, hasGameAccess: boolean): TabKey {
+  const tab = TABS.find((entry) => entry.key === value);
+  return tab && (hasGameAccess || !tab.profileOnly) ? tab.key : "detail";
 }
 
-/** /games/[gameId]: the game's header and three tabs, Game Detail, My Items and Shops (tab kept in ?tab=). */
+/**
+ * /games/[gameId]: the game's header and tabs (kept in ?tab=). My Items and Shops appear only when the
+ * player has an unbanned gamer profile in the game, so their game APIs are never called without one.
+ */
 export function GameDetailPage() {
   const { gameId } = useParams<{ gameId: string }>();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
   const { t } = useTranslation();
-  const { info, isLoading, hasError, retry } = useGamePublicInfo(gameId);
-  const tab = parseTab(searchParams.get("tab"));
+  const { info, isLoading: isInfoLoading, hasError, retry } = useGamePublicInfo(gameId);
+  const { isLoading: isProfileLoading, hasGameAccess } = useGameProfile(gameId);
+  const isLoading = isInfoLoading || isProfileLoading;
+  const tab = parseTab(searchParams.get("tab"), hasGameAccess);
+  const tabs = TABS.filter((entry) => hasGameAccess || !entry.profileOnly);
 
   const selectTab = (next: TabKey) => {
     router.replace(next === "detail" ? pathname : `${pathname}?tab=${next}`, { scroll: false });
@@ -84,7 +93,7 @@ export function GameDetailPage() {
       </header>
 
       <div id="game-detail-tabs" role="tablist" aria-label={info.game_name} className="game-detail-tabs mt-8 flex gap-1 border-b border-border">
-        {TABS.map(({ key, labelKey }) => {
+        {tabs.map(({ key, labelKey }) => {
           const selected = tab === key;
           return (
             <button

@@ -21,6 +21,16 @@ export interface PlayedGamesPage {
   next_cursor: string | null;
 }
 
+/**
+ * GET /api/v1/games/{game_id}/my-gamer-progress (the endpoint ss-unity uses).
+ * `{}` when the player has no gamer profile in the game; 403 when the profile is banned.
+ */
+export interface MyGamerProgress {
+  id?: string;
+  level?: number;
+  experience?: number;
+}
+
 /*
  * Inventory: the game-client endpoints ss-unity uses (JWT; the caller's own data).
  * They go through the backend's CCU middleware, so viewing them counts as an active session.
@@ -98,6 +108,7 @@ export const playerApi = {
     }
     return api.get<PlayedGamesPage>(`/api/v1/player/me/games?${params.toString()}`);
   },
+  getMyGamerProgress: (gameId: string) => api.get<MyGamerProgress>(`/api/v1/games/${encodeURIComponent(gameId)}/my-gamer-progress`),
   listMyGameItems: (gameId: string, options: { after?: string | null; name?: string } = {}) => {
     const params = new URLSearchParams({ limit: String(PLAYER_ITEMS_PAGE_SIZE) });
     if (options.after) {
