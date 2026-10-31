@@ -6,19 +6,13 @@ import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Home: games studios have made public on Sai Play, as posters. Shown to everyone. */
+/** Home "Discover games" tab: games studios have made public on Sai Play, as posters. Shown to everyone. */
 export function PublicGames() {
   const { t } = useTranslation();
   const { games, hasMore, isLoading, isLoadingMore, hasError, loadMore, retry } = usePublicGames();
 
   return (
-    <section id="public-games" aria-labelledby="public-games-title" className="public-games mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:pt-16">
-      <header id="public-games-header" className="public-games-header mb-8 border-b border-border pb-4">
-        <h2 id="public-games-title" className="public-games-title font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
-          {t("publicGames.title")}
-        </h2>
-      </header>
-
+    <section id="public-games" aria-labelledby="home-tab-discover" className="public-games mx-auto w-full max-w-6xl px-4 pb-20 pt-8">
       {isLoading ? (
         <div id="public-games-loading" role="status" aria-label={t("common.loading")} className="public-games-loading grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {Array.from({ length: 4 }, (_, index) => (

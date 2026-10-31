@@ -5,15 +5,12 @@ import { PlayedGameCard } from "@/components/games/played-game-card";
 import { usePlayedGames } from "@/components/games/use-played-games";
 import { Button } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
-import { useAuth } from "@/contexts/auth-context";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Home: the player's game library as posters. */
+/** Home "My games" tab: the player's game library as posters. */
 export function PlayedGames() {
-  const { user } = useAuth();
   const { t } = useTranslation();
   const { games, hasMore, isLoading, isLoadingMore, error, loadMore, retry } = usePlayedGames();
-  const name = user?.display_name || user?.username || "";
 
   if (isLoading) {
     return (
@@ -61,16 +58,7 @@ export function PlayedGames() {
 
   return (
     <div id="played-games" className="played-games flex flex-1 flex-col">
-      <section id="played-games-library" aria-labelledby="played-games-title" className="played-games-library mx-auto w-full max-w-6xl px-4 pb-20 pt-12 sm:pt-16">
-        <header id="played-games-header" className="played-games-header mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-border pb-4">
-          <h1 id="played-games-title" className="played-games-title font-display text-4xl font-extrabold uppercase leading-none sm:text-5xl">
-            {t("games.title")}
-          </h1>
-          <p id="played-games-greeting" className="played-games-greeting text-sm text-muted-foreground">
-            {t("home.greeting", { name })}
-          </p>
-        </header>
-
+      <section id="played-games-library" aria-labelledby="home-tab-my-games" className="played-games-library mx-auto w-full max-w-6xl px-4 pb-20 pt-8">
         <ul id="played-games-list" className="played-games-list grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4">
           {games.map((game) => (
             <PlayedGameCard key={game.game_id} game={game} />
