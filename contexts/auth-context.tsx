@@ -5,6 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { authApi, type AuthResponse, type PlayUser } from "@/lib/auth-api";
 import { clearSession, refreshSession, setSession, subscribeSession } from "@/lib/auth-session";
 import { GUEST_ONLY_PATHS, getLoginUrl, getReturnToFromLocation, isPublicPath } from "@/lib/auth-redirect";
+import { isSharedSessionCurrent, publishSharedSession, watchSharedSession } from "@/lib/shared-session";
 
 interface AuthContextValue {
   user: PlayUser | null;
@@ -25,7 +26,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loadUser = useCallback(async () => {
     try {
       const { user: me } = await authApi.me();
-      setUser(me);
+      if (isSharedSessionCurrent()) setUser(me);
     } catch {
       setUser(null);
     }
@@ -76,6 +77,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const isAuthenticated = user !== null;
 
+  useEffect(() => watchSharedSession(() => {
+    clearSession();
+    setUser(null);
+  }), []);
+
   useEffect(() => {
     if (isLoading) {
       return;
@@ -89,11 +95,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [isAuthenticated, isLoading, pathname, router]);
 
   const completeLogin = useCallback((response: AuthResponse) => {
+    publishSharedSession();
     setSession(response);
     setUser(response.user);
   }, []);
 
   const logout = useCallback(async () => {
+    if (!isSharedSessionCurrent()) {
+      clearSession();
+      setUser(null);
+      return;
+    }
+    publishSharedSession();
     try {
       await authApi.logout();
     } catch (error) {
