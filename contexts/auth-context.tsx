@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { authApi, type AuthResponse, type PlayUser } from "@/lib/auth-api";
 import { clearSession, refreshSession, setSession, subscribeSession } from "@/lib/auth-session";
@@ -13,6 +13,7 @@ interface AuthContextValue {
   isLoading: boolean;
   completeLogin: (response: AuthResponse) => void;
   logout: () => Promise<void>;
+  requireReauthentication: () => void;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -20,16 +21,19 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<PlayUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [requiresReauthentication, setRequiresReauthentication] = useState(false);
+  const reauthenticationRef = useRef(false);
   const router = useRouter();
   const pathname = usePathname();
 
   const loadUser = useCallback(async () => {
+    if (reauthenticationRef.current) return;
     const revision = getSharedSessionRevision();
     try {
       const { user: me } = await authApi.me();
-      if (isSharedSessionCurrent() && revision === getSharedSessionRevision()) setUser(me);
+      if (!reauthenticationRef.current && isSharedSessionCurrent() && revision === getSharedSessionRevision()) setUser(me);
     } catch {
-      if (revision === getSharedSessionRevision()) setUser(null);
+      if (!reauthenticationRef.current && revision === getSharedSessionRevision()) setUser(null);
     }
   }, []);
 
@@ -55,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(
     () =>
       subscribeSession((token) => {
-        if (!token) {
+        if (!token && !reauthenticationRef.current) {
           setUser(null);
         }
       }),
@@ -65,7 +69,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // Re-check the session when the tab regains focus.
   useEffect(() => {
     const onVisible = async () => {
-      if (document.visibilityState !== "visible") {
+      if (document.visibilityState !== "visible" || reauthenticationRef.current) {
         return;
       }
       const token = await refreshSession();
@@ -77,7 +81,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => document.removeEventListener("visibilitychange", onVisible);
   }, [loadUser]);
 
-  const isAuthenticated = user !== null;
+  const isAuthenticated = user !== null && !requiresReauthentication;
+
+  const requireReauthentication = useCallback(() => {
+    // Keep one-time recovery codes visible until the user has saved them.
+    reauthenticationRef.current = true;
+    setRequiresReauthentication(true);
+    clearSession();
+  }, []);
 
   useEffect(() => watchSharedSession(), []);
 
@@ -85,15 +96,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (isLoading) {
       return;
     }
+    if (requiresReauthentication && pathname === "/account") return;
     const isGuestOnly = GUEST_ONLY_PATHS.includes(pathname);
     if (!isAuthenticated && !isGuestOnly && !isPublicPath(pathname)) {
       router.replace(getLoginUrl(`${pathname}${window.location.search}`));
     } else if (isAuthenticated && isGuestOnly) {
       router.replace(getReturnToFromLocation());
     }
-  }, [isAuthenticated, isLoading, pathname, router]);
+  }, [isAuthenticated, isLoading, pathname, router, requiresReauthentication]);
 
   const completeLogin = useCallback((response: AuthResponse) => {
+    reauthenticationRef.current = false;
+    setRequiresReauthentication(false);
     publishSharedSession();
     setSession(response);
     setUser(response.user);
@@ -101,23 +115,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(async () => {
     if (!isSharedSessionCurrent()) {
+      reauthenticationRef.current = false;
+      setRequiresReauthentication(false);
       clearSession();
       setUser(null);
       return;
     }
     publishSharedSession(false);
     try {
-      await authApi.logout();
+      if (!reauthenticationRef.current) await authApi.logout();
     } catch (error) {
       console.warn("Logout request failed; clearing local session anyway", error);
     }
     clearSession();
+    reauthenticationRef.current = false;
+    setRequiresReauthentication(false);
     setUser(null);
     router.replace("/login");
   }, [router]);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, completeLogin, logout }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, completeLogin, logout, requireReauthentication }}>
       {children}
     </AuthContext.Provider>
   );
