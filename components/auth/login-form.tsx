@@ -11,7 +11,8 @@ import { Field } from "@/components/ui/field";
 import { FormAlert } from "@/components/ui/form-alert";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/contexts/auth-context";
-import { authApi } from "@/lib/auth-api";
+import { authApi, type TwoFactorChallenge } from "@/lib/auth-api";
+import { TwoFactorLogin } from "@/components/auth/two-factor-login";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 export function LoginForm() {
@@ -22,19 +23,26 @@ export function LoginForm() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [challenge, setChallenge] = useState<TwoFactorChallenge | null>(null);
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     setIsSubmitting(true);
     setError(null);
     try {
-      completeLogin(await authApi.login(identifier.trim(), password));
+      const result = await authApi.login(identifier.trim(), password);
+      if ("challenge_token" in result) { setChallenge(result); setPassword(""); }
+      else completeLogin(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : t("login.failed"));
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  if (challenge) return <AuthShell id="login-2fa-shell" title={t("twoFactor.title")} subtitle={t("twoFactor.loginHelp")}>
+    <TwoFactorLogin id="login-2fa" challenge={challenge} onSuccess={completeLogin} onCancel={() => setChallenge(null)} />
+  </AuthShell>;
 
   return (
     <AuthShell
