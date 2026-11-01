@@ -232,6 +232,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "Mã không hợp lệ",
     "title": "Google Authenticator",
     "loginHelp": "Nhập mã Google Authenticator hoặc chọn mã khôi phục nếu không còn điện thoại. Yêu cầu đăng nhập hết hạn sau 5 phút.",
     "code": "Mã Authenticator 6 chữ số",

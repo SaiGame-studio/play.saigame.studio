@@ -232,6 +232,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "無効なコード",
     "title": "Google Authenticator",
     "loginHelp": "Google Authenticator のコードを入力してください。端末がない場合はリカバリーコードを選択できます。この要求は5分で期限切れになります。",
     "code": "認証アプリの6桁コード",

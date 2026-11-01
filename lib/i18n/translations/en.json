@@ -232,6 +232,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "Code invalid",
     "title": "Google Authenticator",
     "loginHelp": "Enter your Google Authenticator code, or select recovery code if your phone is unavailable. This sign-in request expires after 5 minutes.",
     "code": "Six-digit Authenticator code",
