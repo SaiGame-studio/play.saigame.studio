@@ -131,7 +131,6 @@
   "shops": {
     "loadFailed": "Could not load the shops.",
     "noShops": "This game has no shops on Sai Play yet.",
-    "mainCurrency": "Main currency:",
     "itemCount": "{count} items",
     "endsAt": "Ends {date}",
     "allShops": "All shops",
@@ -149,6 +148,7 @@
     "increase": "Increase quantity",
     "buy": "Buy",
     "buying": "Buying…",
+    "insufficientFunds": "Insufficient funds",
     "limitReached": "Limit reached",
     "confirmTitle": "Buy {name}?",
     "confirmBody": "{quantity} × {name} for",
@@ -231,6 +231,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "Code invalid",
     "title": "Google Authenticator",
     "loginHelp": "Enter your Google Authenticator code, or select recovery code if your phone is unavailable. This sign-in request expires after 5 minutes.",
     "code": "Six-digit Authenticator code",

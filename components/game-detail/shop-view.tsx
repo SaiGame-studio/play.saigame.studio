@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import { ShopItemCard } from "@/components/game-detail/shop-item-card";
 import { ShopPrice } from "@/components/game-detail/shop-price";
 import { useShopItems } from "@/components/game-detail/use-shop-items";
+import { useShopBalances } from "@/components/game-detail/use-shop-balances";
 import { FormAlert } from "@/components/ui/form-alert";
 import { LoadState } from "@/components/ui/load-state";
 import { useConfirm } from "@/contexts/confirm-context";
@@ -13,6 +14,7 @@ import { ApiError } from "@/lib/api-client";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { requestWalletRefresh } from "@/lib/sgem-api";
 import { shopApi, type GameShop, type ShopListing } from "@/lib/shop-api";
+import { notifyShopPurchase, shopCurrencyKey, type ShopPurchaseSpend } from "@/lib/shop-balances";
 
 /** Purchase error message_code → translation key. */
 const PURCHASE_ERRORS: Record<string, string> = {
@@ -32,12 +34,16 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
   const { t, locale } = useTranslation();
   const confirm = useConfirm();
   const { items, isLoading, hasError, retry, refresh } = useShopItems(gameId, shop.id);
+  const { balances, refresh: refreshBalances } = useShopBalances(gameId, items);
   const [buyingId, setBuyingId] = useState<string | null>(null);
   const [notice, setNotice] = useState<Notice | null>(null);
 
   const buy = async (item: ShopListing, quantity: number) => {
+    const balance = balances[shopCurrencyKey(item)];
+    if (item.price * quantity > 0 && (balance === undefined || balance < item.price * quantity)) return;
     setNotice(null);
     let delivered: GameShop["collect_destination"] = shop.collect_destination;
+    let spend: ShopPurchaseSpend | undefined;
     try {
       const confirmed = await confirm({
         id: "shop-purchase-confirm",
@@ -53,9 +59,16 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
           setBuyingId(item.id);
           const result = await shopApi.purchase(gameId, shop.id, item.id, quantity);
           delivered = result.collect_destination ?? delivered;
+          spend = {
+            id: result.purchase_record.id,
+            gameId,
+            currencyKey: shopCurrencyKey(item),
+            amount: result.purchase_record.total_price,
+          };
         },
       });
       if (!confirmed) return;
+      if (spend) notifyShopPurchase(spend);
       setNotice({ tone: "success", message: t(delivered === "inventory" ? "shops.boughtToInventory" : "shops.boughtToMailbox", { name: item.display_name }) });
       if (item.payment_currency_type === "sgem") requestWalletRefresh();
       void refresh();
@@ -64,6 +77,7 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
       setNotice({ tone: "error", message: t((code && PURCHASE_ERRORS[code]) || "shops.errors.purchaseFailed") });
       void refresh();
     } finally {
+      await refreshBalances();
       setBuyingId(null);
     }
   };
@@ -97,7 +111,7 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
       >
         <ul id="shop-view-items-grid" className="shop-view-items-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <ShopItemCard key={item.id} item={item} isBuying={buyingId === item.id} disabled={buyingId !== null} onBuy={(next, quantity) => void buy(next, quantity)} />
+            <ShopItemCard key={item.id} item={item} balance={balances[shopCurrencyKey(item)]} isBuying={buyingId === item.id} disabled={buyingId !== null} onBuy={(next, quantity) => void buy(next, quantity)} />
           ))}
         </ul>
       </LoadState>

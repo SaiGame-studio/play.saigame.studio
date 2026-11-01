@@ -131,7 +131,6 @@
   "shops": {
     "loadFailed": "ショップを読み込めませんでした。",
     "noShops": "このゲームには Sai Play のショップがまだありません。",
-    "mainCurrency": "メイン通貨：",
     "itemCount": "{count} 件のアイテム",
     "endsAt": "{date} 終了",
     "allShops": "すべてのショップ",
@@ -149,6 +148,7 @@
     "increase": "数量を増やす",
     "buy": "購入",
     "buying": "購入中…",
+    "insufficientFunds": "残高不足",
     "limitReached": "上限に達しました",
     "confirmTitle": "{name} を購入しますか？",
     "confirmBody": "{name} × {quantity}、価格",
@@ -231,6 +231,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "無効なコード",
     "title": "Google Authenticator",
     "loginHelp": "Google Authenticator のコードを入力してください。端末がない場合はリカバリーコードを選択できます。この要求は5分で期限切れになります。",
     "code": "認証アプリの6桁コード",

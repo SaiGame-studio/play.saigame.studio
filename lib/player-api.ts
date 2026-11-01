@@ -49,6 +49,7 @@ export interface PlayerItemDefinition {
 
 export interface PlayerItem {
   id: string;
+  item_definition_id: string;
   item_container_id: string;
   grid_x: number;
   grid_y: number;

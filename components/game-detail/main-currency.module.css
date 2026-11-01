@@ -1,0 +1,20 @@
+.debit {
+  animation: currency-debit-fall 1.2s ease-in forwards;
+}
+
+@keyframes currency-debit-fall {
+  0% { opacity: 1; transform: translateY(0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(48px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .debit {
+    animation-name: currency-debit-fade;
+  }
+}
+
+@keyframes currency-debit-fade {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}

@@ -131,7 +131,6 @@
   "shops": {
     "loadFailed": "Không tải được danh sách cửa hàng.",
     "noShops": "Game này chưa có cửa hàng nào trên Sai Play.",
-    "mainCurrency": "Tiền tệ chính:",
     "itemCount": "{count} vật phẩm",
     "endsAt": "Kết thúc {date}",
     "allShops": "Tất cả cửa hàng",
@@ -149,6 +148,7 @@
     "increase": "Tăng số lượng",
     "buy": "Mua",
     "buying": "Đang mua…",
+    "insufficientFunds": "Không đủ tiền",
     "limitReached": "Đã đạt giới hạn",
     "confirmTitle": "Mua {name}?",
     "confirmBody": "{quantity} × {name} với giá",
@@ -231,6 +231,7 @@
     "copyright": "© {year} Sai Game"
   },
   "twoFactor": {
+    "loginInvalidCode": "Mã không hợp lệ",
     "title": "Google Authenticator",
     "loginHelp": "Nhập mã Google Authenticator hoặc chọn mã khôi phục nếu không còn điện thoại. Yêu cầu đăng nhập hết hạn sau 5 phút.",
     "code": "Mã Authenticator 6 chữ số",

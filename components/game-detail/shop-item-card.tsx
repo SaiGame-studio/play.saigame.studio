@@ -13,11 +13,12 @@ interface ShopItemCardProps {
   item: ShopListing;
   isBuying: boolean;
   disabled: boolean;
+  balance?: number;
   onBuy: (item: ShopListing, quantity: number) => void;
 }
 
 /** One item on sale: name, price, the player's purchase limit, quantity and Buy. */
-export function ShopItemCard({ item, isBuying, disabled, onBuy }: ShopItemCardProps) {
+export function ShopItemCard({ item, isBuying, disabled, balance, onBuy }: ShopItemCardProps) {
   const { t } = useTranslation();
   const [quantity, setQuantity] = useState(1);
   const id = `shop-item-${item.id}`;
@@ -25,6 +26,8 @@ export function ShopItemCard({ item, isBuying, disabled, onBuy }: ShopItemCardPr
   const maxQuantity = remaining === null ? MAX_QUANTITY : Math.min(MAX_QUANTITY, remaining);
   const soldOut = remaining === 0;
   const safeQuantity = Math.min(Math.max(1, quantity), Math.max(1, maxQuantity));
+  const totalPrice = item.price * safeQuantity;
+  const insufficientFunds = balance !== undefined && balance < totalPrice;
 
   return (
     <li id={id} className="shop-item flex flex-col rounded-md border border-border bg-card p-4">
@@ -73,10 +76,10 @@ export function ShopItemCard({ item, isBuying, disabled, onBuy }: ShopItemCardPr
           id={`${id}-buy`}
           size="sm"
           className="shop-item-buy flex-1"
-          disabled={disabled || soldOut}
+          disabled={disabled || soldOut || insufficientFunds || (totalPrice > 0 && balance === undefined)}
           onClick={() => onBuy(item, safeQuantity)}
         >
-          {soldOut ? t("shops.limitReached") : isBuying ? t("shops.buying") : t("shops.buy")}
+          {soldOut ? t("shops.limitReached") : isBuying ? t("shops.buying") : insufficientFunds ? t("shops.insufficientFunds") : t("shops.buy")}
         </Button>
       </div>
     </li>
