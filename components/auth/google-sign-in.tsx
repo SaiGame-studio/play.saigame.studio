@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { useAuth } from "@/contexts/auth-context";
-import { authApi } from "@/lib/auth-api";
+import { authApi, type TwoFactorChallenge } from "@/lib/auth-api";
+import { TwoFactorLogin } from "@/components/auth/two-factor-login";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 interface GoogleSignInProps {
@@ -17,6 +18,7 @@ export function GoogleSignIn({ id, text, onError }: GoogleSignInProps) {
   const { t } = useTranslation();
   const containerRef = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(320);
+  const [challenge, setChallenge] = useState<TwoFactorChallenge | null>(null);
 
   useEffect(() => {
     const element = containerRef.current;
@@ -34,11 +36,15 @@ export function GoogleSignIn({ id, text, onError }: GoogleSignInProps) {
       return;
     }
     try {
-      completeLogin(await authApi.googleLogin(credential.credential));
+      const result = await authApi.googleLogin(credential.credential);
+      if ("challenge_token" in result) setChallenge(result);
+      else completeLogin(result);
     } catch (error) {
       onError(error instanceof Error ? error.message : t("login.googleFailed"));
     }
   };
+
+  if (challenge) return <TwoFactorLogin id={`${id}-2fa`} challenge={challenge} onSuccess={completeLogin} onCancel={() => setChallenge(null)} />;
 
   return (
     <div id={id} ref={containerRef} className="flex w-full justify-center">

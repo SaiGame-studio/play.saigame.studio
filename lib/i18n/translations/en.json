@@ -228,5 +228,16 @@
   },
   "footer": {
     "copyright": "© {year} Sai Game"
-  }
+  },
+  "twoFactor": {
+    "title": "Google Authenticator",
+    "loginHelp": "Enter your Google Authenticator code, or select recovery code if your phone is unavailable. This sign-in request expires after 5 minutes.",
+    "code": "Six-digit Authenticator code",
+    "failed": "Unable to complete Authenticator verification. Please try again.",
+    "verify": "Verify",
+    "back": "Back to sign in",
+    "recoveryCode": "Recovery code",
+    "useRecovery": "Lost your phone? Use a recovery code",
+    "useAuthenticator": "Use Google Authenticator"
+}
 }

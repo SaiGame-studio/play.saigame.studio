@@ -228,5 +228,16 @@
   },
   "footer": {
     "copyright": "© {year} Sai Game"
-  }
+  },
+  "twoFactor": {
+    "title": "Google Authenticator",
+    "loginHelp": "Nhập mã Google Authenticator hoặc chọn mã khôi phục nếu không còn điện thoại. Yêu cầu đăng nhập hết hạn sau 5 phút.",
+    "code": "Mã Authenticator 6 chữ số",
+    "failed": "Không thể xác thực Authenticator. Vui lòng thử lại.",
+    "verify": "Xác thực",
+    "back": "Quay lại đăng nhập",
+    "recoveryCode": "Mã khôi phục",
+    "useRecovery": "Mất điện thoại? Dùng mã khôi phục",
+    "useAuthenticator": "Dùng Google Authenticator"
+}
 }
