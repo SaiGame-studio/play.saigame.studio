@@ -1,11 +1,10 @@
 import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
-import { readStorage, writeStorage } from "@/lib/safe-storage";
-import { hasNewerLocalSession, isSharedSessionCurrent } from "@/lib/shared-session";
+import { writeStorage } from "@/lib/safe-storage";
+import { isSharedSessionCurrent, isSharedSessionSignedOut } from "@/lib/shared-session";
 
 /**
- * Access token lives in memory only. The refresh token from the login response is kept
- * in localStorage and sent in the body of POST /auth/refresh. Without a stored refresh
- * token the API is never called, because the request could only fail.
+ * Access tokens live in memory. Both web apps restore the same account using the
+ * shared HttpOnly refresh cookie; refresh tokens are never stored by JavaScript.
  */
 
 export interface AuthTokens {
@@ -25,6 +24,7 @@ let accessToken: string | null = null;
 let expiresAt = 0;
 let refreshTimer: ReturnType<typeof setTimeout> | null = null;
 let inflightRefresh: Promise<string | null> | null = null;
+let sessionVersion = 0;
 const listeners = new Set<Listener>();
 
 function decodeExpiry(token: string): number | null {
@@ -55,10 +55,9 @@ function scheduleRefresh() {
 }
 
 export function setSession(tokens: AuthTokens) {
+  sessionVersion++;
   accessToken = tokens.access_token;
-  if (tokens.refresh_token) {
-    writeStorage(REFRESH_TOKEN_KEY, tokens.refresh_token);
-  }
+  writeStorage(REFRESH_TOKEN_KEY, null);
   expiresAt =
     decodeExpiry(tokens.access_token) ??
     Date.now() + (tokens.expires_in ?? 900) * 1000;
@@ -67,8 +66,9 @@ export function setSession(tokens: AuthTokens) {
 }
 
 export function clearSession() {
+  sessionVersion++;
   accessToken = null;
-  if (!hasNewerLocalSession()) writeStorage(REFRESH_TOKEN_KEY, null);
+  writeStorage(REFRESH_TOKEN_KEY, null);
   expiresAt = 0;
   if (refreshTimer) {
     clearTimeout(refreshTimer);
@@ -96,25 +96,18 @@ export function subscribeSession(listener: Listener): () => void {
 }
 
 /**
- * Exchanges the stored refresh token for a fresh access token.
- * Returns null without calling the API when no refresh token is stored, and null when
- * the session is no longer valid; network errors keep the current state.
+ * Exchanges the shared HttpOnly refresh cookie for this app's access token.
+ * Network and server errors preserve the current session.
  */
 export function refreshSession(): Promise<string | null> {
-  if (!isSharedSessionCurrent()) {
+  if (!isSharedSessionCurrent() || isSharedSessionSignedOut()) {
     clearSession();
     return Promise.resolve(null);
   }
   if (inflightRefresh) {
     return inflightRefresh;
   }
-  const refreshToken = readStorage(REFRESH_TOKEN_KEY);
-  if (!refreshToken) {
-    if (accessToken) {
-      clearSession();
-    }
-    return Promise.resolve(null);
-  }
+  const version = sessionVersion;
   inflightRefresh = (async () => {
     try {
       const response = await fetch(`${requireApiUrl()}/api/v1/auth/refresh`, {
@@ -125,17 +118,16 @@ export function refreshSession(): Promise<string | null> {
           "Content-Type": "application/json",
           [CLIENT_ID_HEADER]: CLIENT_ID,
         },
-        body: JSON.stringify({ refresh_token: refreshToken }),
       });
-      if (!isSharedSessionCurrent() || readStorage(REFRESH_TOKEN_KEY) !== refreshToken) {
+      if (!isSharedSessionCurrent() || sessionVersion !== version) {
         return null;
       }
       if (!response.ok) {
-        clearSession();
+        if (response.status === 401 || response.status === 403) clearSession();
         return null;
       }
       const data = (await response.json()) as AuthTokens;
-      if (!isSharedSessionCurrent() || readStorage(REFRESH_TOKEN_KEY) !== refreshToken) {
+      if (!isSharedSessionCurrent() || sessionVersion !== version) {
         return null;
       }
       if (!data.access_token) {
