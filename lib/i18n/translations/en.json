@@ -149,6 +149,7 @@
     "increase": "Increase quantity",
     "buy": "Buy",
     "buying": "Buying…",
+    "insufficientFunds": "Insufficient funds",
     "limitReached": "Limit reached",
     "confirmTitle": "Buy {name}?",
     "confirmBody": "{quantity} × {name} for",

@@ -149,6 +149,7 @@
     "increase": "Tăng số lượng",
     "buy": "Mua",
     "buying": "Đang mua…",
+    "insufficientFunds": "Không đủ tiền",
     "limitReached": "Đã đạt giới hạn",
     "confirmTitle": "Mua {name}?",
     "confirmBody": "{quantity} × {name} với giá",

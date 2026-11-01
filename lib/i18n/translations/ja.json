@@ -149,6 +149,7 @@
     "increase": "数量を増やす",
     "buy": "購入",
     "buying": "購入中…",
+    "insufficientFunds": "残高不足",
     "limitReached": "上限に達しました",
     "confirmTitle": "{name} を購入しますか？",
     "confirmBody": "{name} × {quantity}、価格",
