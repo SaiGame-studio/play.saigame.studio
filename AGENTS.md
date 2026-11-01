@@ -12,6 +12,8 @@ Player-facing site. Shares the ss-go backend and the user account with the Studi
 
 ## Auth (SSO with the Studio site)
 
+- Every 2FA Authenticator code input must automatically submit as soon as it contains exactly six digits, including pasted or autofilled codes; do not require an additional click. Preserve other required form validations, prevent duplicate submissions, and respect loading and rate-limit lockouts. Recovery codes use their own format and must not use the six-digit trigger.
+- When 2FA verification returns an invalid-code error, preserve the current input value so the user can edit it. Do not clear or reset the code, and do not automatically resubmit the unchanged invalid code.
 - The access token is kept in memory only (`lib/auth-session.ts`). Never write tokens to `localStorage`.
 - The refresh token is an HttpOnly cookie `ss_rt_{APP_ENV}` on `.saigame.studio`, set by the API. Every API call uses `credentials: "include"`.
 - On load the app calls `POST /api/v1/auth/refresh` with no body to pick up an existing session from either site.

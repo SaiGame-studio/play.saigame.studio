@@ -96,6 +96,7 @@
     "loadFailed": "ゲームを読み込めませんでした。"
   },
   "gameDetail": {
+    "profileLoadFailed": "ゲームの進行状況を確認できませんでした。My Itemsを読み込むには再試行してください。",
     "tabDetail": "ゲーム詳細",
     "tabItems": "マイアイテム",
     "loadFailed": "このゲームを読み込めませんでした。",

@@ -2,34 +2,38 @@
 
 import { useEffect, useState } from "react";
 import { useAuth } from "@/contexts/auth-context";
+import { ApiError } from "@/lib/api-client";
 import { playerApi } from "@/lib/player-api";
 
-/**
- * Whether the player has a usable gamer profile in one game. Game APIs (inventory, shops) answer
- * 403 until the player has an unbanned profile, so callers check `hasGameAccess` before showing
- * those tabs. my-gamer-progress returns `{}` without a profile and 403 for a banned profile.
- * Guests have no profile, so nothing is requested for them.
- */
+/** Checks inventory access; request failures are reported separately from an absent profile. */
 export function useGameProfile(gameId: string) {
   const { isAuthenticated } = useAuth();
   const [hasGameAccess, setHasGameAccess] = useState(false);
   const [isLoading, setIsLoading] = useState(isAuthenticated);
 
+  const [hasError, setHasError] = useState(false);
+  const [attempt, setAttempt] = useState(0);
+
   useEffect(() => {
+    setHasError(false);
     if (!isAuthenticated) {
       setHasGameAccess(false);
       setIsLoading(false);
       return;
     }
     let cancelled = false;
+    setHasGameAccess(false);
     setIsLoading(true);
     playerApi
       .getMyGamerProgress(gameId)
       .then((progress) => {
         if (!cancelled) setHasGameAccess(Boolean(progress?.id));
       })
-      .catch(() => {
-        if (!cancelled) setHasGameAccess(false);
+      .catch((error) => {
+        if (!cancelled) {
+          setHasGameAccess(false);
+          setHasError(!(error instanceof ApiError && error.code === "PLAYER_BANNED"));
+        }
       })
       .finally(() => {
         if (!cancelled) setIsLoading(false);
@@ -37,7 +41,7 @@ export function useGameProfile(gameId: string) {
     return () => {
       cancelled = true;
     };
-  }, [gameId, isAuthenticated]);
+  }, [gameId, isAuthenticated, attempt]);
 
-  return { isLoading, hasGameAccess };
+  return { isLoading, hasGameAccess, hasError, retry: () => setAttempt((value) => value + 1) };
 }

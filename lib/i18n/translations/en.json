@@ -96,6 +96,7 @@
     "loadFailed": "Could not load the games."
   },
   "gameDetail": {
+    "profileLoadFailed": "Could not check your game progress. Retry to load My Items.",
     "tabDetail": "Game Detail",
     "tabItems": "My Items",
     "loadFailed": "Could not load this game.",
