@@ -19,7 +19,7 @@ import { cn } from "@/lib/utils";
 const TABS = [
   { key: "detail", labelKey: "gameDetail.tabDetail", profileOnly: false },
   { key: "items", labelKey: "gameDetail.tabItems", profileOnly: true },
-  { key: "shops", labelKey: "gameDetail.tabShops", profileOnly: true },
+  { key: "shops", labelKey: "gameDetail.tabShops", profileOnly: false },
 ] as const;
 
 type TabKey = (typeof TABS)[number]["key"];
@@ -30,8 +30,8 @@ function parseTab(value: string | null, hasGameAccess: boolean): TabKey {
 }
 
 /**
- * /games/[gameId]: the game's header and tabs (kept in ?tab=). My Items and Shops appear only when the
- * player has an unbanned gamer profile in the game, so their game APIs are never called without one.
+ * /games/[gameId]: the game's header and tabs (kept in ?tab=). My Items appears only when the
+ * player has an unbanned gamer profile in the game, while signed-in players can browse shops without one.
  */
 export function GameDetailPage() {
   const { gameId } = useParams<{ gameId: string }>();
@@ -41,10 +41,10 @@ export function GameDetailPage() {
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
   const { info, isLoading: isInfoLoading, hasError, isNotPublic, retry } = useGamePublicInfo(gameId);
-  const { isLoading: isProfileLoading, hasGameAccess } = useGameProfile(gameId);
+  const { isLoading: isProfileLoading, hasGameAccess, hasError: hasProfileError, retry: retryProfile } = useGameProfile(gameId);
   const isLoading = isInfoLoading || isProfileLoading;
-  const tab = parseTab(searchParams.get("tab"), hasGameAccess);
-  const tabs = TABS.filter((entry) => hasGameAccess || !entry.profileOnly);
+  const tab = parseTab(!isAuthenticated && searchParams.get("tab") === "shops" ? null : searchParams.get("tab"), hasGameAccess);
+  const tabs = TABS.filter((entry) => (entry.key !== "shops" || isAuthenticated) && (hasGameAccess || !entry.profileOnly));
 
   const selectTab = (next: TabKey) => {
     router.replace(next === "detail" ? pathname : `${pathname}?tab=${next}`, { scroll: false });
@@ -97,6 +97,15 @@ export function GameDetailPage() {
           {info.game_name}
         </h1>
       </header>
+
+      {hasProfileError && (
+        <div id="game-detail-profile-error" className="game-detail-profile-error mt-6 space-y-3">
+          <FormAlert id="game-detail-profile-error-alert" tone="error" message={t("gameDetail.profileLoadFailed")} />
+          <Button id="game-detail-profile-retry" className="game-detail-profile-retry" variant="outline" size="sm" onClick={retryProfile}>
+            {t("games.retry")}
+          </Button>
+        </div>
+      )}
 
       <div id="game-detail-tabs" role="tablist" aria-label={info.game_name} className="game-detail-tabs mt-8 flex gap-1 border-b border-border">
         {tabs.map(({ key, labelKey }) => {

@@ -96,6 +96,7 @@
     "loadFailed": "Không tải được danh sách game."
   },
   "gameDetail": {
+    "profileLoadFailed": "Không thể kiểm tra tiến trình chơi game. Hãy thử lại để tải My Items.",
     "tabDetail": "Thông tin game",
     "tabItems": "Vật phẩm của tôi",
     "loadFailed": "Không tải được game này.",

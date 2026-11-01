@@ -78,9 +78,12 @@ export function UserMenu() {
         aria-expanded={isOpen}
         aria-label={t("nav.account")}
         onClick={() => (isOpen ? setIsOpen(false) : open())}
-        className={cn("user-menu-trigger flex size-9 items-center justify-center rounded-md border border-transparent hover:border-border hover:bg-muted", isOpen && "bg-muted")}
+        className={cn("user-menu-trigger flex h-9 items-center justify-center gap-2 rounded-md border border-transparent px-2 text-sm font-medium hover:border-border hover:bg-muted", isOpen && "bg-muted")}
       >
-        <UserRound id="user-menu-trigger-icon" className="user-menu-trigger-icon size-4" aria-hidden />
+        <UserRound id="user-menu-trigger-icon" className="user-menu-trigger-icon size-4 shrink-0" aria-hidden />
+        <span id="user-menu-trigger-name" className="user-menu-trigger-name max-w-24 truncate sm:max-w-40" title={user.display_name || user.username}>
+          {user.display_name || user.username}
+        </span>
       </button>
       {isOpen && (
         <div
