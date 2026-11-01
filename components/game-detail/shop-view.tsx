@@ -14,7 +14,7 @@ import { ApiError } from "@/lib/api-client";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { requestWalletRefresh } from "@/lib/sgem-api";
 import { shopApi, type GameShop, type ShopListing } from "@/lib/shop-api";
-import { shopCurrencyKey } from "@/lib/shop-balances";
+import { notifyShopPurchase, shopCurrencyKey, type ShopPurchaseSpend } from "@/lib/shop-balances";
 
 /** Purchase error message_code → translation key. */
 const PURCHASE_ERRORS: Record<string, string> = {
@@ -43,6 +43,7 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
     if (item.price * quantity > 0 && (balance === undefined || balance < item.price * quantity)) return;
     setNotice(null);
     let delivered: GameShop["collect_destination"] = shop.collect_destination;
+    let spend: ShopPurchaseSpend | undefined;
     try {
       const confirmed = await confirm({
         id: "shop-purchase-confirm",
@@ -58,9 +59,16 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
           setBuyingId(item.id);
           const result = await shopApi.purchase(gameId, shop.id, item.id, quantity);
           delivered = result.collect_destination ?? delivered;
+          spend = {
+            id: result.purchase_record.id,
+            gameId,
+            currencyKey: shopCurrencyKey(item),
+            amount: result.purchase_record.total_price,
+          };
         },
       });
       if (!confirmed) return;
+      if (spend) notifyShopPurchase(spend);
       setNotice({ tone: "success", message: t(delivered === "inventory" ? "shops.boughtToInventory" : "shops.boughtToMailbox", { name: item.display_name }) });
       if (item.payment_currency_type === "sgem") requestWalletRefresh();
       void refresh();

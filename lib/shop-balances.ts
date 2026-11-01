@@ -3,6 +3,19 @@ import { playerApi, type PlayerContainersPage } from "@/lib/player-api";
 import { sgemApi } from "@/lib/sgem-api";
 import type { ShopListing } from "@/lib/shop-api";
 
+export const SHOP_PURCHASE_EVENT = "shop-balances:purchase";
+
+export interface ShopPurchaseSpend {
+  id: string;
+  gameId: string;
+  currencyKey: string;
+  amount: number;
+}
+
+export function notifyShopPurchase(spend: ShopPurchaseSpend) {
+  window.dispatchEvent(new CustomEvent<ShopPurchaseSpend>(SHOP_PURCHASE_EVENT, { detail: spend }));
+}
+
 export function shopCurrencyKey(item: ShopListing): string {
   return item.payment_currency_type === "sgem" ? "sgem" : item.currency?.item_def_id ?? "coins";
 }
