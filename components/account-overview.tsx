@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { BadgeCheck, ExternalLink, MailWarning } from "lucide-react";
 import { LanguageSelector } from "@/components/language-selector";
+import { TwoFactorSettings } from "@/components/auth/two-factor-settings";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
 import { useAuth } from "@/contexts/auth-context";
@@ -119,6 +120,7 @@ export function AccountOverview() {
         </aside>
 
       </div>
+      <TwoFactorSettings id="account-two-factor" />
     </section>
   );
 }
