@@ -1,5 +1,6 @@
 import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
 import { readStorage, writeStorage } from "@/lib/safe-storage";
+import { hasNewerLocalSession, isSharedSessionCurrent } from "@/lib/shared-session";
 
 /**
  * Access token lives in memory only. The refresh token from the login response is kept
@@ -67,7 +68,7 @@ export function setSession(tokens: AuthTokens) {
 
 export function clearSession() {
   accessToken = null;
-  writeStorage(REFRESH_TOKEN_KEY, null);
+  if (!hasNewerLocalSession()) writeStorage(REFRESH_TOKEN_KEY, null);
   expiresAt = 0;
   if (refreshTimer) {
     clearTimeout(refreshTimer);
@@ -77,6 +78,10 @@ export function clearSession() {
 }
 
 export function getAccessToken(): string | null {
+  if (!isSharedSessionCurrent()) {
+    clearSession();
+    return null;
+  }
   if (!accessToken || Date.now() >= expiresAt - REFRESH_SKEW_MS) {
     return null;
   }
@@ -96,6 +101,10 @@ export function subscribeSession(listener: Listener): () => void {
  * the session is no longer valid; network errors keep the current state.
  */
 export function refreshSession(): Promise<string | null> {
+  if (!isSharedSessionCurrent()) {
+    clearSession();
+    return Promise.resolve(null);
+  }
   if (inflightRefresh) {
     return inflightRefresh;
   }
@@ -118,11 +127,17 @@ export function refreshSession(): Promise<string | null> {
         },
         body: JSON.stringify({ refresh_token: refreshToken }),
       });
+      if (!isSharedSessionCurrent() || readStorage(REFRESH_TOKEN_KEY) !== refreshToken) {
+        return null;
+      }
       if (!response.ok) {
         clearSession();
         return null;
       }
       const data = (await response.json()) as AuthTokens;
+      if (!isSharedSessionCurrent() || readStorage(REFRESH_TOKEN_KEY) !== refreshToken) {
+        return null;
+      }
       if (!data.access_token) {
         clearSession();
         return null;
