@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { authApi, type AuthResponse, type PlayUser } from "@/lib/auth-api";
 import { clearSession, refreshSession, setSession, subscribeSession } from "@/lib/auth-session";
 import { GUEST_ONLY_PATHS, getLoginUrl, getReturnToFromLocation, isPublicPath } from "@/lib/auth-redirect";
-import { isSharedSessionCurrent, publishSharedSession, watchSharedSession } from "@/lib/shared-session";
+import { acceptSharedSession, getSharedSessionRevision, isSharedSessionCurrent, publishSharedSession, watchSharedSession } from "@/lib/shared-session";
 
 interface AuthContextValue {
   user: PlayUser | null;
@@ -24,17 +24,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
   const loadUser = useCallback(async () => {
+    const revision = getSharedSessionRevision();
     try {
       const { user: me } = await authApi.me();
-      if (isSharedSessionCurrent()) setUser(me);
+      if (isSharedSessionCurrent() && revision === getSharedSessionRevision()) setUser(me);
     } catch {
-      setUser(null);
+      if (revision === getSharedSessionRevision()) setUser(null);
     }
   }, []);
 
-  // Restore the session on first load (no API call when no refresh token is stored).
+  // Restore this app's access token from the shared SSO cookie.
   useEffect(() => {
     let cancelled = false;
+    acceptSharedSession();
     (async () => {
       const token = await refreshSession();
       if (token && !cancelled) {
@@ -67,20 +69,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return;
       }
       const token = await refreshSession();
-      if (token && !user) {
+      if (token) {
         await loadUser();
       }
     };
     document.addEventListener("visibilitychange", onVisible);
     return () => document.removeEventListener("visibilitychange", onVisible);
-  }, [user, loadUser]);
+  }, [loadUser]);
 
   const isAuthenticated = user !== null;
 
-  useEffect(() => watchSharedSession(() => {
-    clearSession();
-    setUser(null);
-  }), []);
+  useEffect(() => watchSharedSession(), []);
 
   useEffect(() => {
     if (isLoading) {
@@ -106,7 +105,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(null);
       return;
     }
-    publishSharedSession();
+    publishSharedSession(false);
     try {
       await authApi.logout();
     } catch (error) {
