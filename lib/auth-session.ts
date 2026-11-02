@@ -1,6 +1,6 @@
 import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
 import { writeStorage } from "@/lib/safe-storage";
-import { isSharedSessionCurrent, isSharedSessionSignedOut } from "@/lib/shared-session";
+import { allowSessionRefresh, hasSharedLoginSession, isSessionRefreshRejected, isSharedSessionCurrent, isSharedSessionSignedOut, rejectSessionRefresh } from "@/lib/shared-session";
 
 /**
  * Access tokens live in memory. Both web apps restore the same account using the
@@ -55,6 +55,7 @@ function scheduleRefresh() {
 }
 
 export function setSession(tokens: AuthTokens) {
+  allowSessionRefresh();
   sessionVersion++;
   accessToken = tokens.access_token;
   writeStorage(REFRESH_TOKEN_KEY, null);
@@ -104,6 +105,7 @@ export function refreshSession(): Promise<string | null> {
     clearSession();
     return Promise.resolve(null);
   }
+  if (!hasSharedLoginSession() || isSessionRefreshRejected()) return Promise.resolve(null);
   if (inflightRefresh) {
     return inflightRefresh;
   }
@@ -123,7 +125,10 @@ export function refreshSession(): Promise<string | null> {
         return null;
       }
       if (!response.ok) {
-        if (response.status === 401 || response.status === 403) clearSession();
+        if (response.status === 401 || response.status === 403) {
+          rejectSessionRefresh();
+          clearSession();
+        }
         return null;
       }
       const data = (await response.json()) as AuthTokens;
