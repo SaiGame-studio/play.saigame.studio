@@ -22,9 +22,7 @@ export function MyItemsTab({ gameId }: { gameId: string }) {
   const view: ViewKey = searchParams.get("view") === "containers" ? "containers" : "items";
 
   const selectView = (next: ViewKey) => {
-    const params = new URLSearchParams({ tab: "items" });
-    if (next === "containers") params.set("view", next);
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    router.replace(next === "containers" ? `${pathname}?view=${next}` : pathname, { scroll: false });
   };
 
   return (
