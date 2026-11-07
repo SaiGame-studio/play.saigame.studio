@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useParams, usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { ChevronLeft, Loader2 } from "lucide-react";
+import { gameTabHref } from "@/components/game-detail/game-detail-routes";
 import { GameInfoTab } from "@/components/game-detail/game-info-tab";
 import { MyItemsTab } from "@/components/game-detail/my-items-tab";
 import { ShopsTab } from "@/components/game-detail/shops-tab";
@@ -24,30 +25,29 @@ const TABS = [
 
 type TabKey = (typeof TABS)[number]["key"];
 
-function parseTab(value: string | null, hasGameAccess: boolean): TabKey {
+function parseTab(value: string | undefined, hasGameAccess: boolean): TabKey {
   const tab = TABS.find((entry) => entry.key === value);
   return tab && (hasGameAccess || !tab.profileOnly) ? tab.key : "detail";
 }
 
 /**
- * /games/[gameId]: the game's header and tabs (kept in ?tab=). My Items appears only when the
+ * /games/[gameId]: the game's header and tabs (kept in the path: /games/[gameId]/[tab]). My Items appears only when the
  * player has an unbanned gamer profile in the game, while signed-in players can browse shops without one.
  */
 export function GameDetailPage() {
-  const { gameId } = useParams<{ gameId: string }>();
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const { gameId, section } = useParams<{ gameId: string; section?: string[] }>();
+  const tabParam = section?.[0];
   const router = useRouter();
   const { t } = useTranslation();
   const { isAuthenticated } = useAuth();
   const { info, isLoading: isInfoLoading, hasError, isNotPublic, retry } = useGamePublicInfo(gameId);
   const { isLoading: isProfileLoading, hasGameAccess, hasError: hasProfileError, retry: retryProfile } = useGameProfile(gameId);
   const isLoading = isInfoLoading || isProfileLoading;
-  const tab = parseTab(!isAuthenticated && searchParams.get("tab") === "shops" ? null : searchParams.get("tab"), hasGameAccess);
+  const tab = parseTab(!isAuthenticated && tabParam === "shops" ? undefined : tabParam, hasGameAccess);
   const tabs = TABS.filter((entry) => (entry.key !== "shops" || isAuthenticated) && (hasGameAccess || !entry.profileOnly));
 
   const selectTab = (next: TabKey) => {
-    router.replace(next === "detail" ? pathname : `${pathname}?tab=${next}`, { scroll: false });
+    router.replace(gameTabHref(gameId, next), { scroll: false });
   };
 
   if (isLoading) {
@@ -132,7 +132,7 @@ export function GameDetailPage() {
       </div>
 
       <div id={`game-detail-panel-${tab}`} role="tabpanel" aria-labelledby={`game-detail-tab-${tab}`} className="game-detail-panel pt-8">
-        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : <ShopsTab gameId={gameId} mainCurrency={info.main_currency} />}
+        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : <ShopsTab gameId={gameId} shopId={tab === "shops" ? section?.[1] : undefined} mainCurrency={info.main_currency} />}
       </div>
     </div>
   );

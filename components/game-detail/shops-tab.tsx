@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname, useSearchParams } from "next/navigation";
 import { ChevronRight, Store } from "lucide-react";
+import { gameShopHref, gameTabHref } from "@/components/game-detail/game-detail-routes";
 import { ShopView } from "@/components/game-detail/shop-view";
 import { MainCurrency } from "@/components/game-detail/main-currency";
 import { useGameShops } from "@/components/game-detail/use-game-shops";
@@ -10,27 +10,23 @@ import { LoadState } from "@/components/ui/load-state";
 import type { GameCurrency } from "@/lib/game-info-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Shops tab: the game's main currency and its shops shown in Sai Play; the selected shop is kept in ?shop=. */
-export function ShopsTab({ gameId, mainCurrency }: { gameId: string; mainCurrency: GameCurrency | null }) {
+/** Shops tab: the game's main currency and its shops shown in Sai Play; the selected shop is kept in the path: /games/[gameId]/shops/[shopId]. */
+export function ShopsTab({ gameId, shopId, mainCurrency }: { gameId: string; shopId?: string; mainCurrency: GameCurrency | null }) {
   return (
     <div id="shops-tab" className="shops-tab space-y-6">
       {mainCurrency && <MainCurrency gameId={gameId} currency={mainCurrency} />}
-      <ShopsContent gameId={gameId} />
+      <ShopsContent gameId={gameId} shopId={shopId} />
     </div>
   );
 }
 
-function ShopsContent({ gameId }: { gameId: string }) {
+function ShopsContent({ gameId, shopId }: { gameId: string; shopId?: string }) {
   const { t, locale } = useTranslation();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
   const { shops, isLoading, hasError, retry } = useGameShops(gameId);
-  const listHref = `${pathname}?tab=shops`;
-  const shopHref = (shopId: string) => `${pathname}?${new URLSearchParams({ tab: "shops", shop: shopId }).toString()}`;
-  const selected = shops.find((shop) => shop.id === searchParams.get("shop"));
+  const selected = shopId ? shops.find((shop) => shop.id === shopId) : undefined;
 
   if (selected) {
-    return <ShopView key={selected.id} gameId={gameId} shop={selected} backHref={listHref} />;
+    return <ShopView key={selected.id} gameId={gameId} shop={selected} backHref={gameTabHref(gameId, "shops")} />;
   }
 
   return (
@@ -50,7 +46,7 @@ function ShopsContent({ gameId }: { gameId: string }) {
             <li id={id} key={shop.id} className="game-shop">
               <Link
                 id={`${id}-link`}
-                href={shopHref(shop.id)}
+                href={gameShopHref(gameId, shop.id)}
                 scroll={false}
                 className="game-shop-link group flex h-full flex-col rounded-md border border-border bg-card p-4 transition-colors hover:border-primary"
               >
