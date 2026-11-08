@@ -2,7 +2,7 @@ import { api } from "@/lib/api-client";
 import { newIdempotencyKey } from "@/lib/sgem-api";
 
 /*
- * In-game shops: the game-client endpoints ss-unity uses (JWT; purchases are the caller's own).
+ * Public browsing and authenticated game-client purchases (the caller's own).
  * Only shops the Studio marked "Show in Sai Play" are listed here.
  */
 
@@ -28,14 +28,6 @@ export interface GameShop {
   item_count: number;
 }
 
-/** GET /api/v1/games/{game_id}/shops */
-interface GameShopsPage {
-  shops: GameShop[] | null;
-  total: number;
-  limit: number;
-  offset: number;
-}
-
 export interface ShopCurrency {
   item_def_id: string;
   item_code: string;
@@ -44,8 +36,6 @@ export interface ShopCurrency {
 
 export interface ShopListing {
   id: string;
-  shop_id: string;
-  item_def_id: string;
   display_name: string;
   description: string;
   price: number;
@@ -61,11 +51,12 @@ export interface ShopListing {
   purchased_count?: number;
 }
 
-/** GET /api/v1/games/{game_id}/shops/{shop_id}/items */
+/** GET /api/v1/player/games/{game_id}/shops/{shop_id}/items?lang=... */
 export interface ShopListingsResponse {
   shop_id: string;
   item_count: number;
   items: ShopListing[] | null;
+  next_cursor: string | null;
 }
 
 /** POST /api/v1/games/{game_id}/shops/{shop_id}/purchase */
@@ -82,19 +73,37 @@ function gamePath(gameId: string) {
 
 export const shopApi = {
   /** All open shops of the game that are shown in Sai Play. */
-  listSaiPlayShops: async (gameId: string) => {
+  listSaiPlayShops: async (gameId: string, lang: string) => {
     const shops: GameShop[] = [];
-    for (let offset = 0; ; offset += SHOPS_PAGE_SIZE) {
-      const params = new URLSearchParams({ limit: String(SHOPS_PAGE_SIZE), offset: String(offset) });
-      const page = await api.get<GameShopsPage>(`${gamePath(gameId)}/shops?${params.toString()}`);
+    let after: string | null = null;
+    do {
+      const params = new URLSearchParams({ lang, limit: String(SHOPS_PAGE_SIZE) });
+      if (after) params.set("after", after);
+      const page: { shops: GameShop[] | null; next_cursor: string | null } = await api.get(
+        `/api/v1/public/games/${encodeURIComponent(gameId)}/shops?${params.toString()}`, { requireAuth: false },
+      );
       const batch = page.shops ?? [];
       shops.push(...batch);
-      if (batch.length === 0 || offset + batch.length >= page.total) break;
-    }
+      after = page.next_cursor;
+    } while (after);
     return shops.filter((shop) => shop.show_in_sai_play);
   },
-  listItems: (gameId: string, shopId: string) =>
-    api.get<ShopListingsResponse>(`${gamePath(gameId)}/shops/${encodeURIComponent(shopId)}/items`),
+  listItems: async (gameId: string, shopId: string, lang: string, authenticated: boolean): Promise<ShopListingsResponse> => {
+    const items: ShopListing[] = [];
+    let after: string | null = null;
+    let result: ShopListingsResponse;
+    do {
+      const params = new URLSearchParams({ lang, limit: "99" });
+      if (after) params.set("after", after);
+      result = await api.get<ShopListingsResponse>(
+        `/api/v1/player/games/${encodeURIComponent(gameId)}/shops/${encodeURIComponent(shopId)}/items?${params.toString()}`,
+        { requireAuth: authenticated },
+      );
+      items.push(...(result.items ?? []));
+      after = result.next_cursor;
+    } while (after);
+    return { ...result, items };
+  },
   purchase: (gameId: string, shopId: string, shopItemId: string, quantity: number) =>
     api.post<ShopPurchaseResult>(`${gamePath(gameId)}/shops/${encodeURIComponent(shopId)}/purchase`, {
       shop_item_id: shopItemId,
