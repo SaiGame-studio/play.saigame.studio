@@ -28,14 +28,6 @@ export interface GameShop {
   item_count: number;
 }
 
-/** GET /api/v1/games/{game_id}/shops */
-interface GameShopsPage {
-  shops: GameShop[] | null;
-  total: number;
-  limit: number;
-  offset: number;
-}
-
 export interface ShopCurrency {
   item_def_id: string;
   item_code: string;
@@ -81,21 +73,11 @@ function gamePath(gameId: string) {
 
 export const shopApi = {
   /** All open shops of the game that are shown in Sai Play. */
-  listSaiPlayShops: async (gameId: string, authenticated: boolean) => {
+  listSaiPlayShops: async (gameId: string, lang: string) => {
     const shops: GameShop[] = [];
-    if (authenticated) {
-      for (let offset = 0; ; offset += SHOPS_PAGE_SIZE) {
-        const params = new URLSearchParams({ limit: String(SHOPS_PAGE_SIZE), offset: String(offset) });
-        const page = await api.get<GameShopsPage>(`${gamePath(gameId)}/shops?${params.toString()}`);
-        const batch = page.shops ?? [];
-        shops.push(...batch);
-        if (batch.length === 0 || offset + batch.length >= page.total) break;
-      }
-      return shops.filter((shop) => shop.show_in_sai_play);
-    }
     let after: string | null = null;
     do {
-      const params = new URLSearchParams({ limit: String(SHOPS_PAGE_SIZE) });
+      const params = new URLSearchParams({ lang, limit: String(SHOPS_PAGE_SIZE) });
       if (after) params.set("after", after);
       const page: { shops: GameShop[] | null; next_cursor: string | null } = await api.get(
         `/api/v1/public/games/${encodeURIComponent(gameId)}/shops?${params.toString()}`, { requireAuth: false },

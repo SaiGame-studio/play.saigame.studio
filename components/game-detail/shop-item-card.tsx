@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Minus, Plus } from "lucide-react";
 import { ShopPrice } from "@/components/game-detail/shop-price";
+import { ShopMarkdown } from "@/components/game-detail/shop-markdown";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { remainingForPlayer, type ShopListing } from "@/lib/shop-api";
@@ -33,7 +34,7 @@ export function ShopItemCard({ item, isBuying, disabled, balance, onBuy }: ShopI
     <li id={id} className="shop-item flex flex-col rounded-md border border-border bg-card p-4">
       <h3 id={`${id}-name`} className="shop-item-name font-display text-xl font-bold uppercase leading-tight">{item.display_name}</h3>
       {item.description && (
-        <p id={`${id}-description`} className="shop-item-description mt-1 line-clamp-3 text-sm text-muted-foreground">{item.description}</p>
+        <ShopMarkdown id={`${id}-description`} className="shop-item-description mt-1 text-sm text-muted-foreground">{item.description}</ShopMarkdown>
       )}
 
       <div id={`${id}-meta`} className="shop-item-meta mt-auto space-y-1 pt-4 text-sm">

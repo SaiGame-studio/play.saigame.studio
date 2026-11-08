@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { ShopItemCard } from "@/components/game-detail/shop-item-card";
 import { ShopPrice } from "@/components/game-detail/shop-price";
+import { ShopMarkdown } from "@/components/game-detail/shop-markdown";
 import { useShopItems } from "@/components/game-detail/use-shop-items";
 import { useShopBalances } from "@/components/game-detail/use-shop-balances";
 import { FormAlert } from "@/components/ui/form-alert";
@@ -93,7 +94,7 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
           {t("shops.allShops")}
         </Link>
         <h2 id="shop-view-title" className="shop-view-title font-display text-3xl font-extrabold uppercase leading-none">{shop.name}</h2>
-        {shop.description && <p id="shop-view-description" className="shop-view-description max-w-2xl text-sm text-muted-foreground">{shop.description}</p>}
+        {shop.description && <ShopMarkdown id="shop-view-description" className="shop-view-description max-w-2xl text-sm text-muted-foreground">{shop.description}</ShopMarkdown>}
         {shop.ends_at && (
           <p id="shop-view-ends" className="shop-view-ends text-xs text-muted-foreground">
             {t("shops.endsAt", { date: new Date(shop.ends_at).toLocaleString(locale, { dateStyle: "medium", timeStyle: "short" }) })}

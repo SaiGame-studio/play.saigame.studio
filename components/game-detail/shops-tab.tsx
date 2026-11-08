@@ -1,5 +1,7 @@
 "use client";
 
+import { ShopMarkdown } from "@/components/game-detail/shop-markdown";
+
 import Link from "next/link";
 import { ChevronRight, Store } from "lucide-react";
 import { gameShopHref, gameTabHref } from "@/components/game-detail/game-detail-routes";
@@ -57,7 +59,7 @@ function ShopsContent({ gameId, shopId }: { gameId: string; shopId?: string }) {
                   <h3 id={`${id}-name`} className="game-shop-name flex-1 font-display text-xl font-bold uppercase leading-tight">{shop.name}</h3>
                   <ChevronRight id={`${id}-chevron`} className="game-shop-chevron size-5 shrink-0 text-muted-foreground group-hover:text-primary" aria-hidden />
                 </div>
-                {shop.description && <p id={`${id}-description`} className="game-shop-description mt-2 line-clamp-2 text-sm text-muted-foreground">{shop.description}</p>}
+                {shop.description && <ShopMarkdown id={`${id}-description`} compact className="game-shop-description mt-2 max-h-32 overflow-hidden text-sm text-muted-foreground">{shop.description}</ShopMarkdown>}
                 <p id={`${id}-meta`} className="game-shop-meta mt-auto pt-4 text-xs text-muted-foreground">
                   {t("shops.itemCount", { count: shop.item_count.toLocaleString(locale) })}
                   {shop.ends_at && ` · ${t("shops.endsAt", { date: new Date(shop.ends_at).toLocaleDateString(locale, { dateStyle: "medium" }) })}`}
