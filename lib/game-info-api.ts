@@ -51,11 +51,11 @@ export interface PublicGamesPage {
 export const PUBLIC_GAMES_PAGE_SIZE = 20;
 
 export const gameInfoApi = {
-  listPublicGames: (after?: string | null) => {
-    const params = new URLSearchParams({ limit: String(PUBLIC_GAMES_PAGE_SIZE) });
+  listPublicGames: (lang: string, after?: string | null) => {
+    const params = new URLSearchParams({ lang, limit: String(PUBLIC_GAMES_PAGE_SIZE) });
     if (after) params.set("after", after);
     return api.get<PublicGamesPage>(`/api/v1/public/games?${params.toString()}`, { requireAuth: false });
   },
-  getPublicInfo: (gameId: string) =>
-    api.get<GamePublicInfo>(`/api/v1/public/games/${encodeURIComponent(gameId)}/info`, { requireAuth: "optional" }),
+  getPublicInfo: (gameId: string, lang: string) =>
+    api.get<GamePublicInfo>(`/api/v1/public/games/${encodeURIComponent(gameId)}/info?${new URLSearchParams({ lang }).toString()}`, { requireAuth: "optional" }),
 };
