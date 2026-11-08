@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { SGEM_WALLET_REFRESH_EVENT } from "@/lib/sgem-api";
 import { loadShopBalances, shopCurrencyKey, SHOP_PURCHASE_EVENT, type ShopPurchaseSpend } from "@/lib/shop-balances";
 import type { ShopListing } from "@/lib/shop-api";
+import { useAuth } from "@/contexts/auth-context";
 
 /** Refresh balances after purchases, wallet updates, and returning to this tab. */
 export function useShopBalances(gameId: string, items: ShopListing[]) {
@@ -11,15 +12,17 @@ export function useShopBalances(gameId: string, items: ShopListing[]) {
 }
 
 export function useCurrencyBalances(gameId: string, keys: string[]) {
+  const { isAuthenticated, user } = useAuth();
   const currencyKeys = JSON.stringify([...new Set(keys)].sort());
-  const scope = `${gameId}:${currencyKeys}`;
+  const scope = `${user?.id ?? "guest"}:${gameId}:${currencyKeys}`;
   const [state, setState] = useState<{ scope: string; balances: Record<string, number> } | null>(null);
   const requestId = useRef(0);
   const refresh = useCallback(async () => {
     const current = ++requestId.current;
+    if (!isAuthenticated) return;
     const balances = await loadShopBalances(gameId, JSON.parse(currencyKeys) as string[]);
     if (current === requestId.current) setState({ scope, balances });
-  }, [gameId, currencyKeys, scope]);
+  }, [gameId, currencyKeys, scope, isAuthenticated]);
 
   useEffect(() => {
     void refresh();
@@ -52,5 +55,5 @@ export function useCurrencyBalances(gameId: string, keys: string[]) {
     };
   }, [refresh]);
 
-  return { balances: state?.scope === scope ? state.balances : {}, refresh };
+  return { balances: isAuthenticated && state?.scope === scope ? state.balances : {}, refresh };
 }

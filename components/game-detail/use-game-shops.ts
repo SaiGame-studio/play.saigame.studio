@@ -2,9 +2,11 @@
 
 import { useCallback, useEffect, useState } from "react";
 import { shopApi, type GameShop } from "@/lib/shop-api";
+import { useAuth } from "@/contexts/auth-context";
 
 /** Open shops of one game that the Studio shows in Sai Play. */
 export function useGameShops(gameId: string) {
+  const { isAuthenticated } = useAuth();
   const [shops, setShops] = useState<GameShop[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -13,13 +15,13 @@ export function useGameShops(gameId: string) {
     setIsLoading(true);
     setHasError(false);
     try {
-      setShops(await shopApi.listSaiPlayShops(gameId));
+      setShops(await shopApi.listSaiPlayShops(gameId, isAuthenticated));
     } catch {
       setHasError(true);
     } finally {
       setIsLoading(false);
     }
-  }, [gameId]);
+  }, [gameId, isAuthenticated]);
 
   useEffect(() => {
     void load();

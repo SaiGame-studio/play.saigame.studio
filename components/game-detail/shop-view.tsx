@@ -10,6 +10,7 @@ import { useShopBalances } from "@/components/game-detail/use-shop-balances";
 import { FormAlert } from "@/components/ui/form-alert";
 import { LoadState } from "@/components/ui/load-state";
 import { useConfirm } from "@/contexts/confirm-context";
+import { useAuth } from "@/contexts/auth-context";
 import { ApiError } from "@/lib/api-client";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { requestWalletRefresh } from "@/lib/sgem-api";
@@ -33,12 +34,14 @@ type Notice = { tone: "success" | "error"; message: string };
 export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: GameShop; backHref: string }) {
   const { t, locale } = useTranslation();
   const confirm = useConfirm();
+  const { isAuthenticated } = useAuth();
   const { items, isLoading, hasError, retry, refresh } = useShopItems(gameId, shop.id);
   const { balances, refresh: refreshBalances } = useShopBalances(gameId, items);
   const [buyingId, setBuyingId] = useState<string | null>(null);
   const [notice, setNotice] = useState<Notice | null>(null);
 
   const buy = async (item: ShopListing, quantity: number) => {
+    if (!isAuthenticated) return;
     const balance = balances[shopCurrencyKey(item)];
     if (item.price * quantity > 0 && (balance === undefined || balance < item.price * quantity)) return;
     setNotice(null);
@@ -111,7 +114,7 @@ export function ShopView({ gameId, shop, backHref }: { gameId: string; shop: Gam
       >
         <ul id="shop-view-items-grid" className="shop-view-items-grid grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {items.map((item) => (
-            <ShopItemCard key={item.id} item={item} balance={balances[shopCurrencyKey(item)]} isBuying={buyingId === item.id} disabled={buyingId !== null} onBuy={(next, quantity) => void buy(next, quantity)} />
+            <ShopItemCard key={item.id} item={item} balance={balances[shopCurrencyKey(item)]} isBuying={buyingId === item.id} disabled={!isAuthenticated || buyingId !== null} onBuy={(next, quantity) => void buy(next, quantity)} />
           ))}
         </ul>
       </LoadState>

@@ -32,7 +32,7 @@ function parseTab(value: string | undefined, hasGameAccess: boolean): TabKey {
 
 /**
  * /games/[gameId]: the game's header and tabs (kept in the path: /games/[gameId]/[tab]). My Items appears only when the
- * player has an unbanned gamer profile in the game, while signed-in players can browse shops without one.
+ * player has an unbanned gamer profile in the game. Anyone can browse shops.
  */
 export function GameDetailPage() {
   const { gameId, section } = useParams<{ gameId: string; section?: string[] }>();
@@ -43,8 +43,8 @@ export function GameDetailPage() {
   const { info, isLoading: isInfoLoading, hasError, isNotPublic, retry } = useGamePublicInfo(gameId);
   const { isLoading: isProfileLoading, hasGameAccess, hasError: hasProfileError, retry: retryProfile } = useGameProfile(gameId);
   const isLoading = isInfoLoading || isProfileLoading;
-  const tab = parseTab(!isAuthenticated && tabParam === "shops" ? undefined : tabParam, hasGameAccess);
-  const tabs = TABS.filter((entry) => (entry.key !== "shops" || isAuthenticated) && (hasGameAccess || !entry.profileOnly));
+  const tab = parseTab(tabParam, hasGameAccess);
+  const tabs = TABS.filter((entry) => hasGameAccess || !entry.profileOnly);
 
   const selectTab = (next: TabKey) => {
     router.replace(gameTabHref(gameId, next), { scroll: false });

@@ -7,14 +7,16 @@ import { ShopView } from "@/components/game-detail/shop-view";
 import { MainCurrency } from "@/components/game-detail/main-currency";
 import { useGameShops } from "@/components/game-detail/use-game-shops";
 import { LoadState } from "@/components/ui/load-state";
+import { useAuth } from "@/contexts/auth-context";
 import type { GameCurrency } from "@/lib/game-info-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
 /** Shops tab: the game's main currency and its shops shown in Sai Play; the selected shop is kept in the path: /games/[gameId]/shops/[shopId]. */
 export function ShopsTab({ gameId, shopId, mainCurrency }: { gameId: string; shopId?: string; mainCurrency: GameCurrency | null }) {
+  const { isAuthenticated } = useAuth();
   return (
     <div id="shops-tab" className="shops-tab space-y-6">
-      {mainCurrency && <MainCurrency gameId={gameId} currency={mainCurrency} />}
+      {isAuthenticated && mainCurrency && <MainCurrency gameId={gameId} currency={mainCurrency} />}
       <ShopsContent gameId={gameId} shopId={shopId} />
     </div>
   );
