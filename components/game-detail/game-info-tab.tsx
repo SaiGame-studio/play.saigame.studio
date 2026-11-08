@@ -1,5 +1,6 @@
 "use client";
 
+import { ShopMarkdown } from "@/components/game-detail/shop-markdown";
 import type { GamePublicInfo } from "@/lib/game-info-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
@@ -42,9 +43,9 @@ export function GameInfoTab({ info }: { info: GamePublicInfo }) {
         </dl>
       )}
       {content && (
-        <div id="game-info-content" className="game-info-content max-w-[70ch] whitespace-pre-line leading-relaxed text-foreground/90 md:col-start-2">
+        <ShopMarkdown id="game-info-content" className="game-info-content max-w-[70ch] leading-relaxed text-foreground/90 md:col-start-2">
           {content}
-        </div>
+        </ShopMarkdown>
       )}
     </div>
   );
