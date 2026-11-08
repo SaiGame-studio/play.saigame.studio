@@ -44,8 +44,6 @@ export interface ShopCurrency {
 
 export interface ShopListing {
   id: string;
-  shop_id: string;
-  item_def_id: string;
   display_name: string;
   description: string;
   price: number;
@@ -61,11 +59,12 @@ export interface ShopListing {
   purchased_count?: number;
 }
 
-/** GET /api/v1/games/{game_id}/shops/{shop_id}/items */
+/** GET /api/v1/player/games/{game_id}/shops/{shop_id}/items?lang=... */
 export interface ShopListingsResponse {
   shop_id: string;
   item_count: number;
   items: ShopListing[] | null;
+  next_cursor: string | null;
 }
 
 /** POST /api/v1/games/{game_id}/shops/{shop_id}/purchase */
@@ -107,11 +106,22 @@ export const shopApi = {
     } while (after);
     return shops.filter((shop) => shop.show_in_sai_play);
   },
-  listItems: (gameId: string, shopId: string, authenticated: boolean) =>
-    api.get<ShopListingsResponse>(authenticated
-      ? `${gamePath(gameId)}/shops/${encodeURIComponent(shopId)}/items`
-      : `/api/v1/public/games/${encodeURIComponent(gameId)}/shops/${encodeURIComponent(shopId)}/items`,
-    { requireAuth: authenticated }),
+  listItems: async (gameId: string, shopId: string, lang: string, authenticated: boolean): Promise<ShopListingsResponse> => {
+    const items: ShopListing[] = [];
+    let after: string | null = null;
+    let result: ShopListingsResponse;
+    do {
+      const params = new URLSearchParams({ lang, limit: "99" });
+      if (after) params.set("after", after);
+      result = await api.get<ShopListingsResponse>(
+        `/api/v1/player/games/${encodeURIComponent(gameId)}/shops/${encodeURIComponent(shopId)}/items?${params.toString()}`,
+        { requireAuth: authenticated },
+      );
+      items.push(...(result.items ?? []));
+      after = result.next_cursor;
+    } while (after);
+    return { ...result, items };
+  },
   purchase: (gameId: string, shopId: string, shopItemId: string, quantity: number) =>
     api.post<ShopPurchaseResult>(`${gamePath(gameId)}/shops/${encodeURIComponent(shopId)}/purchase`, {
       shop_item_id: shopItemId,
