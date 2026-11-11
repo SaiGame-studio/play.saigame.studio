@@ -2,8 +2,15 @@ import { api } from "@/lib/api-client";
 
 /** Player API (ss-go /api/v1/player/*): only the signed-in player's own data. */
 
+/**
+ * owned: games of studios the player is a member of (studio game name).
+ * played: public games of other studios (localized public info name).
+ */
+export type PlayedGameScope = "owned" | "played";
+
 export interface PlayedGame {
   game_id: string;
+  /** Studio game name for `owned`; localized public info name for `played`. */
   game_name: string;
   /** Game image from the Studio's game public info; null when none is set. */
   image_url: string | null;
@@ -102,8 +109,8 @@ export function containerDisplayName(container: PlayerContainer) {
 }
 
 export const playerApi = {
-  listMyGames: (after?: string | null, limit: number = PLAYED_GAMES_PAGE_SIZE) => {
-    const params = new URLSearchParams({ limit: String(limit) });
+  listMyGames: (scope: PlayedGameScope, lang: string, after?: string | null, limit: number = PLAYED_GAMES_PAGE_SIZE) => {
+    const params = new URLSearchParams({ scope, lang, limit: String(limit) });
     if (after) {
       params.set("after", after);
     }

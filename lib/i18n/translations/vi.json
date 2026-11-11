@@ -77,6 +77,8 @@
     "resendFailed": "Không gửi được email xác thực."
   },
   "games": {
+    "ownedTitle": "Game tôi làm",
+    "playedTitle": "Game tôi chơi",
     "title": "Game của bạn",
     "level": "Cấp",
     "experience": "XP",
@@ -84,6 +86,7 @@
     "banned": "Bị cấm",
     "emptyTitle": "Chưa có game nào",
     "emptyBody": "Các game bạn chơi bằng tài khoản này sẽ hiện ở đây.",
+    "ownedEmptyBody": "Game của studio bạn mà bạn đã chơi sẽ hiện ở đây.",
     "loadMore": "Tải thêm",
     "loadFailed": "Không tải được danh sách game.",
     "retry": "Thử lại",
@@ -272,5 +275,11 @@
     "recoveryCode": "Mã khôi phục",
     "useRecovery": "Mất điện thoại? Dùng mã khôi phục",
     "useAuthenticator": "Dùng Google Authenticator"
-}
+  },
+  "expectedUser": {
+    "title": "Đây không phải tài khoản bạn đang dùng trong game",
+    "body": "Bạn đang đăng nhập ở đây bằng {name} ({email}), nhưng game đang đăng nhập một tài khoản khác.",
+    "relogin": "Đăng xuất và đăng nhập lại",
+    "dismiss": "Giữ tài khoản này"
+  }
 }

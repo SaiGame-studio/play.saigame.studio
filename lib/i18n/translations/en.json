@@ -77,6 +77,8 @@
     "resendFailed": "Could not send the verification email."
   },
   "games": {
+    "ownedTitle": "Games I make",
+    "playedTitle": "Games I play",
     "title": "Your games",
     "level": "Level",
     "experience": "XP",
@@ -84,6 +86,7 @@
     "banned": "Banned",
     "emptyTitle": "No games yet",
     "emptyBody": "Games you play with this account will show up here.",
+    "ownedEmptyBody": "Games from your studios that you have played will show up here.",
     "loadMore": "Load more",
     "loadFailed": "Could not load your games.",
     "retry": "Try again",
@@ -272,5 +275,11 @@
     "recoveryCode": "Recovery code",
     "useRecovery": "Lost your phone? Use a recovery code",
     "useAuthenticator": "Use Google Authenticator"
-}
+  },
+  "expectedUser": {
+    "title": "This is not the account you are using in the game",
+    "body": "You are signed in here as {name} ({email}), but the game is signed in to a different account.",
+    "relogin": "Sign out and sign in again",
+    "dismiss": "Keep this account"
+  }
 }

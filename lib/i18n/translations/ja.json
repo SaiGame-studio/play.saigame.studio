@@ -77,6 +77,8 @@
     "resendFailed": "確認メールを送信できませんでした。"
   },
   "games": {
+    "ownedTitle": "制作したゲーム",
+    "playedTitle": "プレイしたゲーム",
     "title": "あなたのゲーム",
     "level": "レベル",
     "experience": "XP",
@@ -84,6 +86,7 @@
     "banned": "利用停止",
     "emptyTitle": "まだゲームがありません",
     "emptyBody": "このアカウントで遊んだゲームがここに表示されます。",
+    "ownedEmptyBody": "あなたのスタジオのゲームでプレイしたものがここに表示されます。",
     "loadMore": "さらに読み込む",
     "loadFailed": "ゲームを読み込めませんでした。",
     "retry": "再試行",
@@ -272,5 +275,11 @@
     "recoveryCode": "リカバリーコード",
     "useRecovery": "スマートフォンを紛失しましたか？リカバリーコードを使用",
     "useAuthenticator": "Google Authenticator を使用"
-}
+  },
+  "expectedUser": {
+    "title": "ゲームで使用中のアカウントではありません",
+    "body": "ここでは {name}（{email}）でログインしていますが、ゲームは別のアカウントでログインしています。",
+    "relogin": "ログアウトして再ログイン",
+    "dismiss": "このアカウントを使う"
+  }
 }
