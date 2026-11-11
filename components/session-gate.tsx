@@ -5,15 +5,19 @@ import { usePathname } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { AppFooter } from "@/components/app-footer";
 import { AppHeader } from "@/components/app-header";
+import { ExpectedUserWarning } from "@/components/expected-user-warning";
 import { useAuth } from "@/contexts/auth-context";
 import { GUEST_ONLY_PATHS, isPublicPath } from "@/lib/auth-redirect";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { useExpectedUser } from "@/lib/use-expected-user";
 
 /** Shows a loader until the SSO session check finishes, then renders the page chrome. */
 export function SessionGate({ children }: { children: ReactNode }) {
   const { isLoading, isAuthenticated } = useAuth();
   const pathname = usePathname();
   const { t } = useTranslation();
+  // Captured while the session loads too, so ?game_expect_user= survives a redirect to the login page.
+  const { expectedUserId, dismiss } = useExpectedUser();
   const isGuestOnly = GUEST_ONLY_PATHS.includes(pathname);
   const waitingForRedirect = isGuestOnly ? isAuthenticated : !isAuthenticated && !isPublicPath(pathname);
 
@@ -29,6 +33,7 @@ export function SessionGate({ children }: { children: ReactNode }) {
   return (
     <div id="app-shell" className="app-shell flex min-h-dvh flex-col">
       <AppHeader />
+      <ExpectedUserWarning expectedUserId={expectedUserId} onDismiss={dismiss} />
       <main id="app-main" className="app-main flex flex-1 flex-col">
         {children}
       </main>

@@ -275,5 +275,11 @@
     "recoveryCode": "Mã khôi phục",
     "useRecovery": "Mất điện thoại? Dùng mã khôi phục",
     "useAuthenticator": "Dùng Google Authenticator"
+  },
+  "expectedUser": {
+    "title": "Đây không phải tài khoản bạn đang dùng trong game",
+    "body": "Bạn đang đăng nhập ở đây bằng {name} ({email}), nhưng game đang đăng nhập một tài khoản khác.",
+    "relogin": "Đăng xuất và đăng nhập lại",
+    "dismiss": "Giữ tài khoản này"
   }
 }

@@ -13,6 +13,8 @@ interface AuthContextValue {
   isLoading: boolean;
   completeLogin: (response: AuthResponse) => void;
   logout: () => Promise<void>;
+  /** Signs out, then opens the login page, which returns to returnTo after signing in. */
+  relogin: (returnTo: string) => Promise<void>;
   requireReauthentication: () => void;
 }
 
@@ -113,7 +115,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(response.user);
   }, []);
 
-  const logout = useCallback(async () => {
+  const signOut = useCallback(async (returnTo?: string) => {
     if (!isSharedSessionCurrent()) {
       reauthenticationRef.current = false;
       setRequiresReauthentication(false);
@@ -131,11 +133,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     reauthenticationRef.current = false;
     setRequiresReauthentication(false);
     setUser(null);
-    router.replace("/login");
+    router.replace(returnTo ? getLoginUrl(returnTo) : "/login");
   }, [router]);
 
+  const logout = useCallback(() => signOut(), [signOut]);
+  const relogin = useCallback((returnTo: string) => signOut(returnTo), [signOut]);
+
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, completeLogin, logout, requireReauthentication }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, completeLogin, logout, relogin, requireReauthentication }}>
       {children}
     </AuthContext.Provider>
   );

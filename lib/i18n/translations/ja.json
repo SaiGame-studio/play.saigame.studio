@@ -275,5 +275,11 @@
     "recoveryCode": "リカバリーコード",
     "useRecovery": "スマートフォンを紛失しましたか？リカバリーコードを使用",
     "useAuthenticator": "Google Authenticator を使用"
+  },
+  "expectedUser": {
+    "title": "ゲームで使用中のアカウントではありません",
+    "body": "ここでは {name}（{email}）でログインしていますが、ゲームは別のアカウントでログインしています。",
+    "relogin": "ログアウトして再ログイン",
+    "dismiss": "このアカウントを使う"
   }
 }

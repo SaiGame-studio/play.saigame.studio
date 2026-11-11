@@ -275,5 +275,11 @@
     "recoveryCode": "Recovery code",
     "useRecovery": "Lost your phone? Use a recovery code",
     "useAuthenticator": "Use Google Authenticator"
+  },
+  "expectedUser": {
+    "title": "This is not the account you are using in the game",
+    "body": "You are signed in here as {name} ({email}), but the game is signed in to a different account.",
+    "relogin": "Sign out and sign in again",
+    "dismiss": "Keep this account"
   }
 }
