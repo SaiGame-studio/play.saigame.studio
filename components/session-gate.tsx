@@ -13,13 +13,15 @@ import { useExpectedUser } from "@/lib/use-expected-user";
 
 /** Shows a loader until the SSO session check finishes, then renders the page chrome. */
 export function SessionGate({ children }: { children: ReactNode }) {
-  const { isLoading, isAuthenticated } = useAuth();
+  const { isLoading, isAuthenticated, requiresReauthentication } = useAuth();
   const pathname = usePathname();
   const { t } = useTranslation();
   // Captured while the session loads too, so ?game_expect_user= survives a redirect to the login page.
   const { expectedUserId, dismiss } = useExpectedUser();
   const isGuestOnly = GUEST_ONLY_PATHS.includes(pathname);
-  const waitingForRedirect = isGuestOnly ? isAuthenticated : !isAuthenticated && !isPublicPath(pathname);
+  // After a 2FA change the session is cleared on purpose, but /account must stay mounted to show recovery codes.
+  const keepAccountOpen = requiresReauthentication && pathname === "/account";
+  const waitingForRedirect = isGuestOnly ? isAuthenticated : !isAuthenticated && !isPublicPath(pathname) && !keepAccountOpen;
 
   if (isLoading || waitingForRedirect) {
     return (

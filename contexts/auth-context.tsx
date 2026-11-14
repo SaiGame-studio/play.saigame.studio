@@ -11,6 +11,8 @@ interface AuthContextValue {
   user: PlayUser | null;
   isAuthenticated: boolean;
   isLoading: boolean;
+  /** True after a 2FA change ended the session; /account stays mounted so recovery codes remain visible. */
+  requiresReauthentication: boolean;
   completeLogin: (response: AuthResponse) => void;
   logout: () => Promise<void>;
   /** Signs out, then opens the login page, which returns to returnTo after signing in. */
@@ -140,7 +142,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const relogin = useCallback((returnTo: string) => signOut(returnTo), [signOut]);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, completeLogin, logout, relogin, requireReauthentication }}>
+    <AuthContext.Provider value={{ user, isAuthenticated, isLoading, requiresReauthentication, completeLogin, logout, relogin, requireReauthentication }}>
       {children}
     </AuthContext.Provider>
   );
