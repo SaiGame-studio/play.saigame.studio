@@ -233,6 +233,14 @@
   "footer": {
     "copyright": "© {year} Sai Game"
   },
+  "steamLink": {
+    "title": "連携済みの Steam アカウント",
+    "loading": "読み込み中…",
+    "failed": "連携済みの Steam アカウントを読み込めませんでした。もう一度お試しください。",
+    "steamId": "Steam ID",
+    "linkedAt": "連携日",
+    "notLinked": "Steam アカウントは連携されていません。連携は Steam のゲームでのみ行えます。"
+  },
   "twoFactor": {
     "enabled": "2FA は有効です。",
     "disabled": "2FA は無効です。",

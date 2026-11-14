@@ -233,6 +233,14 @@
   "footer": {
     "copyright": "© {year} Sai Game"
   },
+  "steamLink": {
+    "title": "Linked Steam account",
+    "loading": "Loading…",
+    "failed": "Could not load the linked Steam account. Try again.",
+    "steamId": "Steam ID",
+    "linkedAt": "Linked on",
+    "notLinked": "No Steam account is linked. You can only link it in the Steam game."
+  },
   "twoFactor": {
     "enabled": "2FA is enabled.",
     "disabled": "2FA is disabled.",

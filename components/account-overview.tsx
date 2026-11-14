@@ -4,6 +4,7 @@ import { useState } from "react";
 import { BadgeCheck, ExternalLink, MailWarning } from "lucide-react";
 import { LanguageSelector } from "@/components/language-selector";
 import { TwoFactorSettings } from "@/components/auth/two-factor-settings";
+import { SteamLinkStatusCard } from "@/components/auth/steam-link-status";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { FormAlert } from "@/components/ui/form-alert";
 import { useAuth } from "@/contexts/auth-context";
@@ -120,7 +121,14 @@ export function AccountOverview() {
         </aside>
 
       </div>
-      <TwoFactorSettings id="account-two-factor" />
+      <div id="account-security-row" className="account-security-row mt-6 grid gap-6 lg:grid-cols-5">
+        <div id="account-security-two-factor" className="account-security-two-factor lg:col-span-3">
+          <TwoFactorSettings id="account-two-factor" />
+        </div>
+        <div id="account-security-steam-link" className="account-security-steam-link lg:col-span-2">
+          <SteamLinkStatusCard id="account-steam-link" />
+        </div>
+      </div>
     </section>
   );
 }

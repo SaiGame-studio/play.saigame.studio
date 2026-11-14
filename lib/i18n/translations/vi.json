@@ -233,6 +233,14 @@
   "footer": {
     "copyright": "© {year} Sai Game"
   },
+  "steamLink": {
+    "title": "Tài khoản Steam đã liên kết",
+    "loading": "Đang tải…",
+    "failed": "Không tải được tài khoản Steam đã liên kết. Hãy thử lại.",
+    "steamId": "Steam ID",
+    "linkedAt": "Liên kết ngày",
+    "notLinked": "Chưa liên kết tài khoản Steam nào. Bạn chỉ liên kết được trong game Steam."
+  },
   "twoFactor": {
     "enabled": "2FA đang bật.",
     "disabled": "2FA đang tắt.",
