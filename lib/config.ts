@@ -1,5 +1,6 @@
 export const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "";
 export const STUDIO_URL = process.env.NEXT_PUBLIC_STUDIO_URL ?? "https://server.saigame.studio";
+export const GAME_SITE_URL = process.env.NEXT_PUBLIC_GAME_SITE_URL ?? "https://saigame.studio";
 export const GOOGLE_CLIENT_ID =
   process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ||
   "780968193083-p0c7vvsf864khtltmqk8pv82l6qoconn.apps.googleusercontent.com";
