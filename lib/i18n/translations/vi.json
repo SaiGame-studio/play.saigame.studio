@@ -129,7 +129,10 @@
     "colQuantity": "SL",
     "colLevel": "Cấp",
     "colAcquired": "Nhận lúc",
-    "tabShops": "Cửa hàng"
+    "tabShops": "Cửa hàng",
+    "tabHistory": "Lịch sử vật phẩm",
+    "historyComingSoon": "Sắp ra mắt",
+    "historyComingSoonText": "Lịch sử vật phẩm của bạn trong game này sẽ hiển thị tại đây."
   },
   "shops": {
     "loadFailed": "Không tải được danh sách cửa hàng.",

@@ -129,7 +129,10 @@
     "colQuantity": "数量",
     "colLevel": "レベル",
     "colAcquired": "入手日",
-    "tabShops": "ショップ"
+    "tabShops": "ショップ",
+    "tabHistory": "アイテム履歴",
+    "historyComingSoon": "近日公開",
+    "historyComingSoonText": "このゲームでのアイテム履歴がここに表示されます。"
   },
   "shops": {
     "loadFailed": "ショップを読み込めませんでした。",

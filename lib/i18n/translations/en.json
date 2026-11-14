@@ -129,7 +129,10 @@
     "colQuantity": "Qty",
     "colLevel": "Level",
     "colAcquired": "Acquired",
-    "tabShops": "Shops"
+    "tabShops": "Shops",
+    "tabHistory": "Item History",
+    "historyComingSoon": "Coming soon",
+    "historyComingSoonText": "Your item history in this game will appear here."
   },
   "shops": {
     "loadFailed": "Could not load the shops.",
