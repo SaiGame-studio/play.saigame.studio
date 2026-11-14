@@ -1,6 +1,6 @@
 import { CLIENT_ID, CLIENT_ID_HEADER, requireApiUrl } from "@/lib/config";
 import { writeStorage } from "@/lib/safe-storage";
-import { allowSessionRefresh, hasSharedLoginSession, isSessionRefreshRejected, isSharedSessionCurrent, isSharedSessionSignedOut, rejectSessionRefresh } from "@/lib/shared-session";
+import { allowSessionRefresh, endExpiredSharedSession, hasSharedLoginSession, isSessionRefreshRejected, isSharedSessionCurrent, isSharedSessionSignedOut, rejectSessionRefresh } from "@/lib/shared-session";
 
 /**
  * Access tokens live in memory. Both web apps restore the same account using the
@@ -127,6 +127,7 @@ export function refreshSession(): Promise<string | null> {
       if (!response.ok) {
         if (response.status === 401 || response.status === 403) {
           rejectSessionRefresh();
+          await endExpiredSharedSession(response);
           clearSession();
         }
         return null;
