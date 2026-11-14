@@ -1,10 +1,10 @@
 "use client";
 
-import { STUDIO_URL } from "@/lib/config";
-import { SITE_NAME, STUDIO_SITE_NAME } from "@/lib/site-config";
+import { GAME_SITE_URL, STUDIO_URL } from "@/lib/config";
+import { GAME_SITE_NAME, SITE_NAME, STUDIO_SITE_NAME } from "@/lib/site-config";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Site footer: brand, copyright and the link to the Studio site. */
+/** Site footer: brand, copyright and links to the Sai Game website and the Studio site. */
 export function AppFooter() {
   const { t } = useTranslation();
   const year = new Date().getFullYear();
@@ -22,9 +22,14 @@ export function AppFooter() {
             {t("footer.copyright", { year })}
           </span>
         </div>
-        <a id="app-footer-studio-link" href={STUDIO_URL} className="app-footer-studio-link hover:text-foreground hover:underline">
-          {STUDIO_SITE_NAME}
-        </a>
+        <nav id="app-footer-links" className="app-footer-links flex items-center gap-4">
+          <a id="app-footer-game-link" href={GAME_SITE_URL} className="app-footer-game-link hover:text-foreground hover:underline">
+            {GAME_SITE_NAME}
+          </a>
+          <a id="app-footer-studio-link" href={STUDIO_URL} className="app-footer-studio-link hover:text-foreground hover:underline">
+            {STUDIO_SITE_NAME}
+          </a>
+        </nav>
       </div>
     </footer>
   );
