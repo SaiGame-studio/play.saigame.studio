@@ -1,7 +1,8 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "@/lib/i18n/use-translation";
+import { holdSharedSessionReload } from "@/lib/shared-session";
 export function TwoFactorRecoveryCodes({ id, codes, issuer, accountEmail, onContinue }: {
     id: string;
     codes: string[];
@@ -12,6 +13,8 @@ export function TwoFactorRecoveryCodes({ id, codes, issuer, accountEmail, onCont
     const { t } = useTranslation();
     const [saved, setSaved] = useState(false);
     const [hasDownloaded, setHasDownloaded] = useState(false);
+    // 2FA changes clear the shared refresh cookie; keep these codes visible until the user leaves.
+    useEffect(() => holdSharedSessionReload(), []);
     const download = () => {
         const url = URL.createObjectURL(new Blob([`${issuer} - ${accountEmail}\n\n${codes.join("\n")}\n`], { type: "text/plain;charset=utf-8" }));
         const link = document.createElement("a");
