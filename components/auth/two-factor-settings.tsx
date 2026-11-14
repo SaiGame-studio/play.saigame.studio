@@ -127,7 +127,7 @@ export function TwoFactorSettings({ id }: {
     };
     const hasForm = setup !== null || action !== null;
     const submitKey = setup ? "twoFactor.confirm" : action === "replace" ? "twoFactor.continueReplacement" : action === "regenerate" ? "twoFactor.regenerateCodes" : "twoFactor.disable";
-    return <section id={id} className={`${id} mt-6 rounded-md border border-border bg-card/70 p-6`}>
+    return <section id={id} className={`${id} h-full rounded-md border border-border bg-card/70 p-6`}>
         <header id="user-2fa-header" className="user-2fa-header mb-4 flex items-center justify-between gap-3">
             <h2 id="user-2fa-title" className="user-2fa-title font-display text-xl font-semibold">{t("twoFactor.title")}</h2>
             {!result && !hasForm && <Button id="user-2fa-refresh" className="user-2fa-refresh" type="button" variant="ghost" size="icon" title={t("games.retry")} aria-label={t("games.retry")} aria-busy={statusLoading} disabled={busy || locked || statusLoading} onClick={() => setStatusAttempt(value => value + 1)}>

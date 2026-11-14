@@ -1,6 +1,6 @@
 import { gameDetailHref } from "@/components/games/game-switcher";
 
-export type GameDetailTab = "detail" | "items" | "shops";
+export type GameDetailTab = "detail" | "items" | "history" | "shops";
 
 /** Friendly URL of a game tab: /games/{gameId} for Detail, /games/{gameId}/{tab} otherwise. */
 export function gameTabHref(gameId: string, tab: GameDetailTab) {

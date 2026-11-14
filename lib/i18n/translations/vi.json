@@ -129,7 +129,10 @@
     "colQuantity": "SL",
     "colLevel": "Cấp",
     "colAcquired": "Nhận lúc",
-    "tabShops": "Cửa hàng"
+    "tabShops": "Cửa hàng",
+    "tabHistory": "Lịch sử vật phẩm",
+    "historyComingSoon": "Sắp ra mắt",
+    "historyComingSoonText": "Lịch sử vật phẩm của bạn trong game này sẽ hiển thị tại đây."
   },
   "shops": {
     "loadFailed": "Không tải được danh sách cửa hàng.",
@@ -232,6 +235,14 @@
   },
   "footer": {
     "copyright": "© {year} Sai Game"
+  },
+  "steamLink": {
+    "title": "Tài khoản Steam đã liên kết",
+    "loading": "Đang tải…",
+    "failed": "Không tải được tài khoản Steam đã liên kết. Hãy thử lại.",
+    "steamId": "Steam ID",
+    "linkedAt": "Liên kết ngày",
+    "notLinked": "Chưa liên kết tài khoản Steam nào. Bạn chỉ liên kết được trong game Steam."
   },
   "twoFactor": {
     "enabled": "2FA đang bật.",
