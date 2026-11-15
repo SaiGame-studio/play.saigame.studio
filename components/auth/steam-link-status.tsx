@@ -12,7 +12,7 @@ import { setSession } from "@/lib/auth-session";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { factorProof, validFactorProof } from "@/lib/two-factor-api";
 import {
-    steamLinkApi, steamProfileUrl, steamUnlinkErrorKey, STEAM_UNLINK_REAUTH_REQUIRED, STEAM_UNLINK_TWO_FACTOR_REQUIRED,
+    steamLinkApi, steamProfileUrl, steamUnlinkErrorKey, STEAM_UNLINK_REAUTH_REQUIRED,
     type SteamLinkStatus,
 } from "@/lib/steam-link-api";
 
@@ -62,19 +62,19 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
         setError("");
         try {
             const result = await steamLinkApi.unlink(proofValue === undefined ? {} : factorProof(proofValue, recovery));
+            if (result.two_factor_required) {
+                setNeedsProof(true);
+                return;
+            }
             // Every other session was signed out; keep this one with the new token.
             setSession({ access_token: result.access_token, expires_in: result.expires_in });
             resetUnlink();
             setStatus({ linked: false, relink_available_at: result.relink_available_at });
         } catch (err) {
             const code = err instanceof ApiError ? err.code : undefined;
-            if (code === STEAM_UNLINK_TWO_FACTOR_REQUIRED) {
-                setNeedsProof(true);
-            } else {
-                // Keep an invalid code in the input so the user can edit it.
-                if (code === STEAM_UNLINK_REAUTH_REQUIRED) setNeedsReauth(true);
-                setError(t(steamUnlinkErrorKey(err)));
-            }
+            // Keep an invalid code in the input so the user can edit it.
+            if (code === STEAM_UNLINK_REAUTH_REQUIRED) setNeedsReauth(true);
+            setError(t(steamUnlinkErrorKey(err)));
         } finally {
             submitting.current = false;
             setBusy(false);
