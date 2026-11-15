@@ -74,7 +74,10 @@
     "notVerified": "未確認",
     "resend": "確認メールを再送",
     "resendSent": "確認メールを送信しました。",
-    "resendFailed": "確認メールを送信できませんでした。"
+    "resendFailed": "確認メールを送信できませんでした。",
+    "tabAccountInfo": "アカウント情報",
+    "tabSecurity": "セキュリティ",
+    "tabSteam": "Steam"
   },
   "games": {
     "ownedTitle": "制作したゲーム",
@@ -242,7 +245,22 @@
     "failed": "連携済みの Steam アカウントを読み込めませんでした。もう一度お試しください。",
     "steamId": "Steam ID",
     "linkedAt": "連携日",
-    "notLinked": "Steam アカウントは連携されていません。連携は Steam のゲームでのみ行えます。"
+    "notLinked": "Steam アカウントは連携されていません。連携は Steam のゲームでのみ行えます。",
+    "unlink": {
+      "button": "Steam の連携を解除",
+      "confirmTitle": "この Steam アカウントの連携を解除しますか？",
+      "confirmDescription": "この端末以外のすべての端末からサインアウトされます。30 日間は、この Steam アカウントを別の Sai アカウントに連携することも、このアカウントに別の Steam アカウントを連携することもできません。この Steam アカウントの Claim Game アイテムはこのアカウントから回収され、次にその Steam アカウントを連携した Sai アカウントへ移ります。使用済みのアイテムは移りません。",
+      "proofHelp": "Steam の連携を解除するには、認証アプリのコードまたはリカバリーコードを入力してください。",
+      "done": "Steam の連携を解除しました。他の端末はサインアウトされました。{date} から別の Steam アカウントを連携できます。",
+      "reauthRequired": "セキュリティのため、もう一度サインインしてから 10 分以内に Steam の連携を解除してください。",
+      "signInAgain": "もう一度サインイン",
+      "noSignIn": "アカウントにサインイン用のメールアドレスがないため、Steam の連携を解除できません。",
+      "saiPlayOnly": "Steam の連携解除は Sai Play でのみ行えます。",
+      "alreadyUnlinked": "この Steam アカウントはすでに連携解除されています。更新して現在の状態を確認してください。",
+      "invalidCode": "コードが正しくありません。確認してもう一度お試しください。",
+      "rateLimited": "試行回数が多すぎます。数分待ってからもう一度お試しください。",
+      "failed": "Steam の連携を解除できませんでした。もう一度お試しください。"
+    }
   },
   "twoFactor": {
     "enabled": "2FA は有効です。",
