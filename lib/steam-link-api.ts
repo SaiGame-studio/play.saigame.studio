@@ -10,10 +10,18 @@ export interface SteamLinkStatus {
 
 export interface SteamUnlinkResult {
     linked: false;
+    two_factor_required?: undefined;
     steam_id: string;
     access_token: string;
     expires_in: number;
     relink_available_at: string;
+}
+
+/** Unlink needs a 2FA or recovery code; the Steam account is still linked. */
+export interface SteamUnlinkProofRequired {
+    linked: true;
+    two_factor_required: true;
+    message_code: string;
 }
 
 export interface SteamClaimedGame {
@@ -41,14 +49,13 @@ export const steamLinkApi = {
     },
     // Only accepted from a Sai Play session. Signs out every other session and
     // returns a new access token for this one.
-    unlink: (proof: TwoFactorProof = {}) => api.post<SteamUnlinkResult>("/api/v1/player/auth/steam/unlink", proof),
+    unlink: (proof: TwoFactorProof = {}) => api.post<SteamUnlinkResult | SteamUnlinkProofRequired>("/api/v1/player/auth/steam/unlink", proof),
 };
 
 export function steamProfileUrl(steamId: string): string {
     return `https://steamcommunity.com/profiles/${encodeURIComponent(steamId)}`;
 }
 
-export const STEAM_UNLINK_TWO_FACTOR_REQUIRED = "STEAM_LINK_TWO_FACTOR_REQUIRED";
 export const STEAM_UNLINK_REAUTH_REQUIRED = "STEAM_LINK_REAUTH_REQUIRED";
 
 /** Translation key for an unlink failure. */
