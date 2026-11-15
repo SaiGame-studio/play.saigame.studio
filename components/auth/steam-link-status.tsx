@@ -32,7 +32,6 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
     const [code, setCode] = useState("");
     const [recovery, setRecovery] = useState(false);
     const [error, setError] = useState("");
-    const [relinkAt, setRelinkAt] = useState("");
     const submitting = useRef(false);
 
     useEffect(() => {
@@ -50,6 +49,9 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
         ? new Date(value).toLocaleDateString(locale, { year: "numeric", month: "long", day: "numeric" })
         : "";
     const linkedAt = formatDate(status?.linked_at);
+    const relinkAt = status?.relink_available_at
+        ? new Date(status.relink_available_at).toLocaleString(locale, { dateStyle: "long", timeStyle: "short" })
+        : "";
 
     const resetUnlink = () => { setNeedsProof(false); setNeedsReauth(false); setCode(""); setRecovery(false); setError(""); };
 
@@ -63,8 +65,7 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
             // Every other session was signed out; keep this one with the new token.
             setSession({ access_token: result.access_token, expires_in: result.expires_in });
             resetUnlink();
-            setRelinkAt(new Date(result.relink_available_at).toLocaleString(locale, { dateStyle: "long", timeStyle: "short" }));
-            setStatus({ linked: false });
+            setStatus({ linked: false, relink_available_at: result.relink_available_at });
         } catch (err) {
             const code = err instanceof ApiError ? err.code : undefined;
             if (code === STEAM_UNLINK_TWO_FACTOR_REQUIRED) {
@@ -138,7 +139,7 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
                 </form> : <Button id="steam-unlink-button" className="steam-unlink-button" type="button" variant="danger" disabled={busy || loading} onClick={() => void startUnlink()}>{t("steamLink.unlink.button")}</Button>}
             </> : <>
                 <p id="steam-link-not-linked" className="steam-link-not-linked text-muted-foreground">{t("steamLink.notLinked")}</p>
-                {relinkAt && <p id="steam-unlink-done" className="steam-unlink-done">{t("steamLink.unlink.done", { date: relinkAt })}</p>}
+                {relinkAt && <p id="steam-unlink-done" className="steam-unlink-done">{t("steamLink.unlink.relinkAvailableAt", { date: relinkAt })}</p>}
             </>)}
         </div>
     </section>;

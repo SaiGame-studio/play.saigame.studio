@@ -5,6 +5,7 @@ export interface SteamLinkStatus {
     linked: boolean;
     steam_id?: string;
     linked_at?: string;
+    relink_available_at?: string;
 }
 
 export interface SteamUnlinkResult {
