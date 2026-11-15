@@ -259,6 +259,7 @@
       "cooldownNotice": "After unlinking, you must wait 24 hours before you can link this Steam account to another Sai account or link another Steam account to this one.",
       "proofHelp": "Enter your Authenticator code or a recovery code to unlink Steam.",
       "done": "Steam was unlinked. Other devices were signed out. You can link a different Steam account from {date}.",
+      "relinkAvailableAt": "You can link a different Steam account from {date}.",
       "reauthRequired": "For your security, sign in again, then unlink Steam within 10 minutes.",
       "signInAgain": "Sign in again",
       "noSignIn": "Steam cannot be unlinked: your account has no email to sign in with.",

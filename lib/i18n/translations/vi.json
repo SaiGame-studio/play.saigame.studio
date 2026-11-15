@@ -259,6 +259,7 @@
       "cooldownNotice": "Sau khi hủy liên kết, bạn phải đợi 24 giờ mới có thể liên kết tài khoản Steam này với tài khoản Sai khác hoặc liên kết tài khoản Steam khác vào tài khoản này.",
       "proofHelp": "Nhập mã Authenticator hoặc mã khôi phục để hủy liên kết Steam.",
       "done": "Đã hủy liên kết Steam. Các thiết bị khác đã bị đăng xuất. Bạn có thể liên kết tài khoản Steam khác từ {date}.",
+      "relinkAvailableAt": "Bạn có thể liên kết tài khoản Steam khác từ {date}.",
       "reauthRequired": "Để bảo mật, hãy đăng nhập lại rồi hủy liên kết Steam trong vòng 10 phút.",
       "signInAgain": "Đăng nhập lại",
       "noSignIn": "Không thể hủy liên kết Steam: tài khoản của bạn không có email để đăng nhập.",
