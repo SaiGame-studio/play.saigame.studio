@@ -7,6 +7,7 @@ import { AppFooter } from "@/components/app-footer";
 import { AppHeader } from "@/components/app-header";
 import { ExpectedUserWarning } from "@/components/expected-user-warning";
 import { useAuth } from "@/contexts/auth-context";
+import { isAccountPath } from "@/lib/account-routes";
 import { GUEST_ONLY_PATHS, isPublicPath } from "@/lib/auth-redirect";
 import { useTranslation } from "@/lib/i18n/use-translation";
 import { useExpectedUser } from "@/lib/use-expected-user";
@@ -20,7 +21,7 @@ export function SessionGate({ children }: { children: ReactNode }) {
   const { expectedUserId, dismiss } = useExpectedUser();
   const isGuestOnly = GUEST_ONLY_PATHS.includes(pathname);
   // After a 2FA change the session is cleared on purpose, but /account must stay mounted to show recovery codes.
-  const keepAccountOpen = requiresReauthentication && pathname === "/account";
+  const keepAccountOpen = requiresReauthentication && isAccountPath(pathname);
   const waitingForRedirect = isGuestOnly ? isAuthenticated : !isAuthenticated && !isPublicPath(pathname) && !keepAccountOpen;
 
   if (isLoading || waitingForRedirect) {
