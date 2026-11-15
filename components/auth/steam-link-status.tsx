@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { ExternalLink, RefreshCw } from "lucide-react";
+import { SteamClaimedGames } from "@/components/auth/steam-claimed-games";
 import { Button } from "@/components/ui/button";
 import { TwoFactorProofInput } from "@/components/auth/two-factor-proof-input";
 import { useAuth } from "@/contexts/auth-context";
@@ -62,7 +63,7 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
             // Every other session was signed out; keep this one with the new token.
             setSession({ access_token: result.access_token, expires_in: result.expires_in });
             resetUnlink();
-            setRelinkAt(formatDate(result.relink_available_at));
+            setRelinkAt(new Date(result.relink_available_at).toLocaleString(locale, { dateStyle: "long", timeStyle: "short" }));
             setStatus({ linked: false });
         } catch (err) {
             const code = err instanceof ApiError ? err.code : undefined;
@@ -123,16 +124,18 @@ export function SteamLinkStatusCard({ id }: { id: string }) {
                         <dd id="steam-link-row-linked-at-value" className="steam-link-row-linked-at-value font-medium">{linkedAt}</dd>
                     </div>}
                 </dl>
+                <SteamClaimedGames reloadKey={attempt} />
+                <p id="steam-unlink-cooldown" className="steam-unlink-cooldown border-t border-border pt-4 text-muted-foreground">{t("steamLink.unlink.cooldownNotice")}</p>
                 {error && <p id="steam-unlink-error" role="alert" className="steam-unlink-error text-destructive">{error}</p>}
                 {needsReauth && <Button id="steam-unlink-sign-in" className="steam-unlink-sign-in" type="button" variant="outline" onClick={() => void relogin(accountTabHref("steam"))}>{t("steamLink.unlink.signInAgain")}</Button>}
                 {needsProof ? <form id="steam-unlink-form" onSubmit={submitProof} className="steam-unlink-form space-y-3">
                     <p id="steam-unlink-proof-help" className="steam-unlink-proof-help text-muted-foreground">{t("steamLink.unlink.proofHelp")}</p>
                     <TwoFactorProofInput id="steam-unlink-proof" value={code} onChange={setCode} onComplete={value => submitProof(undefined, value)} recovery={recovery} onRecoveryChange={setRecovery} disabled={busy} />
                     <div id="steam-unlink-actions" className="steam-unlink-actions flex flex-wrap gap-2">
-                        <Button id="steam-unlink-submit" className="steam-unlink-submit" disabled={busy || !validFactorProof(code, recovery)}>{t("steamLink.unlink.button")}</Button>
+                        <Button id="steam-unlink-submit" className="steam-unlink-submit" variant="danger" disabled={busy || !validFactorProof(code, recovery)}>{t("steamLink.unlink.button")}</Button>
                         <Button id="steam-unlink-cancel" className="steam-unlink-cancel" type="button" variant="outline" disabled={busy} onClick={resetUnlink}>{t("twoFactor.cancel")}</Button>
                     </div>
-                </form> : <Button id="steam-unlink-button" className="steam-unlink-button" type="button" variant="outline" disabled={busy || loading} onClick={() => void startUnlink()}>{t("steamLink.unlink.button")}</Button>}
+                </form> : <Button id="steam-unlink-button" className="steam-unlink-button" type="button" variant="danger" disabled={busy || loading} onClick={() => void startUnlink()}>{t("steamLink.unlink.button")}</Button>}
             </> : <>
                 <p id="steam-link-not-linked" className="steam-link-not-linked text-muted-foreground">{t("steamLink.notLinked")}</p>
                 {relinkAt && <p id="steam-unlink-done" className="steam-unlink-done">{t("steamLink.unlink.done", { date: relinkAt })}</p>}

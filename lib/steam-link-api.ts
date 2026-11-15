@@ -15,8 +15,29 @@ export interface SteamUnlinkResult {
     relink_available_at: string;
 }
 
+export interface SteamClaimedGame {
+    game_id: string;
+    game_name: string;
+    image_url: string | null;
+    /** Unix seconds. */
+    claimed_at: number;
+}
+
+export interface SteamClaimedGamesPage {
+    games: SteamClaimedGame[];
+    next_cursor: string | null;
+}
+
+const STEAM_CLAIMED_GAMES_PAGE_SIZE = 20;
+
 export const steamLinkApi = {
     status: () => api.get<SteamLinkStatus>("/api/v1/player/auth/steam"),
+    // Games whose Claim Game items the player holds through the linked Steam account.
+    claimedGames: (lang: string, after?: string | null) => {
+        const params = new URLSearchParams({ lang, limit: String(STEAM_CLAIMED_GAMES_PAGE_SIZE) });
+        if (after) params.set("after", after);
+        return api.get<SteamClaimedGamesPage>(`/api/v1/player/auth/steam/games?${params.toString()}`);
+    },
     // Only accepted from a Sai Play session. Signs out every other session and
     // returns a new access token for this one.
     unlink: (proof: TwoFactorProof = {}) => api.post<SteamUnlinkResult>("/api/v1/player/auth/steam/unlink", proof),

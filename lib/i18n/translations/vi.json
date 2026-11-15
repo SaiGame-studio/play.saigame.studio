@@ -246,10 +246,17 @@
     "steamId": "Steam ID",
     "linkedAt": "Liên kết ngày",
     "notLinked": "Chưa liên kết tài khoản Steam nào. Bạn chỉ liên kết được trong game Steam.",
+    "games": {
+      "title": "Game đã liên kết",
+      "empty": "Tài khoản Steam này chưa nhận game nào.",
+      "claimedAt": "Nhận ngày {date}",
+      "failed": "Không tải được danh sách game đã liên kết. Hãy thử lại."
+    },
     "unlink": {
       "button": "Hủy liên kết Steam",
       "confirmTitle": "Hủy liên kết tài khoản Steam này?",
-      "confirmDescription": "Mọi thiết bị khác sẽ bị đăng xuất, trừ thiết bị này. Trong 30 ngày, bạn không thể liên kết tài khoản Steam này với tài khoản Sai khác, cũng không thể liên kết tài khoản Steam khác vào tài khoản này. Vật phẩm Claim Game của tài khoản Steam này sẽ bị thu hồi khỏi tài khoản này và chuyển sang tài khoản Sai tiếp theo được liên kết với Steam đó. Vật phẩm đã dùng sẽ không được chuyển.",
+      "confirmDescription": "Mọi thiết bị khác sẽ bị đăng xuất, trừ thiết bị này. Trong 24 giờ, bạn không thể liên kết tài khoản Steam này với tài khoản Sai khác, cũng không thể liên kết tài khoản Steam khác vào tài khoản này. Vật phẩm Claim Game của tài khoản Steam này sẽ bị thu hồi khỏi tài khoản này và chuyển sang tài khoản Sai tiếp theo được liên kết với Steam đó. Vật phẩm đã dùng sẽ không được chuyển.",
+      "cooldownNotice": "Sau khi hủy liên kết, bạn phải đợi 24 giờ mới có thể liên kết tài khoản Steam này với tài khoản Sai khác hoặc liên kết tài khoản Steam khác vào tài khoản này.",
       "proofHelp": "Nhập mã Authenticator hoặc mã khôi phục để hủy liên kết Steam.",
       "done": "Đã hủy liên kết Steam. Các thiết bị khác đã bị đăng xuất. Bạn có thể liên kết tài khoản Steam khác từ {date}.",
       "reauthRequired": "Để bảo mật, hãy đăng nhập lại rồi hủy liên kết Steam trong vòng 10 phút.",

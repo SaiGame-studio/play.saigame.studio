@@ -246,10 +246,17 @@
     "steamId": "Steam ID",
     "linkedAt": "Linked on",
     "notLinked": "No Steam account is linked. You can only link it in the Steam game.",
+    "games": {
+      "title": "Linked games",
+      "empty": "This Steam account has not claimed any games yet.",
+      "claimedAt": "Claimed on {date}",
+      "failed": "Could not load the linked games. Try again."
+    },
     "unlink": {
       "button": "Unlink Steam",
       "confirmTitle": "Unlink this Steam account?",
-      "confirmDescription": "Every device will be signed out except this one. For 30 days you cannot link this Steam account to another Sai account or link another Steam account to this one. Claim Game items of this Steam account will be removed from this account and move to the next Sai account the Steam account is linked to. Items already used do not move.",
+      "confirmDescription": "Every device will be signed out except this one. For 24 hours you cannot link this Steam account to another Sai account or link another Steam account to this one. Claim Game items of this Steam account will be removed from this account and move to the next Sai account the Steam account is linked to. Items already used do not move.",
+      "cooldownNotice": "After unlinking, you must wait 24 hours before you can link this Steam account to another Sai account or link another Steam account to this one.",
       "proofHelp": "Enter your Authenticator code or a recovery code to unlink Steam.",
       "done": "Steam was unlinked. Other devices were signed out. You can link a different Steam account from {date}.",
       "reauthRequired": "For your security, sign in again, then unlink Steam within 10 minutes.",
