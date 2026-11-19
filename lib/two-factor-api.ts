@@ -24,7 +24,7 @@ export const twoFactorApi = {
 export function twoFactorErrorKey(error: unknown): string {
     const code = error instanceof ApiError ? error.code : undefined;
     const keys: Record<string, string> = {
-        TWO_FACTOR_INVALID_CODE: "invalidCode", TWO_FACTOR_RATE_LIMITED: "rateLimited",
+        TWO_FACTOR_INVALID_CODE: "invalidCode", TWO_FACTOR_REQUIRED: "codeRequired", TWO_FACTOR_RATE_LIMITED: "rateLimited",
         TWO_FACTOR_STUDIO_HISTORY_LOCKED: "studioLocked", TWO_FACTOR_STATE_CHANGED: "stateChanged",
         TWO_FACTOR_UNAVAILABLE: "unavailable",
     };

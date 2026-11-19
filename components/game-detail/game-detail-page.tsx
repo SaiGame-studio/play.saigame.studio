@@ -134,7 +134,7 @@ export function GameDetailPage() {
       </div>
 
       <div id={`game-detail-panel-${tab}`} role="tabpanel" aria-labelledby={`game-detail-tab-${tab}`} className="game-detail-panel pt-8">
-        {tab === "detail" ? <GameInfoTab info={info} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : tab === "history" ? <ItemHistoryTab /> : <ShopsTab gameId={gameId} shopId={tab === "shops" ? section?.[1] : undefined} mainCurrency={info.main_currency} />}
+        {tab === "detail" ? <GameInfoTab gameId={gameId} info={info} hasGameAccess={hasGameAccess} onProgressDeleted={retryProfile} /> : tab === "items" ? <MyItemsTab gameId={gameId} /> : tab === "history" ? <ItemHistoryTab /> : <ShopsTab gameId={gameId} shopId={tab === "shops" ? section?.[1] : undefined} mainCurrency={info.main_currency} />}
       </div>
     </div>
   );

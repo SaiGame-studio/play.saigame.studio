@@ -18,6 +18,12 @@ export interface ConfirmDialogProps {
   cancelText: string;
   tone?: ConfirmTone;
   isConfirming?: boolean;
+  /** Disables the confirm button, e.g. until a required input below the description is valid. */
+  confirmDisabled?: boolean;
+  /** Extra content between the description and the actions, e.g. a 2FA code input. */
+  children?: ReactNode;
+  /** Short message shown left of the action buttons (e.g. a validation error), so the panel height does not change. */
+  actionsMessage?: ReactNode;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -37,6 +43,9 @@ export function ConfirmDialog({
   cancelText,
   tone = "default",
   isConfirming = false,
+  confirmDisabled = false,
+  children,
+  actionsMessage,
   onConfirm,
   onCancel,
 }: ConfirmDialogProps) {
@@ -45,9 +54,13 @@ export function ConfirmDialog({
 
   useEffect(() => setIsMounted(true), []);
 
+  // Focus Cancel only when the dialog opens, so re-renders (e.g. typing in a child input) keep the user's focus.
+  useEffect(() => {
+    if (open) cancelRef.current?.focus();
+  }, [open]);
+
   useEffect(() => {
     if (!open) return;
-    cancelRef.current?.focus();
     const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
     const onKeyDown = (event: KeyboardEvent) => {
@@ -86,7 +99,17 @@ export function ConfirmDialog({
             {description}
           </p>
         )}
-        <div id={`${id}-actions`} className={cn("confirm-dialog-actions", "mt-6 flex justify-end gap-2")}>
+        {children && (
+          <div id={`${id}-content`} className={cn("confirm-dialog-content", "mt-4 space-y-3")}>
+            {children}
+          </div>
+        )}
+        <div id={`${id}-actions`} className={cn("confirm-dialog-actions", "mt-6 flex items-center justify-end gap-2")}>
+          {actionsMessage && (
+            <div id={`${id}-actions-message`} className={cn("confirm-dialog-actions-message", "mr-auto min-w-0")}>
+              {actionsMessage}
+            </div>
+          )}
           <Button id={`${id}-cancel`} ref={cancelRef} variant="ghost" className="confirm-dialog-cancel" onClick={onCancel} disabled={isConfirming}>
             {cancelText}
           </Button>
@@ -94,7 +117,7 @@ export function ConfirmDialog({
             id={`${id}-confirm`}
             className={cn("confirm-dialog-confirm", tone === "danger" && "bg-destructive text-white shadow-none hover:brightness-110")}
             onClick={onConfirm}
-            disabled={isConfirming}
+            disabled={isConfirming || confirmDisabled}
           >
             {isConfirming && <Loader2 id={`${id}-confirm-spinner`} className="confirm-dialog-confirm-spinner animate-spin" aria-hidden />}
             {confirmText}

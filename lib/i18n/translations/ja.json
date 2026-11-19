@@ -102,6 +102,11 @@
     "loadFailed": "ゲームを読み込めませんでした。"
   },
   "gameDetail": {
+    "deleteProgress": "ゲーマー進行状況を削除",
+    "deleteProgressTitle": "ゲーマー進行状況を削除しますか？",
+    "deleteProgressDescription": "このゲームでのレベル、経験値、ゴールドが削除されます。削除されるのはゲーマー進行状況のみで、My Items のデータは保持されます。",
+    "deleteProgressConfirm": "削除",
+    "deleteProgressFailed": "ゲーマー進行状況を削除できませんでした。もう一度お試しください。",
     "profileLoadFailed": "ゲームの進行状況を確認できませんでした。My Itemsを読み込むには再試行してください。",
     "tabDetail": "ゲーム詳細",
     "tabItems": "マイアイテム",
@@ -271,6 +276,7 @@
     }
   },
   "twoFactor": {
+    "codeRequired": "続行するには認証アプリのコードまたはリカバリーコードを入力してください。",
     "enabled": "2FA は有効です。",
     "disabled": "2FA は無効です。",
     "enable": "Google Authenticator を有効にする",

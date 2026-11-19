@@ -1,4 +1,5 @@
 import { api } from "@/lib/api-client";
+import type { TwoFactorProof } from "@/lib/two-factor-api";
 
 /** Player API (ss-go /api/v1/player/*): only the signed-in player's own data. */
 
@@ -117,6 +118,9 @@ export const playerApi = {
     return api.get<PlayedGamesPage>(`/api/v1/player/me/games?${params.toString()}`);
   },
   getMyGamerProgress: (gameId: string) => api.get<MyGamerProgress>(`/api/v1/games/${encodeURIComponent(gameId)}/my-gamer-progress`),
+  /** DELETE my-gamer-progress. With 2FA enabled the backend always requires `proof`, even right after a 2FA sign-in. */
+  deleteMyGamerProgress: (gameId: string, proof?: TwoFactorProof) =>
+    api.delete<void>(`/api/v1/games/${encodeURIComponent(gameId)}/my-gamer-progress`, proof),
   listMyGameItems: (gameId: string, options: { after?: string | null; name?: string } = {}) => {
     const params = new URLSearchParams({ limit: String(PLAYER_ITEMS_PAGE_SIZE) });
     if (options.after) {

@@ -1,19 +1,37 @@
 "use client";
 
+import { DeleteGamerProgress } from "@/components/game-detail/delete-gamer-progress";
 import { ShopMarkdown } from "@/components/game-detail/shop-markdown";
 import type { GamePublicInfo } from "@/lib/game-info-api";
 import { useTranslation } from "@/lib/i18n/use-translation";
 
-/** Game Detail tab: the game's public info as published from the Studio. */
-export function GameInfoTab({ info }: { info: GamePublicInfo }) {
+/**
+ * Game Detail tab: the game's public info as published from the Studio. Players with gamer progress in the game
+ * also get the Delete Gamer Progress action below the release status.
+ */
+export function GameInfoTab({
+  gameId,
+  info,
+  hasGameAccess,
+  onProgressDeleted,
+}: {
+  gameId: string;
+  info: GamePublicInfo;
+  hasGameAccess: boolean;
+  onProgressDeleted: () => void;
+}) {
   const { t, locale } = useTranslation();
   const content = info.content?.trim() ?? "";
+  const deleteProgress = hasGameAccess ? <DeleteGamerProgress gameId={gameId} onDeleted={onProgressDeleted} /> : null;
 
   if (!info.release_status && !content) {
     return (
-      <p id="game-info-empty" className="game-info-empty text-muted-foreground">
-        {t("gameDetail.noPublicInfo")}
-      </p>
+      <div id="game-info-empty-wrap" className="game-info-empty-wrap space-y-6">
+        <p id="game-info-empty" className="game-info-empty text-muted-foreground">
+          {t("gameDetail.noPublicInfo")}
+        </p>
+        {deleteProgress}
+      </div>
     );
   }
 
@@ -27,20 +45,25 @@ export function GameInfoTab({ info }: { info: GamePublicInfo }) {
 
   return (
     <div id="game-info" className="game-info grid gap-8 md:grid-cols-[14rem_1fr]">
-      {statusLabel && (
-        <dl id="game-info-release" className="game-info-release space-y-1">
-          <dt id="game-info-release-label" className="game-info-release-label text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
-            {t("gameDetail.releaseStatus")}
-          </dt>
-          <dd id="game-info-release-status" className="game-info-release-status font-display text-2xl font-bold uppercase leading-tight text-accent">
-            {statusLabel}
-          </dd>
-          {releaseDetail && (
-            <dd id="game-info-release-detail" className="game-info-release-detail text-sm text-foreground">
-              {releaseDetail}
-            </dd>
+      {(statusLabel || deleteProgress) && (
+        <div id="game-info-side" className="game-info-side space-y-6">
+          {statusLabel && (
+            <dl id="game-info-release" className="game-info-release space-y-1">
+              <dt id="game-info-release-label" className="game-info-release-label text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                {t("gameDetail.releaseStatus")}
+              </dt>
+              <dd id="game-info-release-status" className="game-info-release-status font-display text-2xl font-bold uppercase leading-tight text-accent">
+                {statusLabel}
+              </dd>
+              {releaseDetail && (
+                <dd id="game-info-release-detail" className="game-info-release-detail text-sm text-foreground">
+                  {releaseDetail}
+                </dd>
+              )}
+            </dl>
           )}
-        </dl>
+          {deleteProgress}
+        </div>
       )}
       {content && (
         <ShopMarkdown id="game-info-content" className="game-info-content max-w-[70ch] leading-relaxed text-foreground/90 md:col-start-2">
