@@ -104,7 +104,8 @@
   "gameDetail": {
     "deleteProgress": "Delete Gamer Progress",
     "deleteProgressTitle": "Delete your gamer progress?",
-    "deleteProgressDescription": "Your level, experience and gold in this game will be deleted. Only your Gamer Progress is deleted; your data in My Items is kept.",
+    "deleteProgressDescription": "Your Cloud Save in this game will be deleted.\nOnly your Cloud Save is deleted.\nYour data in My Items is kept.",
+    "deleteProgressWarning": "This action can't be undone.",
     "deleteProgressConfirm": "Delete",
     "deleteProgressFailed": "Could not delete your gamer progress. Try again.",
     "profileLoadFailed": "Could not check your game progress. Retry to load My Items.",
