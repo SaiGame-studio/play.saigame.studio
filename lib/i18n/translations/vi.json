@@ -104,7 +104,8 @@
   "gameDetail": {
     "deleteProgress": "Xóa Gamer Progress",
     "deleteProgressTitle": "Xóa gamer progress của bạn?",
-    "deleteProgressDescription": "Cloud Save của bạn trong game này sẽ bị xóa. Chỉ xóa Cloud Save, dữ liệu trong My Items vẫn được giữ nguyên.",
+    "deleteProgressDescription": "Cloud Save của bạn trong game này sẽ bị xóa.\nChỉ xóa Cloud Save.\nDữ liệu trong My Items vẫn được giữ nguyên.",
+    "deleteProgressWarning": "Thao tác này không thể hoàn tác.",
     "deleteProgressConfirm": "Xóa",
     "deleteProgressFailed": "Không thể xóa gamer progress. Hãy thử lại.",
     "profileLoadFailed": "Không thể kiểm tra tiến trình chơi game. Hãy thử lại để tải My Items.",

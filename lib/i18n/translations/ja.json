@@ -104,7 +104,8 @@
   "gameDetail": {
     "deleteProgress": "ゲーマー進行状況を削除",
     "deleteProgressTitle": "ゲーマー進行状況を削除しますか？",
-    "deleteProgressDescription": "このゲームの Cloud Save が削除されます。削除されるのは Cloud Save のみで、My Items のデータは保持されます。",
+    "deleteProgressDescription": "このゲームの Cloud Save が削除されます。\n削除されるのは Cloud Save のみです。\nMy Items のデータは保持されます。",
+    "deleteProgressWarning": "この操作は元に戻せません。",
     "deleteProgressConfirm": "削除",
     "deleteProgressFailed": "ゲーマー進行状況を削除できませんでした。もう一度お試しください。",
     "profileLoadFailed": "ゲームの進行状況を確認できませんでした。My Itemsを読み込むには再試行してください。",

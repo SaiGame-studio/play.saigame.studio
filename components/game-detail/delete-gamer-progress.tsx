@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AlertCircle, Loader2 } from "lucide-react";
+import { AlertCircle, AlertTriangle, Loader2 } from "lucide-react";
 import { TwoFactorProofInput } from "@/components/auth/two-factor-proof-input";
 import { Button } from "@/components/ui/button";
 import { ConfirmDialog } from "@/components/ui/confirm-dialog";
@@ -122,6 +122,15 @@ export function DeleteGamerProgress({ gameId, onDeleted }: { gameId: string; onD
           ) : null
         }
       >
+        <p
+          id="delete-gamer-progress-warning"
+          className="delete-gamer-progress-warning flex items-start gap-1.5 text-sm font-medium text-destructive"
+        >
+          <AlertTriangle id="delete-gamer-progress-warning-icon" className="delete-gamer-progress-warning-icon mt-0.5 size-4 shrink-0" aria-hidden />
+          <span id="delete-gamer-progress-warning-text" className="delete-gamer-progress-warning-text">
+            {t("gameDetail.deleteProgressWarning")}
+          </span>
+        </p>
         {twoFactorEnabled ? (
           <TwoFactorProofInput
             id="delete-gamer-progress-proof"

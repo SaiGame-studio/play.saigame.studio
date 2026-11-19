@@ -95,7 +95,7 @@ export function ConfirmDialog({
           {title}
         </h2>
         {description && (
-          <p id={`${id}-description`} className={cn("confirm-dialog-description", "mt-2 text-sm text-muted-foreground")}>
+          <p id={`${id}-description`} className={cn("confirm-dialog-description", "mt-2 whitespace-pre-line text-sm text-muted-foreground")}>
             {description}
           </p>
         )}
