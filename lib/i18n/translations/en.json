@@ -102,6 +102,11 @@
     "loadFailed": "Could not load the games."
   },
   "gameDetail": {
+    "deleteProgress": "Delete Gamer Progress",
+    "deleteProgressTitle": "Delete your gamer progress?",
+    "deleteProgressDescription": "Your level, experience and gold in this game will be deleted. Only your Gamer Progress is deleted; your data in My Items is kept.",
+    "deleteProgressConfirm": "Delete",
+    "deleteProgressFailed": "Could not delete your gamer progress. Try again.",
     "profileLoadFailed": "Could not check your game progress. Retry to load My Items.",
     "tabDetail": "Game Detail",
     "tabItems": "My Items",
@@ -271,6 +276,7 @@
     }
   },
   "twoFactor": {
+    "codeRequired": "Enter your Authenticator code or a recovery code to continue.",
     "enabled": "2FA is enabled.",
     "disabled": "2FA is disabled.",
     "enable": "Enable Google Authenticator",

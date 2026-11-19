@@ -102,6 +102,11 @@
     "loadFailed": "Không tải được danh sách game."
   },
   "gameDetail": {
+    "deleteProgress": "Xóa Gamer Progress",
+    "deleteProgressTitle": "Xóa gamer progress của bạn?",
+    "deleteProgressDescription": "Cấp độ, kinh nghiệm và vàng của bạn trong game này sẽ bị xóa. Chỉ xóa Gamer Progress, dữ liệu trong My Items vẫn được giữ nguyên.",
+    "deleteProgressConfirm": "Xóa",
+    "deleteProgressFailed": "Không thể xóa gamer progress. Hãy thử lại.",
     "profileLoadFailed": "Không thể kiểm tra tiến trình chơi game. Hãy thử lại để tải My Items.",
     "tabDetail": "Thông tin game",
     "tabItems": "Vật phẩm của tôi",
@@ -271,6 +276,7 @@
     }
   },
   "twoFactor": {
+    "codeRequired": "Nhập mã Authenticator hoặc mã khôi phục để tiếp tục.",
     "enabled": "2FA đang bật.",
     "disabled": "2FA đang tắt.",
     "enable": "Bật Google Authenticator",

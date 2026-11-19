@@ -89,4 +89,6 @@ export const api = {
     apiRequest<T>(endpoint, { ...options, method: "GET" }),
   post: <T>(endpoint: string, body?: unknown, options?: Omit<RequestOptions, "method" | "body">) =>
     apiRequest<T>(endpoint, { ...options, method: "POST", body }),
+  delete: <T>(endpoint: string, body?: unknown, options?: Omit<RequestOptions, "method" | "body">) =>
+    apiRequest<T>(endpoint, { ...options, method: "DELETE", body }),
 };
